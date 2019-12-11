@@ -1,0 +1,31 @@
+server:
+  port: 8001
+
+spring:
+  application:
+    name: wbiao-goods
+
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://127.0.0.1:7001/eureka/
+
+  instance: #服务名称的修改
+    instance-id: wibao-server-goods
+    prefer-ip-address: true     #访问路径可以显示IP地址
+
+info:
+  app.name: wbiao-goods
+  company.name: www.wbiao.com
+  build.artifactId: ${project.artifactId}
+  build.version: ${project.version}
+  build.description: ${project.description}
+
+mybatis: #别名
+  type-aliases-package: com.wbiao.pojo
+
+
+
