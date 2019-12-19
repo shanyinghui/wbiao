@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wbiao.mapper.CategoryMapper">
+   <select id="selectCategoryByParentId" resultType="Category">
+       select * from t_category where parentId = #{parent_id}
+   </select>
+
+    <insert id="insertCategory">
+        insert into t_category (name,parentId,isParent,sort)
+            values(#{name},#{parentId},#{isParent},#{sort})
+    </insert>
+
+    <update id="updateCategoryById">
+        update t_category set name = #{name} where id = #{id}
+    </update>
+
+    <delete id="deleteCategoryById">
+        delete from t_category where id = #{id} or parentId = #{id}
+    </delete>
+</mapper>

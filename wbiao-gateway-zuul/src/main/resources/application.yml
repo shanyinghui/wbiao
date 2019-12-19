@@ -1,5 +1,5 @@
 server:
-  port: 9001
+  port: 9000
 spring:
   application:
     name: wbiao-gateway
@@ -14,18 +14,20 @@ eureka:
     instance-id: wibao-gateway-zuul
     prefer-ip-address: true     #访问路径可以显示IP地址
 
+
+
+#zuul网关的配置
+zuul:
+  prefix: /api # 设置统一的公共前缀
+  ignored-services: "*"
+  routes:
+    server-gooignored-servicesds: #面向服务的路由配置，可以自定义设置名称
+      serviceId: wbiao-goods #服务名
+      path: /item/** #映射的url
+
 info:
   app.name: wbiao-gateway
   company.name: www.wbiao.com
   build.artifactId: ${project.artifactId}
   build.version: ${project.version}
   build.description: ${project.description}
-
-#zuul网关的配置
-zuul:
-  prefix: /api # 设置统一的公共前缀
-  ignored-services: "* "#原真实服务名忽略，忽略全部用“*”,忽略一个用服务名
-  routes:
-    server-goods: #面向服务的路由配置，可以自定义设置名称
-      serviceId: wbiao-goods #服务名
-      path: /goods/** #映射的url

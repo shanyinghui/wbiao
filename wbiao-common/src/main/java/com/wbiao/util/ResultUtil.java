@@ -69,18 +69,18 @@ public class ResultUtil implements Serializable {
 	}
 
 	public static ResultUtil ok(){
-		return new ResultUtil(0);
+		return new ResultUtil(200);
 	}
 	
 	public static ResultUtil ok(Object list){
 		ResultUtil result = new ResultUtil();
-		result.setCode(0);
+		result.setCode(200);
 		result.setData(list);;
 		return result;
 	}
 	public static ResultUtil ok(String msg){
 		ResultUtil result = new ResultUtil();
-		result.setCode(0);
+		result.setCode(200);
 		result.setMsg(msg);
 		return result;
 	}
