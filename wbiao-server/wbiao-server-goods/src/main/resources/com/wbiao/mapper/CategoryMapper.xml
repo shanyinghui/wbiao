@@ -17,4 +17,20 @@
     <delete id="deleteCategoryById">
         delete from t_category where id = #{id} or parentId = #{id}
     </delete>
+
+    <select id="selectCategoryById" resultType="Category">
+        select * from t_category where id = #{category_id}
+    </select>
+
+    <select id="selectMaxSort" resultType="Integer">
+        select max(sort) from t_category where parentId = #{parentId}
+    </select>
+
+    <update id="updateCategoryByName">
+        update t_category set name = #{newName},parentId = #{parentId} where name = #{oldName}
+    </update>
+
+    <delete id="deleteCategoryByName">
+        delete from t_category where name = #{name}
+    </delete>
 </mapper>

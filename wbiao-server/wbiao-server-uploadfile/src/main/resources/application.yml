@@ -1,0 +1,31 @@
+server:
+  port: 8002
+
+spring:
+  application:
+    name: wbiao-upload
+  servlet:
+    multipart:
+      max-file-size: 10MB #文件上传的最大大小
+      max-request-size: 10MB  #文件请求的最大大小
+
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://127.0.0.1:7001/eureka/
+
+  instance: #服务名称的修改
+    instance-id: wibao-server-upload
+    prefer-ip-address: true     #访问路径可以显示IP地址
+
+info:
+  app.name: wbiao-upload
+  company.name: www.wbiao.com
+  build.artifactId: ${project.artifactId}
+  build.version: ${project.version}
+  build.description: ${project.description}
+

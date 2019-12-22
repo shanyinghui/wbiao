@@ -32,4 +32,9 @@ public class CategoryServiceImpl implements CategoryService {
     public void deleteCategoryById(Integer id) {
         categoryMapper.deleteCategoryById(id);
     }
+
+    @Override
+    public Category selectCategoryById(Integer category_id) {
+        return categoryMapper.selectCategoryById(category_id);
+    }
 }

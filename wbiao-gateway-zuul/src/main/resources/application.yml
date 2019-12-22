@@ -6,6 +6,7 @@ spring:
 
 eureka:
   client:
+
     registry-fetch-interval-seconds: 5  #表示eureka client间隔多久去拉取服务注册信息
     service-url:
       defaultZone: http://127.0.0.1:7001/eureka/
@@ -19,11 +20,14 @@ eureka:
 #zuul网关的配置
 zuul:
   prefix: /api # 设置统一的公共前缀
-  ignored-services: "*"
+  ignoredServices: "*" #禁用默认路由，只找手动配置的路由
   routes:
-    server-gooignored-servicesds: #面向服务的路由配置，可以自定义设置名称
-      serviceId: wbiao-goods #服务名
+    goods-server: #面向服务的路由配置，可以自定义设置名称
       path: /item/** #映射的url
+      serviceId: wbiao-goods #服务名
+    upload-server: #文件上传微服务
+      path: /file/**
+      serviceId: wbiao-upload
 
 info:
   app.name: wbiao-gateway

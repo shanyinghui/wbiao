@@ -19,7 +19,7 @@ public class CategoryController {
 
     @GetMapping()
     @Log
-    public ResultUtil selectCategoryById(@RequestParam("pid")Integer parent_id){
+    public ResultUtil selectCategoryByParentid(@RequestParam("pid")Integer parent_id){
         List<Category> categories = categoryService.selectCategoryByParentId(parent_id);
         return ResultUtil.ok(categories);
     }
@@ -41,8 +41,15 @@ public class CategoryController {
     @DeleteMapping("/{id}")
     @Log
     public ResultUtil deleteCategory(@PathVariable Integer id){
-        System.out.println(id);
         categoryService.deleteCategoryById(id);
         return ResultUtil.ok();
+    }
+
+    @GetMapping("/id/{id}")
+    @Log
+    public ResultUtil selectCategoryById(@PathVariable("id") Integer id){
+        Category category = categoryService.selectCategoryById(id);
+        ResultUtil resultUtil = ResultUtil.ok(category);
+        return resultUtil;
     }
 }

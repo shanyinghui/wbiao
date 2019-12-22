@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wbiao.mapper.BrandMapper">
+   <insert id="insertBrand">
+       insert into t_brand (name,image,letter,category_id)
+        values(#{name},#{image},#{letter},#{category_id})
+   </insert>
+    <select id="selectBrand" resultType="Brand">
+        select * from t_brand 
+        <where>
+            <if test="name != null and name != ''">
+                <bind name="name" value="'%'+name+'%'"/>
+                name like #{name}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectBrandById" resultType="Brand">
+        select * from t_brand where id = #{id}
+    </select>
+
+    <update id="updateBrandById">
+        update t_brand set name = #{name},letter = #{letter},image=#{image},category_id = #{category_id}
+            where id = #{id}
+    </update>
+
+    <delete id="deleteBrand">
+        delete from t_brand where id = #{id}
+    </delete>
+</mapper>

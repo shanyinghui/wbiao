@@ -13,4 +13,12 @@ public interface CategoryMapper {
     void updateCategoryById(@Param("name")String name,@Param("id")Integer id);
 
     void deleteCategoryById(Integer id);
+
+    Category selectCategoryById(Integer category_id);
+
+    Integer selectMaxSort(Integer parentId);
+
+    void updateCategoryByName(@Param("oldName")String oldname,@Param("newName")String newName,@Param("parentId")Integer parentId);
+
+    void deleteCategoryByName(String name);
 }

@@ -13,8 +13,8 @@
     <description>各个具体微服务模块</description>
     <modules>
         <module>wbiao-server-goods</module>
+        <module>wbiao-server-uploadfile</module>
     </modules>
-
     <dependencies>
         <!--依赖公共模块-->
         <dependency>
