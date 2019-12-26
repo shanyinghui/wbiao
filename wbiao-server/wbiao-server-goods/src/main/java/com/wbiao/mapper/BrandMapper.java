@@ -11,4 +11,5 @@ public interface BrandMapper {
    Brand selectBrandById(Integer id);
    void updateBrandById(Brand brand);
    void deleteBrand(Integer id);
+
 }

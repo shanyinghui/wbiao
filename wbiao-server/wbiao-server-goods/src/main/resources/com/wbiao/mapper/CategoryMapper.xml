@@ -30,7 +30,15 @@
         update t_category set name = #{newName},parentId = #{parentId} where name = #{oldName}
     </update>
 
+    <update id="updateCategory">
+        update t_category set name = #{newName},parentId = #{parentId},sort = #{sort} where name = #{oldName}
+    </update>
+
     <delete id="deleteCategoryByName">
         delete from t_category where name = #{name}
     </delete>
+
+    <select id="selectSort" resultType="Integer">
+        select max(sort) from t_category where parentId = #{id}
+    </select>
 </mapper>

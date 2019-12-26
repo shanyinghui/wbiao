@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wbiao.mapper.SkuMapper">
+    <insert id="addSku">
+        insert into t_sku (id,spu_id,title,brand,price,image,images,stock,ownSpec,sale_num,comment_num,enable,createtime,last_updatetime,indexes)
+            values (#{id},#{spu_id},#{title},#{brand},#{price},#{image},#{images},#{stock},#{ownSpec},#{sale_num},#{comment_num},#{enable},#{createtime},#{last_updatetime},#{indexes})
+    </insert>
+
+    <select id="selectSku" resultType="Sku">
+        select * from t_sku
+        <where>
+            <if test="key!=null and key!=''">
+                <bind name="key" value="'%'+key+'%'"/>
+                and title like #{key}
+            </if>
+            <if test="saleable!=null and saleable==true">
+                and enable = 1
+            </if>
+            <if test="saleable!=null and saleable==false">
+                and enable = 0
+            </if>
+        </where>
+    </select>
+
+    <select id="selectSkuBySpu_id" resultType="Sku">
+        select * from t_sku where spu_id = #{id}
+    </select>
+
+    <delete id="deleteSkuBySpu_id">
+        delete from t_sku where spu_id = #{id}
+    </delete>
+
+    <delete id="deleteSkuById">
+        delete from t_sku where id = #{id}
+    </delete>
+
+    <update id="updateSkuEnable">
+        update t_sku set enable=ABS(enable-1) where id = #{id}
+    </update>
+</mapper>

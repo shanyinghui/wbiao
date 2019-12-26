@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wbiao.mapper.SpuMapper">
+  <!--  <resultMap id="goods" type="Goods">
+        <association property="spu" javaType="Spu">
+            <id column="id" property="id"/>
+            <result column="brand" property="brand"/>
+            <result column="series" property="series"/>
+            <result column="subTitle" property="subTitle"/>
+        </association>
+        <collection property="skus" ofType="Sku">
+            <id column="sku_id" property="id"/>
+            <result column="spu_id" property="spu_id"/>
+            <result column="title" property="title"/>
+            <result column="price" property="price"/>
+            <result column="images" property="images"/>
+            <result column="stock" property="stock"/>
+            <result column="ownSpec" property="ownSpec"/>
+            <result column="status" property="status"/>
+        </collection>
+    </resultMap>
+
+
+    <sql id="sku">
+        sku.sku_id,sku.spu_id,sku.title,sku.price,sku.images,sku.stock,sku.ownSpec,sku.status
+    </sql>
+    <sql id="spu">
+        spu.id,spu.brand,spu.series,spu.subTitle
+    </sql>-->
+
+    <insert id="addSpu">
+        insert into t_spu (id,brand,series,subTitle,specs,createtime,last_updatetime,category_id)
+            values (#{id},#{brand},#{series},#{subTitle},#{specs},#{createtime},#{last_updatetime},#{category_id})
+    </insert>
+
+    <select id="selectSpuById" resultType="Spu">
+        select * from t_spu where id = #{id}
+    </select>
+
+    <update id="updateSpuById">
+        update t_spu set brand = #{brand},series = #{series},subTitle = #{subTitle},specs = #{specs},createtime=#{createtime},last_updatetime = #{last_updatetime},category_id = #{category_id}
+            where id = #{id}
+    </update>
+</mapper>

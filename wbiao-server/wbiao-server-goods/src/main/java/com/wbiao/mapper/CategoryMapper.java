@@ -20,5 +20,10 @@ public interface CategoryMapper {
 
     void updateCategoryByName(@Param("oldName")String oldname,@Param("newName")String newName,@Param("parentId")Integer parentId);
 
+    void updateCategory(@Param("oldName")String oldname, @Param("newName")String newName, @Param("parentId")Integer parentId, @Param("sort")Integer sort);
+
     void deleteCategoryByName(String name);
+
+    Integer selectSort(Integer id);
+
 }

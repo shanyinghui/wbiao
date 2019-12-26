@@ -36,5 +36,9 @@ logging:
   level:
     com.wbiao.mapper : debug
 
+workerId: 0
+datacenterId: 0
+
+
 
 

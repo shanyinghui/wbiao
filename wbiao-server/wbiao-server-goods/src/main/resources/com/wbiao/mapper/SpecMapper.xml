@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wbiao.mapper.SpecMapper">
+    <select id="selectSpec" resultType="Spec">
+        select * from t_spec_param
+    </select>
+
+    <select id="selectSpec_NameAndVal" resultType="spec_val">
+        select * from t_spec_val where spec_name = #{name} and spec_val = #{val}
+    </select>
+
+    <insert id="addSpec_val">
+        insert into t_spec_val (spec_name,spec_val)
+            values(#{name},#{val})
+    </insert>
+</mapper>

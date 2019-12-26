@@ -6,11 +6,11 @@
         values(#{name},#{image},#{letter},#{category_id})
    </insert>
     <select id="selectBrand" resultType="Brand">
-        select * from t_brand 
+        select * from t_brand
         <where>
             <if test="name != null and name != ''">
                 <bind name="name" value="'%'+name+'%'"/>
-                name like #{name}
+              and name like #{name}
             </if>
         </where>
     </select>

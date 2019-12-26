@@ -11,6 +11,7 @@ import com.wbiao.util.PageResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class BrandServiceImpl implements BrandService {
     @Autowired
     private CategoryMapper categoryMapper;
 
+    @Transactional
     @Override
     public void insertBrand(Brand brand) {
         brandMapper.insertBrand(brand);
@@ -59,14 +61,28 @@ public class BrandServiceImpl implements BrandService {
         return brandMapper.selectBrandById(id);
     }
 
+    @Transactional
     @Override
     public void updateBrandById(Brand brand) {
         Brand b = brandMapper.selectBrandById(brand.getId());
+        //修改品牌信息
         brandMapper.updateBrandById(brand);
+
+
+        if(!b.getCategory_id().equals(brand.getCategory_id())){
+            Integer sort = categoryMapper.selectMaxSort(brand.getCategory_id());
+            if(sort==null || sort == 0){
+                sort = 1;
+            }else{
+                sort += 1;
+            }
+            categoryMapper.updateCategory(b.getName(),brand.getName(),brand.getCategory_id(),sort);
+        }
         //三个参数分别是：修改前的名字，修改后的名字，修改后的分类id
         categoryMapper.updateCategoryByName(b.getName(),brand.getName(),brand.getCategory_id());
     }
 
+    @Transactional
     @Override
     public void deleteBrand(Integer id,String name) {
         brandMapper.deleteBrand(id);
