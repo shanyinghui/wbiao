@@ -1,9 +1,9 @@
 package com.wbiao.controller;
 
 import com.wbiao.annotation.Log;
-import com.wbiao.pojo.Goods;
-import com.wbiao.pojo.Sku;
-import com.wbiao.pojo.Spu;
+import com.wbiao.goods.pojo.Goods;
+import com.wbiao.goods.pojo.Sku;
+import com.wbiao.goods.pojo.Spu;
 import com.wbiao.service.GoodsService;
 import com.wbiao.util.PageResult;
 import com.wbiao.util.ResultUtil;
@@ -72,5 +72,12 @@ public class GoodsController {
     public ResultUtil updateEnable(@PathVariable("id") String id){
         goodsService.updateSkuEnable(id);
         return ResultUtil.ok();
+    }
+
+    @GetMapping("/enable")
+    @Log
+    public ResultUtil selectSkuByEnable(){
+        List<Sku> skus = goodsService.selectSkuByEnable();
+        return ResultUtil.ok(skus);
     }
 }

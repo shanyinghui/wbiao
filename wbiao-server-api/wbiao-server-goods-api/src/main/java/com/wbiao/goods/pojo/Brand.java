@@ -1,4 +1,4 @@
-package com.wbiao.pojo;
+package com.wbiao.goods.pojo;
 
 public class Brand {
     private Integer id;

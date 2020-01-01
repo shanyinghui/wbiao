@@ -1,6 +1,6 @@
 package com.wbiao.mapper;
 
-import com.wbiao.pojo.Spu;
+import com.wbiao.goods.pojo.Spu;
 
 public interface SpuMapper {
 

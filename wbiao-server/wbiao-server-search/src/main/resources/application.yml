@@ -1,0 +1,44 @@
+server:
+  port: 8003
+spring:
+  application:
+    name: wbiao-search
+  data:
+    elasticsearch:
+      cluster-name: elasticsearch
+      cluster-nodes: 192.168.134.66:9300
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:7001/eureka/
+  instance: #服务名称的修改
+    instance-id: wibao-server-search
+    prefer-ip-address: true     #访问路径可以显示IP地址
+
+    lease-renewal-interval-in-seconds: 5 # 每隔5秒发送一次心跳
+    lease-expiration-duration-in-seconds: 10 # 10秒不发送就过期
+
+#开启熔断功能
+feign:
+  hystrix:
+    enabled: true
+
+#超时配置
+ribbon:
+  ReadTimeout: 3000000
+
+#hystrix超时时间配置
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+
+info:
+  app.name: wbiao-search
+  company.name: www.wbiao.com
+  build.artifactId: ${project.artifactId}
+  build.version: ${project.version}
+  build.description: ${project.description}

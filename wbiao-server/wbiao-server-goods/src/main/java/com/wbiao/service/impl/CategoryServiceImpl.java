@@ -1,7 +1,7 @@
 package com.wbiao.service.impl;
 
 import com.wbiao.mapper.CategoryMapper;
-import com.wbiao.pojo.Category;
+import com.wbiao.goods.pojo.Category;
 import com.wbiao.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

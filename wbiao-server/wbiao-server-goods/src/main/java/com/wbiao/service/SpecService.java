@@ -1,6 +1,6 @@
 package com.wbiao.service;
 
-import com.wbiao.pojo.Spec;
+import com.wbiao.goods.pojo.Spec;
 
 import java.util.List;
 

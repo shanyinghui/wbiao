@@ -1,4 +1,4 @@
-package com.wbiao.pojo;
+package com.wbiao.goods.pojo;
 
 import java.io.Serializable;
 

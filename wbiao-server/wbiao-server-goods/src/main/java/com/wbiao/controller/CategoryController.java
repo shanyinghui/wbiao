@@ -2,7 +2,7 @@ package com.wbiao.controller;
 
 
 import com.wbiao.annotation.Log;
-import com.wbiao.pojo.Category;
+import com.wbiao.goods.pojo.Category;
 import com.wbiao.service.CategoryService;
 import com.wbiao.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,4 +52,5 @@ public class CategoryController {
         ResultUtil resultUtil = ResultUtil.ok(category);
         return resultUtil;
     }
+
 }

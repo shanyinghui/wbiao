@@ -1,15 +1,27 @@
-package com.wbiao.pojo;
+package com.wbiao.search.pojo;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Map;
 
-public class Sku implements Serializable {
+@Document(indexName = "skuinfo",type = "docs")
+public class SkuInfo implements Serializable {
+    @Id
     private String id;
     private String spu_id;
+    @Field(type = FieldType.Text,analyzer = "ik_smart")
     private String title;
+    @Field(type = FieldType.Keyword)
     private String brand;
+    @Field(type = FieldType.Double)
     private BigDecimal price;
+
     private String image;
     private String images;
     private Long stock;
@@ -21,26 +33,7 @@ public class Sku implements Serializable {
     private Date createtime;
     private Date last_updatetime ;
 
-    @Override
-    public String toString() {
-        return "Sku{" +
-                "id='" + id + '\'' +
-                ", spu_id='" + spu_id + '\'' +
-                ", title='" + title + '\'' +
-                ", brand='" + brand + '\'' +
-                ", price=" + price +
-                ", image='" + image + '\'' +
-                ", images='" + images + '\'' +
-                ", stock=" + stock +
-                ", ownSpec='" + ownSpec + '\'' +
-                ", sale_num=" + sale_num +
-                ", comment_num=" + comment_num +
-                ", enable=" + enable +
-                ", indexes='" + indexes + '\'' +
-                ", createtime=" + createtime +
-                ", last_updatetime=" + last_updatetime +
-                '}';
-    }
+    private Map<String,Object> specMap;
 
     public String getId() {
         return id;
@@ -160,6 +153,36 @@ public class Sku implements Serializable {
 
     public void setLast_updatetime(Date last_updatetime) {
         this.last_updatetime = last_updatetime;
+    }
+
+    public Map<String, Object> getSpecMap() {
+        return specMap;
+    }
+
+    public void setSpecMap(Map<String, Object> specMap) {
+        this.specMap = specMap;
+    }
+
+    @Override
+    public String toString() {
+        return "SkuInfo{" +
+                "id='" + id + '\'' +
+                ", spu_id='" + spu_id + '\'' +
+                ", title='" + title + '\'' +
+                ", brand='" + brand + '\'' +
+                ", price=" + price +
+                ", image='" + image + '\'' +
+                ", images='" + images + '\'' +
+                ", stock=" + stock +
+                ", ownSpec='" + ownSpec + '\'' +
+                ", sale_num=" + sale_num +
+                ", comment_num=" + comment_num +
+                ", enable=" + enable +
+                ", indexes='" + indexes + '\'' +
+                ", createtime=" + createtime +
+                ", last_updatetime=" + last_updatetime +
+                ", specMap=" + specMap +
+                '}';
     }
 }
 

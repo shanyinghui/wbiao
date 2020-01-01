@@ -4,8 +4,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wbiao.mapper.BrandMapper;
 import com.wbiao.mapper.CategoryMapper;
-import com.wbiao.pojo.Brand;
-import com.wbiao.pojo.Category;
+import com.wbiao.goods.pojo.Brand;
+import com.wbiao.goods.pojo.Category;
 import com.wbiao.service.BrandService;
 import com.wbiao.util.PageResult;
 import org.apache.commons.lang3.StringUtils;
@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BrandServiceImpl implements BrandService {
@@ -87,5 +89,17 @@ public class BrandServiceImpl implements BrandService {
     public void deleteBrand(Integer id,String name) {
         brandMapper.deleteBrand(id);
         categoryMapper.deleteCategoryByName(name);
+    }
+
+    @Override
+    public Map<String, List<Brand>> selectAllBrand() {
+        HashMap<String, List<Brand>> resultMap = new HashMap<>();
+        List<Category> categories = categoryMapper.selectCategoryByParentId(0);
+        for (Category category: categories){
+            Integer id = category.getId();
+            List<Brand> brands = brandMapper.selectBrandByC_id(id);
+            resultMap.put(category.getName(),brands);
+        }
+        return resultMap;
     }
 }

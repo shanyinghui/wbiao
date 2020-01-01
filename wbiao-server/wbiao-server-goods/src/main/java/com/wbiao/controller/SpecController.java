@@ -1,7 +1,7 @@
 package com.wbiao.controller;
 
 import com.wbiao.annotation.Log;
-import com.wbiao.pojo.Spec;
+import com.wbiao.goods.pojo.Spec;
 import com.wbiao.service.SpecService;
 import com.wbiao.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;

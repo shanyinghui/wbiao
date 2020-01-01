@@ -27,4 +27,8 @@
     <delete id="deleteBrand">
         delete from t_brand where id = #{id}
     </delete>
+
+    <select id="selectBrandByC_id" resultType="Brand">
+        select * from t_brand where category_id = #{category_id}
+    </select>
 </mapper>

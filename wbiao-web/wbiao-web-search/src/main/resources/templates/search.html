@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title>万表名表中心|瑞士手表品牌排行</title>
+		<link rel="stylesheet" type="text/css" href="/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/css/search.css" />
+	</head>
+	<body>
+	
+		<!-- top -->
+		<div class="top">
+			<div class="top-words container clearfix">
+				<!-- top 左 -->
+				<div class="top-left fl">
+					<a href="javascript:;">正品保障，免息分期！</a>
+				</div>
+				<!-- top 右 -->
+				<div class="top-right fr clearfix">
+					<!-- 右 登录 -->
+					<div class="top-login fl clearfix">
+						<a href="login.html">请登录</a>
+						<a href="register.html">注册</a>
+					</div>
+					<!-- 右 其他 -->
+					<div class="top-others fl clearfix">
+						<span class="line fl">|</span>
+						<a href="shopping.html">购物车</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- head -->
+		<div class="head">
+			<div class="head-wrap container clearfix">
+				<div class="head-logo fl">
+					<a href="javascript:;"><img src="/img/head-logo1.png"></a>
+					<a href="javascript:;"><img src="/img/head-logo2.png"></a>
+				</div>
+				<div class="head-search fl clearfix">
+					<form action="/search.html">
+						<label class="srh-lab fl">
+							<i class="icon_head-search"></i>
+							<input type="text" name="keywords" th:value="${#maps.containsKey(searchMap,'keywords')?searchMap.keywords:''}" class="srh-ipt" maxlength="30" />
+						</label>
+						<button type="submit" class="srh-btn fl">搜索</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- nav -->
+		<div class="nav" id="nav">
+			<div class="container clearfix">
+				<div class="nav-left fl">
+					<a href="/search.html" class="all-commodities clearfix">
+						全部商品
+						<i class="icon_nav-all fr"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+		
+		<!-- nav-float -->
+		
+		
+		<div class="main">
+			<!-- 中心头部 -->
+			<div class="top">
+				<div class="container">
+					<div class="left fl">
+						<a href="javascript:;">首页</a>
+						<a href="#">></a>
+						<span>商品中心</span>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+			<!-- 中心主体 -->
+			<div class="content">
+				<div class="container">
+					
+				
+
+					<!-- 右侧 -->
+					<div class="right fr">
+						<!-- 菜单 -->
+						<div class="menu relative"  style="margin-right:80px">
+							<div class="list_1st">
+								<div class="toper">
+									<div class="left fl">
+										<span th:text="已找到+${result.total}+件："></span>
+										<span class="price relative" style="display: inline-block; width: 135px" title="取消选择" th:if="${#maps.containsKey(searchMap,'price')}">
+											<span th:text="价格：+${searchMap.price}"></span>
+                                            <a th:href="@{${#strings.replace(url,'price='+searchMap.price,'')}}"><i class="icon icon-error" title="取消选择"></i></a>
+										</span>
+										<span class="brands relative" style="display: inline-block; width: 110px" title="取消选择" th:if="${#maps.containsKey(searchMap,'brand')}">
+											<span th:text="${searchMap.brand}"></span>
+                                             <a th:href="@{${#strings.replace(url, 'brand='+searchMap.brand, '')}}"><i class="icon icon-error" title="取消选择"></i></a>
+										</span>
+										<span class="types relative" style="display: inline-block; width: 130px" title="取消选择" th:each="spec:${searchMap}" th:if="${#strings.startsWith(spec.key,'spec_')}">
+											<span th:text="${#strings.replace(spec.key,'spec_','')}"></span>：<span th:text="${spec.value}"></span>
+											<a th:href="@{${#strings.replace(url, spec.key+'='+spec.value, '')}}"><i class="icon icon-error" title="取消选择"></i></a>
+										</span>
+									</div>
+									<div class="right fr">全部撤销</div>
+									<div class="clear"></div>
+								</div>
+								<div class="middle">
+									<ul class="total">
+										<li class="fl">全部分类</li>
+										<li class="fl">
+											<a class="clock"  href="/search.html" target="_blank">腕表</a>
+										</li>
+										<div class="clear"></div>
+									</ul>
+									<!--当用户选择了价格，价格信息就不会在显示出来-->
+									<div class="price-list" th:unless="${#maps.containsKey(searchMap,'price')}">
+										<ul class="prices fl relative">
+											<li class="fl">价格</li>
+											<li class="fl">
+												<a th:href="@{${url}('price'='0-1000')}">0-1000</a>
+											</li>
+											<li class="fl">
+												<a th:href="@{${url}('price'='1000-3000')}">1000-3000</a>
+											</li>
+											<li class="fl">
+												<a th:href="@{${url}('price'='3000-5000')}">3000-5000</a>
+											</li>
+											<li class="fl">
+												<a th:href="@{${url}('price'='5000-10,000')}">5000-10,000</a>
+											</li>
+											<li class="fl">
+												<a th:href="@{${url}('price'='10,000-50,000')}">10,000-50,000</a>
+											</li>
+											<li class="fl">
+												<a th:href="@{${url}('price'='50,000-100,000')}">50,000-100,000</a>
+											</li>
+											<li class="fl">
+												<a th:href="@{${url}('price'='100,000以上')}">100,000以上</a>
+											</li>
+											<div class="clear"></div>
+										</ul>
+										<form th:action="@{${url}}">
+											<div class="choose fr">
+												<button type="submit" style="margin: 0px;padding: 0px;border: 0px;outline: none;"><span>确定</span></button>
+											</div>
+											<div class="inputs fr">
+												<input class="start" id="fill" type="number" name="startPrice" value="" min="0"/>&nbsp;-
+												<input class="end" id="fill" type="number" name="endPrice" value="" min="0"/>
+											</div>
+										</form>
+
+										<div class="clear"></div>
+									</div>
+									<div>
+										<!--当用户选择了品牌，品牌信息就不会在显示出来-->
+										<div class="brand-list" th:unless="${#maps.containsKey(searchMap,'brand')}">
+											<ul class="brand fl">
+												<li class="fl">品牌</li>
+												<li class="fl" th:each="brand : ${result.brandList}">
+													<!--  每次点击品牌，在上次的url基础上追加brand=品牌名称   -->
+													<a th:href="@{${url}(brand=${brand})}" th:text="${brand}"></a>
+												</li>
+												<div class="clear"></div>
+											</ul>
+											<div class="clear"></div>
+										</div>
+									</div>
+										<!--当用户选择了一个规格，那么该规格不会显示出来-->
+										<div class="type-list" th:each="spec:${result.specList}" th:unless="${#maps.containsKey(searchMap,'spec_'+spec.key)}">
+											<ul class="type fl">
+												<li class="fl" th:text="${spec.key}"></li>
+												<li class="fl" th:each="specval:${spec.value}">
+													<!--  每次点击规格，在上次的url基础上追加spec_规格名称=规格值   -->
+													<a th:href="@{${url}('spec_'+${spec.key}=${specval})}" th:text="${specval}"></a>
+												</li>
+												<div class="clear"></div>
+											</ul>
+											<div class="clear"></div>
+										</div>
+								</div>
+							</div>
+						</div>
+						<!-- 导航条 -->
+						<div class="nav clearfix">
+							<ul class="new-list fl">
+								<li class="fl" th:if="${not #maps.containsKey(searchMap,'sortField')}" >
+									<a th:href="@{${sorturl}}" th:style="'fontWeight: normal;color: #cc9952;borderBottom: 5px solid #CC9952'">综合排序</a>
+								</li>
+								<li class="fl" th:if="${ #maps.containsKey(searchMap,'sortField')}" >
+									<a th:href="@{${sorturl}}">综合排序</a>
+								</li>
+								<li class="fl" th:if="${#maps.containsValue(searchMap,'sale_num')}" >
+									<a th:href="@{${sorturl}(sortField=sale_num,sortRule=DESC)}" th:style="'fontWeight: normal;color: #cc9952;borderBottom: 5px solid #CC9952'">销量优先</a>
+								</li>
+								<li class="fl" th:if="${not #maps.containsValue(searchMap,'sale_num')}">
+									<a th:href="@{${sorturl}(sortField=sale_num,sortRule=DESC)}" >销量优先</a>
+								</li>
+								<li class="fl" th:if="${ #maps.containsValue(searchMap,'price') && #maps.containsValue(searchMap,'ASC')}">
+									<a th:href="@{${sorturl}(sortField=price,sortRule=ASC)}" th:style="'fontWeight: normal;color: #cc9952;borderBottom: 5px solid #CC9952'">价格↑</a>
+								</li>
+								<li class="fl" th:if="${ not #maps.containsAllValues(searchMap,new String[]{'price','ASC'})}">
+									<a th:href="@{${sorturl}(sortField=price,sortRule=ASC)}">价格↑</a>
+								</li>
+								<li class="fl" th:if="${#maps.containsValue(searchMap,'price') && #maps.containsValue(searchMap,'DESC')}">
+									<a th:href="@{${sorturl}(sortField=price,sortRule=DESC)}" th:style="'fontWeight: normal;color: #cc9952;borderBottom: 5px solid #CC9952'">价格↓</a>
+								</li>
+								<li class="fl" th:if="${ not #maps.containsAllValues(searchMap,new String[]{'price','DESC'})}">
+									<a th:href="@{${sorturl}(sortField=price,sortRule=DESC)}">价格↓</a>
+								</li>
+								<li class="fl" th:if="${#maps.containsValue(searchMap,'last_updatetime')}">
+									<a th:href="@{${sorturl}(sortField=last_updatetime,sortRule=DESC)}" th:style="'fontWeight: normal;color: #cc9952;borderBottom: 5px solid #CC9952'">新品</a>
+								</li>
+								<li class="fl" th:if="${not #maps.containsValue(searchMap,'last_updatetime')}">
+									<a th:href="@{${sorturl}(sortField=last_updatetime,sortRule=DESC)}">新品</a>
+								</li>
+							</ul>
+							<div class="clear"></div>
+						</div>
+						<!-- 商品列表 -->
+						<div class="goods-list">
+							<ul>
+								<li class="fl relative" th:each="sku,skuStat:${result.rows}">
+									<a href="goods-details-1.html" target="_blank">
+										<img th:src="${sku.image}" alt="">
+									</a>
+									<div class="price">
+										<a href="#">
+											<span class="month-pay">售价</span>
+											<span class="true-price">￥</span>
+											<span class="true-price" th:text="${sku.price}"></span>
+										</a>
+									</div>
+									<div class="docs">
+										<a href="goods-details-1.html" target="_blank" th:utext="${#strings.abbreviate(sku.title,120)}"></a>
+									</div>
+									<div class="txt">
+										<span class="sales" th:text="销量+${sku.sale_num}"></span>
+									</div>
+									<div class="business">
+										<a href="goods-details-1.html" target="_blank" th:text="${sku.brand}+品牌店"></a>
+									</div>
+									<div class="free">免息分期</div>
+									<div class="cover">
+										<a class="collect" href="vip/javascript:;" target="_blank">加入收藏</a>
+										<a class="cart" href="shopping.html" target="_blank">加入购物车</a>
+									</div>
+								</li>
+								<div class="clear"></div>
+							</ul>
+						</div>
+						<!-- 页码 -->
+						<div class="pages">
+							<a th:href="@{${url}(pageNumber=${page.upper})}" class="pages-left">
+								<i class="icon icon-left"></i>
+							</a>
+							<span class="page-box">
+								<a th:href="@{${url}(pageNumber=${i})}" th:each="i: ${#numbers.sequence(page.lpage,page.rpage)}" th:text="${i}" th:class="${page.currentpage}==${i}?'active':''"></a>
+							</span>
+							<a th:href="@{${url}(pageNumber=${page.next})}" class="pages-right">
+								<i class="icon icon-right"></i>
+							</a>
+							<span th:text="共+${page.last}+页"></span>
+						</div>
+
+					</div>
+					<div class="clear"></div>
+				</div>
+				<!-- 侧栏 -->
+				<div class="said">
+					<div class="said-bar">
+						<!-- 悬浮 -->
+						<div class="said-bottom">
+							<a href="shopping.html" class="said-left">
+								<i class="icon_said-bottom1"></i>
+								<div class="words-cover">
+									购物车
+								</div>
+							</a>
+							<a href="vip/order-collect.html" class="said-left">
+								<i class="icon_said-bottom2"></i>
+								<div class="words-cover">
+									我的收藏
+								</div>
+							</a>
+							<a href="vip/javascript:;" class="said-left">
+								<i class="icon_said-bottom3"></i>
+								<div class="words-cover">
+									浏览足迹
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- footer -->
+		<div class="footer">
+			<div class="footer-top">
+				<div class="container">
+					<ul class="clearfix">
+						<li class="fl">
+							<a href="javascript:;" class="clearfix">
+								<i class="icon_footer-top-1 fl"></i>
+								<div class="top-wodrs fl">正品保障</div>
+							</a>
+						</li>
+						<li class="fl">
+							<a href="javascript:;" class="clearfix">
+								<i class="icon_footer-top-2 fl"></i>
+								<div class="top-wodrs fl">免息分期</div>
+							</a>
+						</li>
+						<li class="fl">
+							<a href="javascript:;" class="clearfix">
+								<i class="icon_footer-top-3 fl"></i>
+								<div class="top-wodrs fl">全球联保</div>
+							</a>
+						</li>
+						<li class="fl">
+							<a href="javascript:;" class="clearfix">
+								<i class="icon_footer-top-4 fl"></i>
+								<div class="top-wodrs fl">假一赔三</div>
+							</a>
+						</li>
+						<li class="fl">
+							<a href="javascript:;" class="clearfix">
+								<i class="icon_footer-top-5 fl"></i>
+								<div class="top-wodrs fl">终身售后</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="footer-mid">
+				<div class="container">
+					<div class="mid-top clearfix">
+						<div class="phone-num fl">
+							<div class="phone-words">客服电话</div>
+							<div class="phone-num1">400-883-2688</div>
+							<div class="phone-num2">外呼电话 020-83931899</div>
+							<a class="phone-btn">售后维修</a>
+						</div>
+						<div class="content fl">
+							<ul class="clearfix">
+								<li class="fl">
+									<dl>
+										<dt>新手指南</dt>
+										<dd>
+											<a href="register.html">注册新会员</a>
+											<a href="javascript:;">购物流程</a>
+											<a href="javascript:;">手表小知识</a>
+											<a href="javascript:;">退换货流程</a>
+										</dd>
+									</dl>
+								</li>
+								<li class="fl">
+									<dl>
+										<dt>支 付</dt>
+										<dd>
+											<a href="javascript:;">支付方式</a>
+											<a href="javascript:;">分期付款</a>
+											<a href="javascript:;">发票说明</a>
+											<a href="javascript:;">支付问题</a>
+										</dd>
+									</dl>
+								</li>
+								<li class="fl">
+									<dl>
+										<dt>配 送</dt>
+										<dd>
+											<a href="javascript:;">包裹签收</a>
+											<a href="javascript:;">配送方式</a>
+											<a href="javascript:;">配送说明</a>
+											<a href="javascript:;">自提流程</a>
+										</dd>
+									</dl>
+								</li>
+								<li class="fl">
+									<dl>
+										<dt>万表保障</dt>
+										<dd>
+											<a href="javascript:;">正品保障</a>
+											<a href="javascript:;">售后服务</a>
+											<a href="javascript:;">价格保护</a>
+											<a href="javascript:;">七天退换说明</a>
+										</dd>
+									</dl>
+								</li>
+								<li class="fl">
+									<dl>
+										<dt class="color">开放合作</dt>
+										<dd>
+											<a href="javascript:;">关于万表</a>
+											<a class="color" href="#">商务合作</a>
+											<a href="javascript:;">万表声明</a>
+										</dd>
+									</dl>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="mid-bottom">
+						<div class="corp">
+							<ul>
+								<li>万表网名表商城 版权所有 2009-2019 <a href="#">ICP备案证书号:粤ICP备09108738号</a> 网监备案:4401060103141</li>
+								<li>广州市万表科技股份有限公司 地址:广州市番禺区番禺大道北60-1号</li>
+								<li>Copyright 2009-2019 WWW.WBIAO.CN.LTD ALL RIGHT RESERVED.</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		
+		<script src="/js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/js/search.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/js/jquery.SuperSlide.2.1.3.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(".slideBox").slide({
+				mainCell: ".bd ul",
+				autoPlay: true
+			});
+			$(".slideBox1").slide({
+				mainCell: ".bd ul",
+				autoPlay: true
+			});
+			$(".slideBox2").slide({
+				mainCell: ".bd ul",
+				autoPlay: true
+			});
+		</script>
+	</body>
+</html>

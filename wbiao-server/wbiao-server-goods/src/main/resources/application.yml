@@ -7,9 +7,9 @@ spring:
   datasource:
     username: root
     password: root
-    driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://127.0.0.1:3306/wbiao?characterEncoding=utf8&useUnicode=true&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://127.0.0.1:3306/wbiao?characterEncoding=utf8&useUnicode=true&useSSL=false&serverTimezone=GMT%2B8
+    driver-class-name: com.mysql.jdbc.Driver
 
 
 eureka:
@@ -31,10 +31,7 @@ info:
   build.description: ${project.description}
 
 mybatis: #别名
-  type-aliases-package: com.wbiao.pojo
-logging:
-  level:
-    com.wbiao.mapper : debug
+  type-aliases-package: com.wbiao.goods.pojo
 
 workerId: 0
 datacenterId: 0

@@ -2,8 +2,8 @@ package com.wbiao.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.wbiao.mapper.SpecMapper;
-import com.wbiao.pojo.Spec;
-import com.wbiao.pojo.Spec_val;
+import com.wbiao.goods.pojo.Spec;
+import com.wbiao.goods.pojo.Spec_val;
 import com.wbiao.service.SpecService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

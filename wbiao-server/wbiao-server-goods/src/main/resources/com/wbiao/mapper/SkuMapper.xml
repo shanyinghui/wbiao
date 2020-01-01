@@ -37,4 +37,8 @@
     <update id="updateSkuEnable">
         update t_sku set enable=ABS(enable-1) where id = #{id}
     </update>
+
+    <select id="selectSkuByEnable" resultType="Sku">
+        select * from t_sku where enable = 1
+    </select>
 </mapper>

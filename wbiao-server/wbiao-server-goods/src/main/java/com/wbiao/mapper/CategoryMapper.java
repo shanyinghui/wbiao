@@ -1,6 +1,6 @@
 package com.wbiao.mapper;
 
-import com.wbiao.pojo.Category;
+import com.wbiao.goods.pojo.Category;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

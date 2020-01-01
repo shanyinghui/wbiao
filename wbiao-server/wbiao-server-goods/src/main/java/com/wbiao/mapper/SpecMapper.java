@@ -1,7 +1,7 @@
 package com.wbiao.mapper;
 
-import com.wbiao.pojo.Spec;
-import com.wbiao.pojo.Spec_val;
+import com.wbiao.goods.pojo.Spec;
+import com.wbiao.goods.pojo.Spec_val;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

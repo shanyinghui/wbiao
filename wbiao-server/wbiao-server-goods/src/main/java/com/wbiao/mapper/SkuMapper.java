@@ -1,6 +1,6 @@
 package com.wbiao.mapper;
 
-import com.wbiao.pojo.Sku;
+import com.wbiao.goods.pojo.Sku;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -18,5 +18,7 @@ public interface SkuMapper {
     void deleteSkuById(String id);
 
     void updateSkuEnable(String id);
+
+    List<Sku> selectSkuByEnable();
 
 }

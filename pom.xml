@@ -15,6 +15,8 @@
         <module>wbiao-server</module>
         <module>wbiao-server-api</module>
         <module>wbiao-gateway-zuul</module>
+        <module>wbiao-common_db</module>
+        <module>wbiao-web</module>
     </modules>
     <dependencyManagement>
         <dependencies>

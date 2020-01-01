@@ -1,12 +1,15 @@
 package com.wbiao.controller;
 
 import com.wbiao.annotation.Log;
-import com.wbiao.pojo.Brand;
+import com.wbiao.goods.pojo.Brand;
 import com.wbiao.service.BrandService;
 import com.wbiao.util.PageResult;
 import com.wbiao.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/brand")
@@ -63,5 +66,12 @@ public class BrandController {
     public ResultUtil deleteBrand(@PathVariable("id") Integer id,@PathVariable String name){
         brandService.deleteBrand(id,name);
         return ResultUtil.ok();
+    }
+
+    @GetMapping("/all")
+    @Log
+    public ResultUtil selectAll() {
+        Map<String, List<Brand>> result = brandService.selectAllBrand();
+        return ResultUtil.ok(result);
     }
 }

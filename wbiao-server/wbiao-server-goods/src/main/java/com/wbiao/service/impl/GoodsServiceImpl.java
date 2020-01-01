@@ -4,9 +4,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wbiao.mapper.SkuMapper;
 import com.wbiao.mapper.SpuMapper;
-import com.wbiao.pojo.Goods;
-import com.wbiao.pojo.Sku;
-import com.wbiao.pojo.Spu;
+import com.wbiao.goods.pojo.Goods;
+import com.wbiao.goods.pojo.Sku;
+import com.wbiao.goods.pojo.Spu;
 import com.wbiao.service.GoodsService;
 import com.wbiao.service.SpecService;
 import com.wbiao.util.IdWorker;
@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class GoodsServiceImpl implements GoodsService {
+public class GoodsServiceImpl implements GoodsService{
     @Autowired
     private SpuMapper spuMapper;
 
@@ -141,5 +141,10 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public void updateSkuEnable(String id) {
         skuMapper.updateSkuEnable(id);
+    }
+
+    @Override
+    public List<Sku> selectSkuByEnable() {
+        return skuMapper.selectSkuByEnable();
     }
 }

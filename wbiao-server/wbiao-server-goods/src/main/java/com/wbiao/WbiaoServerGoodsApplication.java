@@ -10,6 +10,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @MapperScan("com.wbiao.mapper")
 public class WbiaoServerGoodsApplication {
     public static void main(String[] args) {
+
         SpringApplication.run(WbiaoServerGoodsApplication.class,args);
     }
 }

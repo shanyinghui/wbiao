@@ -1,5 +1,6 @@
 package com.wbiao.controller;
 
+import com.wbiao.annotation.Log;
 import com.wbiao.util.FastdfsClient;
 import com.wbiao.util.FastdfsFile;
 import org.springframework.util.StringUtils;
@@ -17,6 +18,7 @@ public class FileController {
     private static final String PATH = "http://192.168.134.66/";
 
     @PostMapping("/upload")
+    @Log
     public String upload(@RequestParam("file")MultipartFile file) throws Exception{
         String contentType = file.getContentType();
         //检验上传的是否是图片

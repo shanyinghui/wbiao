@@ -1,6 +1,6 @@
 package com.wbiao.mapper;
 
-import com.wbiao.pojo.Brand;
+import com.wbiao.goods.pojo.Brand;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -11,5 +11,6 @@ public interface BrandMapper {
    Brand selectBrandById(Integer id);
    void updateBrandById(Brand brand);
    void deleteBrand(Integer id);
+   List<Brand> selectBrandByC_id(Integer category_id);
 
 }
