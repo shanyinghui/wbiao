@@ -23,7 +23,7 @@ public class GoodsDetailsController {
         Map<String, Object> resultMap = goodsDetailsService.goodsDetails(skuid);
         model.addAttribute("goodsDetails",resultMap);
 
-       /* //页面静态化
+        /*//页面静态化
         goodsDetailsPageService.CreatePage(skuid);*/
         return "goodsDetails";
     }
