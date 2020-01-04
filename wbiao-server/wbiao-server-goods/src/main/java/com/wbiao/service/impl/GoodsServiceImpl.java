@@ -1,12 +1,12 @@
 package com.wbiao.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.wbiao.goods.pojo.*;
 import com.wbiao.mapper.SkuMapper;
+import com.wbiao.mapper.SpecMapper;
 import com.wbiao.mapper.SpuMapper;
-import com.wbiao.goods.pojo.Goods;
-import com.wbiao.goods.pojo.Sku;
-import com.wbiao.goods.pojo.Spu;
 import com.wbiao.service.GoodsService;
 import com.wbiao.service.SpecService;
 import com.wbiao.util.IdWorker;
@@ -16,8 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class GoodsServiceImpl implements GoodsService{
@@ -26,6 +25,9 @@ public class GoodsServiceImpl implements GoodsService{
 
     @Autowired
     private SkuMapper skuMapper;
+
+    @Autowired
+    private SpecMapper specMapper;
 
     @Autowired
     private SpecService specService;
@@ -61,10 +63,19 @@ public class GoodsServiceImpl implements GoodsService{
                 sku.setSale_num(0L);
                 sku.setCreatetime(new Date());
                 sku.setLast_updatetime(new Date());
-
                 skuMapper.addSku(sku);
-                //向规格参数表添加规格值，如存在就不添加
-                specService.addSpec_val(sku.getOwnSpec());
+
+                //添加销售属性值
+                SkuSaleVal skuSaleVal = new SkuSaleVal();
+                skuSaleVal.setSpuid(spu_id.toString());
+                skuSaleVal.setSkuid(sku_id.toString());
+                skuSaleVal.setImage(sku.getImage());
+                String ownSpec = sku.getOwnSpec();
+                if(!StringUtils.isEmpty(ownSpec)){
+                    String val = getSkuSaleVal(ownSpec);
+                    skuSaleVal.setSalaVal(val);
+                    specMapper.addSkuSaleVal(skuSaleVal);
+                }
             }
         }
     }
@@ -112,7 +123,18 @@ public class GoodsServiceImpl implements GoodsService{
                         sku.setImage(images[0]);
                     }
                     skuMapper.addSku(sku);
-                    specService.addSpec_val(sku.getOwnSpec());
+
+                    //添加销售属性值
+                    SkuSaleVal skuSaleVal = new SkuSaleVal();
+                    skuSaleVal.setSpuid(spu.getId());
+                    skuSaleVal.setSkuid(sku.getId());
+                    skuSaleVal.setImage(sku.getImage());
+                    String ownSpec = sku.getOwnSpec();
+                    if(!StringUtils.isEmpty(ownSpec)){
+                        String val = getSkuSaleVal(ownSpec);
+                        skuSaleVal.setSalaVal(val);
+                        specMapper.updateSkuSaleVal(skuSaleVal);
+                    }
                 } else { //此sku是新添加的
                     Long sku_id = (Long) idWorker.nextId();
                     sku.setId(sku_id.toString());
@@ -127,7 +149,18 @@ public class GoodsServiceImpl implements GoodsService{
                     sku.setCreatetime(new Date());
                     sku.setLast_updatetime(new Date());
                     skuMapper.addSku(sku);
-                    specService.addSpec_val(sku.getOwnSpec());
+
+                    //添加销售属性值
+                    SkuSaleVal skuSaleVal = new SkuSaleVal();
+                    skuSaleVal.setSpuid(spu.getId());
+                    skuSaleVal.setSkuid(sku.getId());
+                    skuSaleVal.setImage(sku.getImage());
+                    String ownSpec = sku.getOwnSpec();
+                    if(!StringUtils.isEmpty(ownSpec)){
+                        String val = getSkuSaleVal(ownSpec);
+                        skuSaleVal.setSalaVal(val);
+                        specMapper.addSkuSaleVal(skuSaleVal);
+                    }
                 }
             }
         }
@@ -146,5 +179,78 @@ public class GoodsServiceImpl implements GoodsService{
     @Override
     public List<Sku> selectSkuByEnable() {
         return skuMapper.selectSkuByEnable();
+    }
+
+
+    @Override
+    public Map<String, Object> goodsDetails(String skuid) {
+        //查询sku商品信息
+        Sku sku= skuMapper.selectSkuById(skuid);
+
+        //查询sku商品所属系列
+        Spu spu = spuMapper.selectSpuById(sku.getSpu_id());
+        String series = spu.getSeries();
+
+        //根据spuid查询所有销售属性
+        List<SkuSaleVal> skuSaleVals = specMapper.selectAllBySpuid(sku.getSpu_id());
+
+        //查询规格参数
+        List<SpecGroup> groups = specService.selectAllSpecGroup();
+
+        //处理sku的规格参数
+        Map<String,String> specMap = JSON.parseObject(sku.getOwnSpec(),Map.class);
+
+        Map<String,Map<String,String>> map = new HashMap<>();
+        for(SpecGroup group: groups){
+            List<Spec> specs = group.getSpecs();
+            for(Spec spec: specs){
+                for(Map.Entry<String,String> entry: specMap.entrySet()){
+                    String key = entry.getKey();
+                    String value = entry.getValue();
+                    if(key.equalsIgnoreCase(spec.getName())){
+                        Map<String,String> spec_valMap = new HashMap<>();
+                        if(map.containsKey(group.getName())){
+                            spec_valMap = map.get(group.getName());
+                            spec_valMap.put(key,value);
+                        }else{
+                            spec_valMap.put(key,value);
+                            map.put(group.getName(),spec_valMap);
+                        }
+                    }
+                }
+            }
+        }
+        //处理sku的图片
+        String images = sku.getImages();
+        List<String> imgs = Arrays.asList(images.split(","));
+
+        SkuDetails skuDetails = JSON.parseObject(JSON.toJSONString(sku), SkuDetails.class);
+        skuDetails.setImgs(imgs);
+        skuDetails.setSpecMap(map);
+        skuDetails.setSeries(series);
+
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("sku",skuDetails);
+        resultMap.put("skuSaleVals",skuSaleVals);
+        return resultMap;
+    }
+
+    private String getSkuSaleVal(String ownSpec) {
+        String specVal = "";
+        Map<String,String> specMap = JSON.parseObject(ownSpec,Map.class);
+        for(Map.Entry<String,String> entry: specMap.entrySet()){
+            String key = entry.getKey();
+            String value = entry.getValue();
+            if(key.equalsIgnoreCase("外壳材质")){
+                specVal += " "+value;
+            }
+            if(key.equalsIgnoreCase("表盘颜色")){
+                specVal += " "+value;
+            }
+            if(key.equalsIgnoreCase("表带材质")){
+                specVal += " "+value;
+            }
+        }
+        return specVal;
     }
 }

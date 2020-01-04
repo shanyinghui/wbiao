@@ -5,12 +5,27 @@
         select * from t_spec_param
     </select>
 
-    <select id="selectSpec_NameAndVal" resultType="spec_val">
-        select * from t_spec_val where spec_name = #{name} and spec_val = #{val}
+    <insert id="addSkuSaleVal">
+        insert into t_sku_sale_val (spuid,skuid,image,salaVal)
+            values(#{spuid},#{skuid},#{image},#{salaVal})
+    </insert>
+
+    <update id="updateSkuSaleVal">
+        update t_sku_sale_val set image = #{image},salaVal=#{salaVal}
+            where skuid = #{skuid}
+    </update>
+
+    <select id="selectAllBySpuid" resultType="SkuSaleVal">
+        select * from t_sku_sale_val
+            where spuid = #{spuid}
     </select>
 
-    <insert id="addSpec_val">
-        insert into t_spec_val (spec_name,spec_val)
-            values(#{name},#{val})
-    </insert>
+    <select id="selectAllSpecGroup" resultType="SpecGroup">
+        select * from t_spec_group
+    </select>
+
+    <select id="selectSpecByGroupId" resultType="Spec">
+        select * from t_spec_param
+            where group_id = #{group_id}
+    </select>
 </mapper>

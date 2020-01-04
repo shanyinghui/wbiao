@@ -36,7 +36,7 @@ public class BrandController {
      */
     @GetMapping()
     @Log
-    public ResultUtil selectBrand(
+    public ResultUtil<PageResult<Brand>> selectBrand(
             @RequestParam(value = "key", required = false)String key,
             @RequestParam(value = "page", defaultValue = "1")Integer page,
             @RequestParam(value = "rows", defaultValue = "5")Integer rows,
@@ -49,7 +49,7 @@ public class BrandController {
 
     @GetMapping("{id}")
     @Log
-    public ResultUtil selectBrandById(@PathVariable("id") Integer id){
+    public ResultUtil<Brand> selectBrandById(@PathVariable("id") Integer id){
         Brand brand = brandService.selectBrandById(id);
         ResultUtil result = ResultUtil.ok(brand);
         return result;
@@ -70,7 +70,7 @@ public class BrandController {
 
     @GetMapping("/all")
     @Log
-    public ResultUtil selectAll() {
+    public ResultUtil<Map<String, List<Brand>>> selectAll() {
         Map<String, List<Brand>> result = brandService.selectAllBrand();
         return ResultUtil.ok(result);
     }

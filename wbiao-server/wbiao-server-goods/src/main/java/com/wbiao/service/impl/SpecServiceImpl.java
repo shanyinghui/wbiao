@@ -1,15 +1,13 @@
 package com.wbiao.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
-import com.wbiao.mapper.SpecMapper;
 import com.wbiao.goods.pojo.Spec;
-import com.wbiao.goods.pojo.Spec_val;
+import com.wbiao.goods.pojo.SpecGroup;
+import com.wbiao.mapper.SpecMapper;
 import com.wbiao.service.SpecService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class SpecServiceImpl implements SpecService {
@@ -21,16 +19,17 @@ public class SpecServiceImpl implements SpecService {
         return specMapper.selectSpec();
     }
 
+    /**
+     *  根据规格组查询规格参数
+     * @return
+     */
     @Override
-    public void addSpec_val(String spec) {
-        Map<String,String> map = JSONObject.parseObject(spec, Map.class);
-        for(Map.Entry str: map.entrySet()){
-            String name = (String)str.getKey();
-            String value = (String)str.getValue();
-            Spec_val spec_val = specMapper.selectSpec_NameAndVal(name, value);
-            if(spec_val==null){
-                specMapper.addSpec_val(name,value);
-            }
-        }
+    public List<SpecGroup> selectAllSpecGroup() {
+        List<SpecGroup> groups = specMapper.selectAllSpecGroup();
+        groups.forEach(g->{
+            g.setSpecs(specMapper.selectSpecByGroupId(g.getId()));
+        });
+        return groups;
     }
+
 }

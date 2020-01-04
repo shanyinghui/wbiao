@@ -21,4 +21,6 @@ public interface SkuMapper {
 
     List<Sku> selectSkuByEnable();
 
+    Sku selectSkuById(String id);
+
 }

@@ -41,4 +41,8 @@
     <select id="selectSkuByEnable" resultType="Sku">
         select * from t_sku where enable = 1
     </select>
+
+    <select id="selectSkuById" resultType="Sku">
+        select * from t_sku where id = #{id}
+    </select>
 </mapper>

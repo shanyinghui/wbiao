@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title th:text="${goodsDetails.sku.title}"></title>
+		<link rel="stylesheet" href="/css/reset.css">
+		<link rel="stylesheet" href="/css/goods-details.css">
+	</head>
+	<body>
+		<!-- top -->
+		<div class="top">
+			<div class="top-words container clearfix">
+				<!-- top 左 -->
+				<div class="top-left fl">
+					<a href="javascript:;">正品保障，免息分期！</a>
+				</div>
+				<!-- top 右 -->
+				<div class="top-right fr clearfix">
+					<!-- 右 登录 -->
+					<div class="top-login fl clearfix">
+						<a href="login.html">请登录</a>
+						<a href="register.html">注册</a>
+					</div>
+					<!-- 右 其他 -->
+					<div class="top-others fl clearfix">
+						<span class="line fl">|</span>
+						<a href="shopping.html">购物车</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 头部 -->
+		<div class="top-1">
+			<div class="head">
+				<div class="container">
+					<div class="head-left fl">
+						<div class="logo fl">
+							<a href="index.html">
+								<img src="/img/ia_300000003.png" alt="">
+							</a>
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+			<!-- 导航条 -->
+			<div class="nav">
+				<div class="container">
+					<ul class="nav-list fl">
+						<li class="fl">
+							<a href="http://localhost:10001/index.html">首页</a>
+						</li>
+						<li class="fl">
+							<a href="http://localhost:10001/search.html">商品</a>
+						</li>
+						<div class="clear"></div>
+					</ul>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+		<!-- 中部 -->
+		<div class="main">
+			<!-- 头条 -->
+			<div class="toper">
+				<div class="container">
+					<div class="toper-left fl">
+						<span class="fl">首页  >  </span>
+						<span class="fl" th:text="${goodsDetails.sku.brand}+'  > '"></span>
+						<span class="fl" th:text="${goodsDetails.sku.series}"></span>
+					</div>
+				</div>
+			</div>
+			<!-- 商品信息 -->
+			<div class="good">
+				<div class="container">
+					<div class="good-left fl">
+						<!-- 放大镜 -->
+						<div class="right-extra">
+							<!--产品参数开始-->
+							<div>
+								<div id="preview" class="spec-preview"> <span class="jqzoom"><img th:jqimg="${goodsDetails.sku.image}"
+										 th:src="${goodsDetails.sku.image}" style="width: 480px;height: 480px"/></span>
+								</div>
+								<!--缩图开始-->
+								<div class="spec-scroll">
+									<a class="prev">
+										<img src="/img/ia_300000006.png" alt="">
+									</a>
+									<a class="next">
+										<img src="/img/ia_300000013.png">
+									</a>
+									<div class="items">
+										<ul>
+											<li th:each="img: ${goodsDetails.sku.imgs}">
+												<img alt="劳力士" th:bimg="${img}"  th:src="${img}" onmousemove="preview(this);" style="width: 60px;height:60px">
+											</li>
+										</ul>
+									</div>
+								</div>
+								<!--缩图结束-->
+							</div>
+						</div>
+
+
+					</div>
+					<div class="good-right fr">
+						<div class="title-box">
+							<div class="title" th:text="${goodsDetails.sku.title}"></div>
+						</div>
+						<div class="info">
+							<span class="fl" th:text="编号：+${goodsDetails.sku.id}"></span>
+							<span class="fl"th:text="品牌：+${goodsDetails.sku.brand}"></span>
+							<span class="fr"th:text="销量：+${goodsDetails.sku.sale_num}"></span>
+							<div class="clear"></div>
+						</div>
+						<div class="price-box  relative">
+							<div class="de-stages">
+								<div class="tit">名表价</div>
+								<div class="box">
+									<span class="price"th:text="￥+${goodsDetails.sku.price}"></span>
+									<i class="icon1 icon-specific"></i>
+									<span class="free">一口价</span>
+								</div>
+							</div>
+							<div class="process">
+								<div class="tit">流程</div>
+								<div class="box">
+									<span class="step">提交订单 > 客服定价 > 支付订单 > 等待发货</span>
+								</div>
+							</div>
+						</div>
+						<div class="type-choose">
+							<div class="send">
+								<div class="title">配送</div>
+								<div class="text">
+									<span>（顺丰包邮）</span>
+									<span>预计2-5天内发货</span>
+								</div>
+							</div>
+							<div class="promise">
+								<div class="title fl">承诺</div>
+								<ul class="fl">
+									<li class="fl relative">
+										<i></i>
+										<span>正品保障</span>
+										<div class="cover">全站自营直采，高于瑞士国家标准的进出仓全检机制，万表7年零假货投诉。</div>
+									</li>
+									<li class="fl relative">
+										<i></i>
+										<span>正规发票</span>
+										<div class="cover">提供国家税务局认可的正规发票，具有售后维权法律效力。</div>
+									</li>
+									<li class="fl relative">
+										<i></i>
+										<span>假一赔三</span>
+										<div class="cover">已售出名表超过45万枚，正品无假货，如有售假三倍赔偿。</div>
+									</li>
+									<li class="fl relative">
+										<i></i>
+										<span>7天退换</span>
+										<div class="cover">无理由退换：除特殊商品外（特卖、私人定制、预售等）质量退换：非人为机芯故障或商品制造缺陷。</div>
+									</li>
+									<li class="fl relative">
+										<i></i>
+										<span>全球联保</span>
+										<div class="cover">800+家售后服务点，完善的售后保障，可享受品牌全球联保服务。</div>
+									</li>
+									<li class="fl relative">
+										<i></i>
+										<span>免息分期</span>
+										<div class="cover">与15家银行合作，招商、中行等提供免息分期购表服务。</div>
+									</li>
+									<div class="clear"></div>
+								</ul>
+								<div class="clear"></div>
+							</div>
+							<div class="service">
+								<div class="title">服务</div>
+								<div class="text">
+									<a href="javascript:;">
+										<span>“特惠” 购表延保服务<i class="icon icon-point"></i></span>
+									</a>
+									<a href="javascript:;">
+										<span>100%正品二手表库<i class="icon icon-point"></i></span>
+									</a>
+								</div>
+							</div>
+							<div class="type">
+								<div class="title">款式</div>
+								<div class="text relative" th:each="spec: ${goodsDetails.skuSaleVals}" th:style="${spec.skuid == goodsDetails.sku.id}?'border: 2px solid #666666':'border: 1px solid #ddd;'">
+									<a th:href="'/goodsDetails/'+${spec.skuid}+'.html'">
+										<img th:src="${spec.image}" alt="" style="width: 35px;height: 50px">
+										<span th:text="${spec.salaVal}"></span>
+										<i class="icon1 icon-shape" th:if="${spec.skuid == goodsDetails.sku.id}"></i>
+									</a>
+								</div>
+							</div>
+							<div class="number">
+								<div class="title fl">数量</div>
+								<div class="text fl">
+									<span class="reduce fl">-</span>
+									<input type="text" class="num-input fl" value="1">
+									<span class="add fl">+</span>
+									<div class="clear"></div>
+								</div>
+								<div class="clear"></div>
+							</div>
+							<div class="btns">
+								<a class="buy fl" href="shopping-order.html">立即购买</a>
+								<a class="ask fl" href="shopping.html">加入购物车</a>
+								<div class="clear"></div>
+							</div>
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+			<!-- 售后服务 -->
+			<div class="services">
+				<div class="container">
+					<div class="service-box">
+						<div class="services-right fr">
+							<!-- 导航条 -->
+							<ul class="goods-nav">
+								<li class="good-info fl">
+									<a href="javascript:;">商品详情</a>
+								</li>
+								<li class="fl specifications">
+									<a href="javascript:;">规格参数</a>
+								</li>
+								<li class="fl after-service">
+									<a href="javascript:;">售后服务</a>
+								</li>
+								<li class="fl outline">
+									<a href="javascript:;">线下体验</a>
+								</li>
+								<li class="fl comments">
+									<a href="javascript:;">评价</a>
+								</li>
+								<div class="clear"></div>
+							</ul>
+							<div class="cover-1">
+								<div class="commend">
+									<div class="title">温馨提示</div>
+									<div class="txt">商品展示区划去的价格为品牌建议零售价，并非原价；万表价为商品实时售价，欢迎比较购买！</div>
+								</div>
+								<div class="guarantee">
+									<img src="/img/ia_300000025.jpg" alt="">
+								</div>
+								<div class="commend-img">
+									<img src="/img/ia_300000026.jpg" alt="">
+								</div>
+								<div class="img-box">
+									<img th:src="${img}" alt="" th:each="img:${goodsDetails.sku.imgs}" style="display: block">
+								</div>
+							</div>
+							<div class="cover-2">
+								<div class="commend-2">
+									<div class="title">温馨提示</div>
+									<div class="txt">商品展示区划去的价格为品牌建议零售价，并非原价；万表价为商品实时售价，欢迎比较购买！</div>
+								</div>
+								<div class="title-2" th:each="spec:${goodsDetails.skuSaleVals}" th:if="${spec.skuid == goodsDetails.sku.id}" th:text="${spec.salaVal}+ '  -规格参数'"></div>
+								<div class="specifications">
+									<div class="text1" th:each="i:${goodsDetails.sku.specMap}">
+											<div class="txt1" th:text="${i.key}"></div>
+											<div class="txt2">
+												<div th:each="v:${i.value}" style="padding-bottom: 15px">
+													<span th:text="${v.key}"></span>
+													<span th:text="${v.value}">自动机械</span>
+												</div>
+											</div>
+									</div>
+								</div>
+							</div>
+							<div class="cover-3">
+								<div class="commend-2">
+									<div class="title">温馨提示</div>
+									<div class="txt">1.商品展示区划去的价格为品牌建议零售价，并非原价；万表价为商品实时售价，欢迎比较购买！</div>
+									<div class="txt"> 2.万表商城销售的手表都是正品手表，享受品牌官方保修；亦由万表名匠提供全国售后诚信服务！</div>
+								</div>
+								<div class="bigimg">
+									<img src="/img/ia_300000033.png" alt="">
+									<div> 售后详细规则请参考：https://www.wbiao.cn/help-20.html</div>
+								</div>
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+
+				</div>
+			</div>
+		
+		</div>
+		
+		<div class="footer">
+			<div class="footer-top">
+				<div class="container">
+					<ul class="clearfix">
+						<li class="fl">
+							<a href="javascript:;" class="clearfix">
+								<i class="icon_footer-top-1 fl"></i>
+								<div class="top-wodrs fl">正品保障</div>
+							</a>
+						</li>
+						<li class="fl">
+							<a href="javascript:;" class="clearfix">
+								<i class="icon_footer-top-2 fl"></i>
+								<div class="top-wodrs fl">免息分期</div>
+							</a>
+						</li>
+						<li class="fl">
+							<a href="javascript:;" class="clearfix">
+								<i class="icon_footer-top-3 fl"></i>
+								<div class="top-wodrs fl">全球联保</div>
+							</a>
+						</li>
+						<li class="fl">
+							<a href="javascript:;" class="clearfix">
+								<i class="icon_footer-top-4 fl"></i>
+								<div class="top-wodrs fl">假一赔三</div>
+							</a>
+						</li>
+						<li class="fl">
+							<a href="javascript:;" class="clearfix">
+								<i class="icon_footer-top-5 fl"></i>
+								<div class="top-wodrs fl">终身售后</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="footer-mid">
+				<div class="container">
+					<div class="mid-top clearfix">
+						<div class="phone-num fl">
+							<div class="phone-words">客服电话</div>
+							<div class="phone-num1">400-883-2688</div>
+							<div class="phone-num2">外呼电话 020-83931899</div>
+							<a class="phone-btn">售后维修</a>
+						</div>
+						<div class="content fl">
+							<ul class="clearfix">
+								<li class="fl">
+									<dl>
+										<dt>新手指南</dt>
+										<dd>
+											<a href="register.html">注册新会员</a>
+											<a href="javascript:;">购物流程</a>
+											<a href="javascript:;">手表小知识</a>
+											<a href="javascript:;">退换货流程</a>
+										</dd>
+									</dl>
+								</li>
+								<li class="fl">
+									<dl>
+										<dt>支 付</dt>
+										<dd>
+											<a href="javascript:;">支付方式</a>
+											<a href="javascript:;">分期付款</a>
+											<a href="javascript:;">发票说明</a>
+											<a href="javascript:;">支付问题</a>
+										</dd>
+									</dl>
+								</li>
+								<li class="fl">
+									<dl>
+										<dt>配 送</dt>
+										<dd>
+											<a href="javascript:;">包裹签收</a>
+											<a href="javascript:;">配送方式</a>
+											<a href="javascript:;">配送说明</a>
+											<a href="javascript:;">自提流程</a>
+										</dd>
+									</dl>
+								</li>
+								<li class="fl">
+									<dl>
+										<dt>万表保障</dt>
+										<dd>
+											<a href="javascript:;">正品保障</a>
+											<a href="javascript:;">售后服务</a>
+											<a href="javascript:;">价格保护</a>
+											<a href="javascript:;">七天退换说明</a>
+										</dd>
+									</dl>
+								</li>
+								<li class="fl">
+									<dl>
+										<dt class="color">开放合作</dt>
+										<dd>
+											<a href="javascript:;">关于万表</a>
+											<a class="color" href="#">商务合作</a>
+											<a href="javascript:;">万表声明</a>
+										</dd>
+									</dl>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="mid-bottom">
+						<div class="corp">
+							<ul>
+								<li>万表网名表商城 版权所有 2009-2019 <a href="#">ICP备案证书号:粤ICP备09108738号</a> 网监备案:4401060103141</li>
+								<li>广州市万表科技股份有限公司 地址:广州市番禺区番禺大道北60-1号</li>
+								<li>Copyright 2009-2019 WWW.WBIAO.CN.LTD ALL RIGHT RESERVED.</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+
+		<script src="/js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/js/goods-details.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/js/jquery.jqzoom.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/js/base.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

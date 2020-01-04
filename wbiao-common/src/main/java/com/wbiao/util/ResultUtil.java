@@ -6,11 +6,11 @@ import java.io.Serializable;
  * @author 单迎辉
  * @date 2019年10月10日 上午8:41:18
  */
-public class ResultUtil implements Serializable {
+public class ResultUtil<T> implements Serializable {
 	private Integer code;
 	private String msg="";
 	private Long count=0L;
-	private Object data;
+	private T data;
 	
 	public ResultUtil() {
 		super();
@@ -27,7 +27,7 @@ public class ResultUtil implements Serializable {
 		this.msg = msg;
 	}
 	
-	public ResultUtil(Integer code, String msg, Long count, Object data) {
+	public ResultUtil(Integer code, String msg, Long count, T data) {
 		super();
 		this.code = code;
 		this.msg = msg;
@@ -64,7 +64,7 @@ public class ResultUtil implements Serializable {
 		return data;
 	}
 
-	public void setData(Object data) {
+	public void setData(T data) {
 		this.data = data;
 	}
 
@@ -72,10 +72,10 @@ public class ResultUtil implements Serializable {
 		return new ResultUtil(200);
 	}
 	
-	public static ResultUtil ok(Object list){
+	public static <T> ResultUtil ok(T data){
 		ResultUtil result = new ResultUtil();
 		result.setCode(200);
-		result.setData(list);;
+		result.setData(data);
 		return result;
 	}
 	public static ResultUtil ok(String msg){

@@ -51,7 +51,6 @@
 				<span>快去挑选心仪的商品吧</span>
 			</div>
 			<div class="tier-love-shop">
-
 			</div>
 		</div>
 		<div class="said-tier">
@@ -222,16 +221,18 @@
 			<div class="block12-content">
 				<ul>
 					<li class="goods fl" th:each="goods,goodsStat:${likeData.rows}" th:if="${goodsStat.index} lt 12">
-                        <a href="goods-details-1.html" target="_blank" >
+                        <a th:href="'http://localhost:10002/goodsDetails/'+${goods.id}+'.html'" target="_blank" >
                             <img th:src="${goods.image}" alt="" style="width: 180px;height: 140px;">
                         </a>
 						<div class="bottom-words">
 							<div class="word1" th:text="${goods.brand}+品牌店"></div>
-							<div class="word2" th:utext="${#strings.abbreviate(goods.title,30)}" ></div>
-							<div class="word3">
-								<p class="p1">售价</p>
-								<p class="p2" th:text="￥+${goods.price}"></p>
-							</div>
+							<a th:href="'http://localhost:10002/goodsDetails/'+${goods.id}+'.html'">
+								<div class="word2" th:utext="${#strings.abbreviate(goods.title,30)}" ></div>
+								<div class="word3">
+									<p class="p1">售价</p>
+									<p class="p2" th:text="￥+${goods.price}"></p>
+								</div>
+							</a>
 						</div>
 					</li>
 				</ul>

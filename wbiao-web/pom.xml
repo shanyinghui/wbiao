@@ -14,6 +14,7 @@
     <description>涉及到页面的操作，都需要在该工程下编写</description>
     <modules>
         <module>wbiao-web-search</module>
+        <module>wbiao-web-goodsDetails</module>
     </modules>
     <dependencies>
         <dependency>

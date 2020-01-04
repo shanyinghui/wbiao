@@ -6,6 +6,7 @@ import com.wbiao.goods.pojo.Spu;
 import com.wbiao.util.PageResult;
 
 import java.util.List;
+import java.util.Map;
 
 public interface GoodsService {
     void addGoods(Goods goods);
@@ -23,4 +24,6 @@ public interface GoodsService {
     void updateSkuEnable(String id);
 
     List<Sku> selectSkuByEnable();
+
+    Map<String, Object> goodsDetails(String skuid);
 }

@@ -20,7 +20,7 @@ public class SpecController {
 
     @GetMapping()
     @Log
-    public ResultUtil selectSpec(){
+    public ResultUtil<List<Spec>> selectSpec(){
         List<Spec> specs = specService.selectSpec();
         return ResultUtil.ok(specs);
     }

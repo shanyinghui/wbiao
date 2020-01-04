@@ -24,7 +24,7 @@ public class SearchController {
 
     @GetMapping("/list")
     @Log
-    public ResultUtil searchGoods(@RequestParam(required = false)Map<String,String> searchMap){
+    public ResultUtil<Map<String, Object>> searchGoods(@RequestParam(required = false)Map<String,String> searchMap){
         Map<String, Object> resultMap = searchService.SearchGoods(searchMap);
         return ResultUtil.ok(resultMap);
     }

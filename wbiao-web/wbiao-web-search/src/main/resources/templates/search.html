@@ -68,7 +68,7 @@
 			<div class="top">
 				<div class="container">
 					<div class="left fl">
-						<a href="javascript:;">首页</a>
+						<a href="/index.html">首页</a>
 						<a href="#">></a>
 						<span>商品中心</span>
 					</div>
@@ -221,24 +221,24 @@
 						<div class="goods-list">
 							<ul>
 								<li class="fl relative" th:each="sku,skuStat:${result.rows}">
-									<a href="goods-details-1.html" target="_blank">
+									<a th:href="'http://localhost:10002/goodsDetails/'+${sku.id}+'.html'" target="_blank">
 										<img th:src="${sku.image}" alt="">
 									</a>
 									<div class="price">
 										<a href="#">
-											<span class="month-pay">售价</span>
+											<span th:href="'http://localhost:10002/goodsDetails/'+${sku.id}+'.html'" class="month-pay">售价</span>
 											<span class="true-price">￥</span>
 											<span class="true-price" th:text="${sku.price}"></span>
 										</a>
 									</div>
 									<div class="docs">
-										<a href="goods-details-1.html" target="_blank" th:utext="${#strings.abbreviate(sku.title,120)}"></a>
+										<a th:href="'http://localhost:10002/goodsDetails/'+${sku.id}+'.html'" target="_blank" th:utext="${#strings.abbreviate(sku.title,120)}"></a>
 									</div>
 									<div class="txt">
 										<span class="sales" th:text="销量+${sku.sale_num}"></span>
 									</div>
 									<div class="business">
-										<a href="goods-details-1.html" target="_blank" th:text="${sku.brand}+品牌店"></a>
+										<a href="javascript:;" target="_blank" th:text="${sku.brand}+品牌店"></a>
 									</div>
 									<div class="free">免息分期</div>
 									<div class="cover">

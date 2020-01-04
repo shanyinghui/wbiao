@@ -12,5 +12,5 @@ import java.util.Map;
 @RequestMapping("/search")
 public interface SearchFeign {
     @GetMapping("/list")
-    ResultUtil searchGoods(@RequestParam(required = false)Map<String,String> searchMap);
+    ResultUtil<Map<String, Object>> searchGoods(@RequestParam(required = false)Map<String,String> searchMap);
 }

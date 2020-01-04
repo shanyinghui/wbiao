@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("goods")
@@ -22,14 +23,13 @@ public class GoodsController {
     @PostMapping()
     @Log
     public ResultUtil addGoods(@RequestBody Goods goods){
-        System.out.println(goods);
         goodsService.addGoods(goods);
         return ResultUtil.ok();
     }
 
     @GetMapping()
     @Log
-    public ResultUtil getGoods(
+    public ResultUtil<PageResult<Sku>> getGoods(
                 @RequestParam("key")String key,
                 @RequestParam(value = "saleable",required = false)Boolean saleable,
                 @RequestParam("page")Integer page,
@@ -41,14 +41,14 @@ public class GoodsController {
 
     @GetMapping("/spu/{id}")
     @Log
-    public ResultUtil getSpuById(@PathVariable("id") String id){
+    public ResultUtil<Spu> getSpuById(@PathVariable("id") String id){
         Spu spu = goodsService.selectSpuById(id);
         return ResultUtil.ok(spu);
     }
 
     @GetMapping("/sku")
     @Log
-    public ResultUtil selectSkuBySpu_id(@RequestParam("id")String id){
+    public ResultUtil<List<Sku>> selectSkuBySpu_id(@RequestParam("id")String id){
         List<Sku> skus = goodsService.selectSkuBySpu_id(id);
         return ResultUtil.ok(skus);
     }
@@ -76,8 +76,20 @@ public class GoodsController {
 
     @GetMapping("/enable")
     @Log
-    public ResultUtil selectSkuByEnable(){
+    public ResultUtil<List<Sku>> selectSkuByEnable(){
         List<Sku> skus = goodsService.selectSkuByEnable();
         return ResultUtil.ok(skus);
+    }
+
+    /**
+     *  商品详情查询
+     * @param skuid
+     * @return
+     */
+    @GetMapping("/goodsDetails/{skuid}")
+    @Log
+    public ResultUtil<Map<String, Object>> goodsDetails(@PathVariable("skuid")String skuid){
+        Map<String, Object> resultMap = goodsService.goodsDetails(skuid);
+        return ResultUtil.ok(resultMap);
     }
 }
