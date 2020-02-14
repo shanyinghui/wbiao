@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html xmlns:wb="http://open.weibo.com/wb"
+	  xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title>万表网</title>
+		<link rel="stylesheet" type="text/css" href="http://127.0.0.1:10003/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="http://127.0.0.1:10003/css/login.css" />
+		<script src="http://127.0.0.1:10003/js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" th:inline="javascript">
+			var token = localStorage.getItem("token");
+			if(token){
+				$.ajax({
+					url:'http://www.wbiao.com/user/loginUserinfo',
+					type: 'get',
+					headers: {
+						"Authorization" :'Bearer '+token
+					},
+					async:false,
+					dataType: 'json',
+					success:function (res) {
+						window.location.href="http://www.wbiao.com/search.html";
+					},
+					error: function (xhr, textStatus, errorThrown) {
+						localStorage.removeItem("token");
+					}
+				})
+			}
+			var code = [[${code}]];
+			if(code!=null){
+				localStorage.setItem("token",code.accessToken);
+				const config = {
+					headers :{
+						'Authorization' : 'Bearer '+code.accessToken
+					}
+				}
+				const carts = JSON.parse(localStorage.getItem("carts")) || [];
+				if(carts.length!=0){
+					$.ajax({
+						url:'http://www.wbiao.com/ord/cart/addCarts',
+						type: 'post',
+						headers: {
+							"Authorization" :config
+						},
+						async:false,
+						contentType: 'application/json',
+						dataType: 'json',
+						data:JSON.stringify(carts),
+						success:function (res) {
+							localStorage.removeItem("carts");
+						}
+					})
+				}
+				window.location.href="http://www.wbiao.com/search.html";
+			}
+		</script>
+		<script src="//tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=4074085384" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<!-- logo -->
+		<div class="logo">
+			<div class="container">
+					<img src="http://127.0.0.1:10003/img/logo.png">
+			</div>
+		</div>
+		<!-- banner -->
+		<div class="banner relative"></div>
+		<!-- form -->
+		<div class="form relative">
+			<div class="text">
+				<span class="vip">会员登录</span>
+			</div>
+			<!-- 手机登录 -->
+			<div class="phone-login">
+				<input class="num" type="text" placeholder="手机号码">
+				<div class="num-alert">请正确填写手机号码</div>
+				<div class="verify-msg">
+					<input class="verify" type="text" placeholder="短信验证码">
+					<span class="getcode">获取验证码</span>
+					<div class="msg-alert">请正确填写验证码</div>
+				</div>
+				<div class="login">
+					<a href="javascript:;">立即登录</a>
+				</div>
+				<div class="register"><a href="register.html">免费注册</a></div>
+			</div>
+
+			<!-- 账号密码 -->
+			<div class="username-login">
+				<input class="username" type="text" placeholder="用户名">
+				<div class="usn-alert">请正确填写用户名</div>
+				<input class="password" type="password" name="" id="" value="" placeholder="密码" />
+				<div class="psw-alert">请正确填写密码</div>
+				<div class="login">
+					<a href="javascript:;">立即登录</a>
+				</div>
+				<div class="texts">
+					<div class="register fl"><a href="register.html">免费注册</a></div>
+					<div class="clear"></div>
+				</div>
+			</div>
+
+			<div class="change relative">
+				<span class="acount">账号密码</span>
+				<i class="icon icon-hot"></i>
+				<span class="social">社交登录</span>
+			</div>
+		</div>
+
+		<!-- 社交登录 -->
+		<div class="social-login relative">
+			<div class="docs">
+				<wb:login-button type="3,2" id="wb_connect_btn">登录按钮</wb:login-button>
+			</div>
+			<div class="shape-2"></div>
+		</div>
+
+		<!-- docs -->
+		<div class="docs">
+			<div class="container">
+				<div>万表网名表商城 版权所有 2008-2017 ICP备案证书号:粤ICP备09108738号 网监备案:4401060103141</div>
+				<div>广州市万表科技股份有限公司 地址:广州市番禺区番禺大道北60-1号</div>
+				<div>Copyright 2008-2017 WWW.WBIAO.CN.LTD ALL RIGHT RESERVED.</div>
+			</div>
+		</div>
+
+
+		<script type="text/javascript">
+
+			$(window).ready(function() {
+				//获取手机验证码
+				$('.getcode').click(function() {
+					var val = $('.phone-login .num').val();
+					$.ajax({
+						url: "http://www.wbiao.com/user/sendCode",
+						type: "post",
+						data: {
+							phone:val
+						},
+						dataType: "json",
+						success: function (res) {
+						}
+					});
+				})
+			
+				$('.vip').click(function() {
+					$('.code').css('color', '#666666');
+					$(this).css('color', '#cc5252');
+					$('.code-login').css('display', 'none');
+					$('.phone-login').css('display', 'block');
+					$('.username-login').css('display', 'none');
+					$('.change').css('display', 'block');
+					$('.change .acount').text('账号密码');
+					$('.icon-hot').css('display', 'none');
+					$('.download').css('display', 'none');
+				})
+
+				// 尾部 验证码/账号密码 点击事件
+				$('.change .acount').click(function() {
+					var text = $(this).text();
+					if (text == '账号密码') {
+						$(this).text('手机动态码登录');
+						$('.username-login').css('display', 'block');
+						$('.phone-login').css('display', 'none');
+						$('.icon-hot').css('display', 'block');
+					} else {
+						$(this).text('账号密码');
+						$('.username-login').css('display', 'none');
+						$('.phone-login').css('display', 'block');
+						$('.icon-hot').css('display', 'none');
+					}
+				})
+
+				// 尾部 社交账号
+				$('.change .social').click(function() {
+					var flag = $('.social-login').css('display');
+					if (flag == 'none') {
+						$('.social-login').css('display', 'block');
+					} else {
+						$('.social-login').css('display', 'none');
+					}
+				})
+
+				// 下载登录
+				$('.social-login .docs a').click(function() {
+					$('.code-login').show();
+					$('.phone-login').hide();
+					$('.username-login').hide()
+					$('.change').hide();
+					$('.social-login').hide();
+					$('.text .code').css('color', '#CC5252');
+					$('.text .vip').css('color', '#666')
+				})
+
+
+				// 表单验证
+				// 电话号码
+				$('.phone-login .num').change(function() {
+					// 获取value值
+					var text = $(this).val();
+					var reg = /^0?(13|14|15|17|18|19)[0-9]{9}$/;
+					var flag = reg.test(text);
+					if (flag) {
+						$('.phone-login .num-alert').hide();
+						$(this).css('margin-bottom', '20px');
+					} else {
+						$('.phone-login .num-alert').css('display', 'block');
+						$(this).css('margin-bottom', '10px');
+					}
+				})
+				
+				// 立即登录
+				// 手机验证码
+				$('.phone-login .login').click(function() {
+					var value = $('.phone-login .num').val();
+					var reg1 = /^0?(13|14|15|17|18|19)[0-9]{9}$/;
+					var flag1 = reg1.test(value);
+					var text = $('.phone-login .verify-msg .verify').val();
+					var reg2 = /^\w{6}$/;
+					var flag2 = reg2.test(text);
+					if (text == '' && value == '') {
+						$('.phone-login .num-alert').css('display', 'block');
+						$('.phone-login .msg-alert').css('display', 'block');
+						$('.phone-login .num').css('margin-bottom', '10px');
+						window.location.href = 'javascript:;';
+					}else if (text == '' || value == '' || !flag1) {
+						$('.phone-login .num-alert').css('display', 'block');
+						$('.phone-login .num').css('margin-bottom', '10px');
+						window.location.href = 'javascript:;';
+					}else if (text == '' || value == '' || !flag2) {
+						$('.phone-login .msg-alert').css('display', 'block');
+						window.location.href = 'javascript:;';
+					}else if (text == '' || value == '' || !flag1 || !flag2 ) {
+						$('.phone-login .num-alert').css('display', 'block');
+						$('.phone-login .num').css('margin-bottom', '10px');
+						$('.phone-login .msg-alert').css('display', 'block');
+						window.location.href = 'javascript:;';
+					}else {
+						$('.phone-login .num-alert').css('display', 'none');
+						$('.phone-login .num').css('margin-bottom', '20px');
+						$('.phone-login .msg-alert').css('display', 'none');
+						$.ajax({
+							url: "http://www.wbiao.com/auth/smsLogin",
+							type: "post",
+							data: {
+								phone:value,
+								code:text
+							},
+							dataType: "json",
+							success: function (res) {
+								if(res.code==500){
+									alert("手机号或验证码输入错误，请重新输入！")
+								}else{
+									var token = res.data.accessToken;
+									var carts = JSON.parse(localStorage.getItem("carts")) || [];
+									if(carts.length!=0){
+										$.ajax({
+											url:'http://www.wbiao.com/ord/cart/addCarts',
+											type: 'post',
+											headers: {
+												"Authorization" :'Bearer '+token
+											},
+											contentType: 'application/json',
+											dataType: 'json',
+											data:JSON.stringify(carts),
+											success:function (res) {
+												localStorage.removeItem("carts");
+											}
+										})
+									}
+									console.log(res);
+									localStorage.setItem("token",res.data.accessToken);
+									window.location.href="http://www.wbiao.com/search.html";
+								}
+							}
+						});
+					}
+				})
+				// 账号密码
+				$('.username-login .login').click(function () {
+					var value = $('.username-login .username').val();
+					var text = $('.username-login .password').val();
+					var reg2 = /^\w{6,}$/;
+					var flag2 = reg2.test(text);
+					console.log(value,text);
+					if (text == '' && value == '') {
+						$('.username-login .usn-alert').css('display', 'block');
+						$('.username-login .psw-alert').css('display', 'block');
+						$('.username-login .password').css('margin-bottom', '0');
+						$('.username-login .username').css('margin-bottom', '10px');
+						window.location.href = 'javascript:;';
+					}else if (text == '' || value == '') {
+						$('.username-login .usn-alert').css('display', 'block');
+						$('.username-login .username').css('margin-bottom', '10px');
+						window.location.href = 'javascript:;';
+					}else if (text == '' || value == '' || !flag2 ) {
+						$('.username-login .password').css('margin-bottom', '0');
+						$('.username-login .psw-alert').css('display', 'block');
+						window.location.href = 'javascript:;';
+					}else {
+						$('.username-login .usn-alert').css('display', 'none');
+						$('.username-login .username').css('margin-bottom', '20px');
+						$('.username-login .psw-alert').css('display', 'none');
+						$.ajax({
+							url: "http://www.wbiao.com/auth/login",
+
+							type: "post",
+							data: {
+								username:value,
+								password:text
+							},
+							dataType: "json",
+							success: function (res) {
+								if(res.code==500){
+									alert("用户名或密码错误，请重新登录！")
+								}else{
+									var token = res.data.accessToken;
+									var carts = JSON.parse(localStorage.getItem("carts")) || [];
+									if(carts.length!=0){
+										$.ajax({
+											url:'http://www.wbiao.com/ord/cart/addCarts',
+											type: 'post',
+											headers: {
+												"Authorization" :'Bearer '+token
+											},
+											contentType: 'application/json',
+											dataType: 'json',
+											data:JSON.stringify(carts),
+											success:function (res) {
+												localStorage.removeItem("carts");
+											}
+										})
+									}
+									console.log(res);
+									localStorage.setItem("token",res.data.accessToken);
+									window.location.href="http://www.wbiao.com/search.html";
+								}
+							}
+						});
+					}
+				})
+				
+				// 验证码 
+				$('.phone-login .verify-msg .verify').change(function() {
+					console.log(1);
+					// 获取value值
+					var text = $(this).val();
+					var reg = /^\w{6}$/;
+					var flag = reg.test(text);
+					if (flag) {
+						$('.phone-login .msg-alert').hide();
+					} else {
+						$('.phone-login .msg-alert').css('display', 'block');
+					}
+				})
+				
+				// 手机号/邮箱/会员名
+				$('.username-login .username').change(function() {
+					// 获取value值
+					var text = $(this).val();
+					if (text == '') {
+						$('.username-login .usn-alert').hide();
+						$(this).css('margin-bottom', '20px');
+					}
+				})
+				
+				// 密码
+				$('.username-login .password').change(function () {
+					var password = $(this).val();
+					var reg = /^\w{6,}$/;
+					var flag = reg.test(password);
+					if (flag) {
+						$('.username-login .psw-alert').hide();
+						$(this).css('margin-bottom', '20px');
+					} else {
+						$('.username-login .psw-alert').css('display', 'block');
+						$(this).css('margin-bottom', '10px');
+					}
+				})
+
+				$("#wb_connect_btn").click(function(){
+					window.location.href="https://api.weibo.com/oauth2/authorize?client_id=4074085384&response_type=code&redirect_uri=http://www.wbiao.com/userPage/login.html";
+				})
+
+			})
+
+		</script>
+	</body>
+</html>

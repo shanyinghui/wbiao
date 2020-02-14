@@ -23,6 +23,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!--    oauth2.0依赖包    -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-oauth2</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <finalName>microservicecloud</finalName>

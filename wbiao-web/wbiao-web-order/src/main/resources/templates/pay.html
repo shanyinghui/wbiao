@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title>万表网</title>
+		<link rel="stylesheet" type="text/css" href="http://127.0.0.1:10004/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="http://127.0.0.1:10004/css/pay.css" />
+	</head>
+	<body>
+	<div id="app">
+		<!-- 头条 -->
+		<div class="toper">
+			<div class="container">
+				<div class="toper-left fl">
+					<a href="index.html">
+						正品保障，免息分期！
+					</a>
+				</div>
+				<div class="toper-right fr">
+					<ul class="top-nav" v-if="flag">
+						<li class="fl">
+							<a href="vip/order.html">您好！ {{user.username}}</a>
+						</li>
+						<li class="fl">
+							<a href='javascript:void(0)' @click='logout'>退出</a>
+						</li>
+						<li class="fl">
+							<a href='javascript:void(0)' @click='showCart'>购物车</a>
+						</li>
+						<div class="clear"></div>
+					</ul>
+					<ul class="top-nav" v-else>
+						<li class="fl">
+							<a href="http://www.wbiao.com/userPage/login.html">请登录</a>
+						</li>
+						<li class="fl">
+							<a href="http://www.wbiao.com/userPage/register.html">注册</a>
+						</li>
+						<li class="fl">
+							<a href='javascript:void(0)' @click='showCart'>购物车</a>
+						</li>
+						<div class="clear"></div>
+					</ul>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+		<!-- 主体 -->
+		<div class="shopping-process">
+			<div class="container">
+				<!-- 顶部 -->
+				<div class="head">
+					<div class="head-left fl">
+						<a href="index.html">
+							<img src="http://127.0.0.1:10004/img/ia_100000002.png" alt="">
+						</a>
+						<a href="index.html">
+							<img src="http://127.0.0.1:10004/img/ia_100000003.png" alt="">
+						</a>
+					</div>
+					<div class="head-right fr clearfix">
+						<ul class="processes">
+							<li class="fl relative">
+								<i class="icon icon-circle"></i>
+								<span>购物车</span>
+							</li>
+							<li class="fl relative">
+								<i class="icon icon-circle1"></i>
+								<span>填写订单信息</span>
+							</li>
+							<li class="fl relative">
+								<i class="icon icon-circle2"></i>
+								<span>支付订单</span>
+							</li>
+							<li class="fr relative">
+								<i class="icon icon-circle3"></i>
+								<span>等待签收</span>
+							</li>
+						</ul>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<!-- 内容 -->
+				<div class="content">
+					<div class="alert-box">
+						<div class="box-left fl">
+							<div class="title" th:text="即将支付+${totalMoney}+元"></div>
+							<div class="timing"></div>
+						</div>
+						<div class="box-right fr">
+							<div class="number">
+								<span>订单号：</span>
+								<span th:text="${id}"></span>
+							</div>
+							<div class="money">
+								<span>总额：</span>
+								<span th:text="${totalMoney}+元"></span>
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="ways">
+						<ul class="bank-list">
+							<li>
+								<a href="javascript:;">
+									<div class="way fl">
+										<img src="http://127.0.0.1:10004/img/ia_200000005.png" alt="">
+										<span>微信</span>
+									</div>
+									<div class="docs fr">快捷支付</div>
+									<div class="clear"></div>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- 结尾 -->
+				<div class="footer">
+					万表网名表商城 版权所有 2008-2018 ICP备案证书号:粤ICP备09108738号 网监备案:4401060103141 <br>
+						广州市万表科技股份有限公司 地址:广州市番禺区番禺大道北60-1号<br>
+						Copyright 2008-2017 WWW.WBIAO.CN.LTD ALL RIGHT RESERVED.
+				</div>
+				<!-- 遮罩 -->
+				<div class="covers">
+					<div class="top">
+						<div class="tit fl">微信支付</div>
+						<div class="fr">
+							<img class="close" src="http://127.0.0.1:10004/img/false.png" alt="">
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="alert">说明：如您已被限额，可用不同的支付方式支付哦</div>
+					<div class="pay-way">
+						<div class="way fl">
+							<div id="qrcode"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="black"></div>
+		<script th:inline="javascript">
+			var orderid = [[${id}]];
+		</script>
+		<script src="http://127.0.0.1:10004/js/qrcode.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="http://127.0.0.1:10004/js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="http://127.0.0.1:10004/js/pay.js" type="text/javascript" charset="utf-8" ></script>
+		<script src="http://127.0.0.1:10004/js/vue.js"></script>
+		<script src="http://127.0.0.1:10004/js/axios.min.js"></script>
+		<script src="http://127.0.0.1:10004/js/stomp.min.js"></script>
+	</body>
+</html>
+
+<script type="text/javascript">
+	var app = new Vue({
+		el: "#app",
+		data: {
+			user: null,
+			flag: false,
+			code : '',
+			validateUrl: '',
+			conf: null
+		},
+		created() {
+			const token = localStorage.getItem("token");
+			if (token) {
+				const config = {
+					headers :{
+						'Authorization' : 'Bearer '+token
+					}
+				}
+				const url = "http://www.wbiao.com/user/loginUserinfo";
+				this.code = token;
+				this.validateUrl = url;
+				this.conf = config;
+				this.loadData(this.setData,this.code,this.validateUrl,this.conf);
+			}
+		},
+		methods: {
+			loadData(callBack,token,url,config) {
+				getBookPromise()
+						.then(res => {
+							console.log(res)
+							callBack(res.data); //callBack异步回调
+						})
+						.catch(res => {
+							localStorage.removeItem("token");
+							console.log(res);
+						})
+				function getBookPromise() {
+					return new Promise((resolve, reject) => {
+						axios.get(url, config)
+								.then(res => {
+									resolve(res)
+								})
+								.catch(res => {
+									reject(res)
+								})
+					})
+				}
+			},
+			setData(data) { //对数据做一些处理
+				this.user = data.data;
+				this.flag = true;
+
+			},
+			logout() {
+				// 退出
+				localStorage.removeItem("token")
+				window.location = 'http://www.wbiao.com/userPage/login.html';
+			},
+			showCart(){
+				if(this.code!=''){
+					axios.get(this.validateUrl, this.conf)
+							.then(res => {
+								const token = this.code;
+								window.open('http://www.wbiao.com/cart?code='+token);
+							}).catch(res => {
+						window.open('http://www.wbiao.com/cart');
+					})
+				}else{
+					window.open('http://www.wbiao.com/cart');
+				}
+			}
+		}
+	});
+
+	var client = Stomp.client('ws://192.168.134.66:15674/ws');
+	var on_connect = function(x) {
+		id = client.subscribe("/exchange/exchange.order/queue.order", function(d) {
+			var msg = d.body;
+			var statu = JSON.parse(msg);
+			var conf = app.conf.headers.Authorization;
+			if(statu.return_code=="SUCCESS"){
+				if(statu.result_code=="SUCCESS"){
+					window.location.href="http://www.wbiao.com/orderPage/success.html?Authorization="+conf;
+				}else{
+					window.location.href="http://www.wbiao.com/orderPage/fail.html?Authorization="+conf;
+				}
+			}else{
+				window.location.href="http://www.wbiao.com/orderPage/fail.html?Authorization="+conf;
+			}
+		});
+	};
+	var on_error =  function() {
+		var conf = app.conf.headers.Authorization;
+		window.location.href="http://www.wbiao.com/orderPage/fail.html?Authorization="+conf;
+	};
+	client.connect('wanbiao', 'wanbiao', on_connect, on_error, '/');
+</script>

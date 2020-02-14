@@ -45,4 +45,20 @@
     <select id="selectSkuById" resultType="Sku">
         select * from t_sku where id = #{id}
     </select>
+
+    <update id="decrCount">
+        update t_sku set stock = stock - #{stock} where id = #{id} and stock >= #{stock}
+    </update>
+
+    <update id="InsertCount">
+        update t_sku set stock = stock + #{stock} where id = #{id}
+    </update>
+
+    <update id="insertSale_num">
+        update t_sku set sale_num = sale_num + #{sale_num} where id = #{id}
+    </update>
+
+    <update id="decrSale_num">
+        update t_sku set sale_num = sale_num - #{sale_num} where id = #{id}
+    </update>
 </mapper>

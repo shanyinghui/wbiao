@@ -1,0 +1,53 @@
+server:
+  port: 8006
+spring:
+  application:
+    name: wbiao-pay
+  rabbitmq:
+    host: 192.168.134.66
+    port: 5672
+    username: wanbiao
+    password: wanbiao
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:7001/eureka/
+  instance: #服务名称的修改
+    instance-id: wbiao-server-pay
+    prefer-ip-address: true     #访问路径可以显示IP地址
+#开启feign的熔断，默认是线程池隔离
+feign:
+  hystrix:
+    enabled: true
+#hystrix 配置
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          #如果enabled设置为false，则请求超时交给ribbon控制
+          enabled: true
+        isolation:
+          strategy: SEMAPHORE   #设置为信号量隔离
+          thread:
+            # 熔断器超时时间，默认：1000/毫秒
+            timeoutInMilliseconds: 5000
+
+
+#微信支付信息配置
+weixin:
+  appid: wx8397f8696b538317
+  partner: 1473426802
+  partnerkey: T6m9iK73b0kn9g5v426MKfHQH7X8rKwb
+  notifyurl: http://w2876650s1.wicp.vip:28793/pay/natify/url
+
+#配置mq的交换机和队列
+mq:
+  pay:
+    exchange:
+      order: exchange.order
+    queue:
+      order: queue.order
+    routing:
+      key: queue.order

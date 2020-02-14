@@ -1,0 +1,313 @@
+.fl {
+	float: left;
+}
+.fr {
+	float: right;
+}
+.clear {
+	clear: both;
+}
+.relative {
+	position: relative;
+}
+.icon_top-close {
+	background-image: url(http://127.0.0.1:10004/img/index-sprites2.png);
+	background-size: 589px;
+	background-position: -456px -414px;
+	width: 32px;
+	height: 32px;
+	cursor: pointer;
+}
+/* 绿 banner */
+.toptop .toptop-banner {
+	background-color: #016870;
+	height: 60px;
+	position: relative;
+}
+
+.toptop .toptop-banner i {
+	position: absolute;
+	margin-top: -16px;
+	top: 50%;
+	right: 44px;
+	display: block;
+	z-index: 5;
+}
+
+.toptop .toptop-banner a {
+	display: block;
+	text-align: center;
+}
+/* toper */
+.toper {
+	padding: 5px;
+	background-color: #F4F4F4;
+	margin-bottom: 20px;
+}
+.toper .toper-left a {
+	color: #CCAA7A;
+	cursor: pointer;
+}
+.toper .toper-right li a{
+	padding: 0 10px;
+}
+.toper .toper-right li a:hover {
+	text-decoration: underline;
+	color: #666;
+}
+.toper .toper-right li:nth-child(2) a,
+.toper .toper-right li:nth-child(5) a {
+	border-right: 1px solid #666;
+}
+/* 主体 */
+/* 顶部 */
+.head {
+	margin-bottom: 20px;
+}
+.head .head-left {
+	margin-left: 50px;
+}
+.head .head-right .processes {
+	width: 470px;
+	border-top: 1px solid #eee;
+	margin-top: 25px;
+}
+.head-right .processes li {
+	width: 25%;
+}
+.head-right .processes li .icon-circle {
+	position: absolute;
+	left: 0;
+	top: -5px;
+	width: 8px;
+	height: 8px;
+	background: #cc5252;
+	border-radius: 10px;
+}
+.head-right .processes li .icon-circle1 {
+	position: absolute;
+	left: 31px;
+	top: -5px;
+	width: 8px;
+	height: 8px;
+	background: #cc5252;
+	border-radius: 10px;
+}
+.head-right .processes li .icon-circle2 {
+	position: absolute;
+	left: 15px;
+	top: -9px;
+	width: 16px;
+	height: 16px;
+	background: #cc5252;
+	border-radius: 10px;
+}
+.head-right .processes li .icon-circle3 {
+	position: absolute;
+	left: 90px;
+	top: -7px;
+	width: 8px;
+	height: 8px;
+	border: 2px solid #666;
+	background-color: white;
+	border-radius: 10px;
+}
+.head-right .processes li:first-child {
+	margin-left: 0;
+}
+.head-right .processes li:last-child {
+	text-align: right;
+}
+.head-right .processes li span {
+	/* margin-right: 50px; */
+	padding: 20px 0;
+	display: inline-block;
+	text-align: center;
+}
+.head-right .processes li:last-child {
+	margin-right: 0;
+}
+/* 内容 */
+.content .alert-box {
+	background-color: #CC5252;
+	padding: 30px;
+	border-radius: 10px;
+	margin-bottom: 10px;
+}
+.content .alert-box .box-left .title {
+	font-size: 24px;
+	font-weight: bold;
+	color: white;
+	margin-bottom: 10px;
+}
+.content .alert-box .box-left .timing {
+	color: white;
+}
+.content .alert-box .box-right {
+	text-align: right;
+}
+.content .alert-box .box-right .number {
+	color: white;
+	margin-bottom: 10px;
+}
+.content .alert-box .box-right .money {
+	color: white;
+}
+.content .intro {
+	text-align: right;
+	color: #2D93CA;
+	font-weight: bold;
+	margin: 20px;
+}
+.content .intro img {
+	display: inline-block;
+	vertical-align: middle;
+	cursor: pointer;
+}
+.content .intro span {
+	display: inline-block;
+	vertical-align: middle;
+	cursor: pointer;
+}
+.content .ways .bank-list li {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #EEEEEE;
+}
+.content .ways .bank-list li a:hover {
+	color: #666;
+}
+.content .ways .bank-list .way img {
+	width: 36px;
+	height: 36px;
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.content .ways .bank-list .way span {
+	display: inline-block;
+	vertical-align: middle;
+}
+.more-ways {
+	width: 100%;
+	text-align: center;
+	padding: 10px;
+	margin-top: 10px;
+	margin-bottom: 40px;
+	cursor: pointer;
+}
+.more-ways img {
+	display: inline-block;
+	vertical-align: middle;
+}
+.more-ways span {
+	font-size: 14px;
+	margin-left: 10px;
+	display: inline-block;
+	vertical-align: middle;
+}
+.cover {
+	display: none;
+	margin-bottom: 40px;
+}
+.cover .bank-list li {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #EEEEEE;
+}
+.cover .bank-list li a:hover {
+	color: #666;
+}
+.cover .bank-list .way img {
+	width: 36px;
+	height: 36px;
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.cover.bank-list .way span {
+	display: inline-block;
+	vertical-align: middle;
+}
+.footer {
+	line-height: 24px;
+	text-align: center;
+	margin-bottom: 50px;
+}
+/* 遮罩 */
+.covers {
+	width: 540px;
+	height: 450px;
+	border-radius: 10px;
+	box-shadow: 0 0 10px 0 rgba(0,0,0,0.3);
+	position: fixed;
+	top: -800px;
+	left: 350px;
+	margin: 0 auto;
+	background-color: white;
+	z-index: 10;
+	/* display: none; */
+}
+.covers .top {
+	width: 500px;
+	padding: 20px;
+	border-bottom: 1px solid #EEEEEE;
+}
+.covers .top .tit {
+	font-size: 18px;
+	display: inline-block;
+	vertical-align: middle;
+	padding-top: 5px;
+}
+.covers .top img {
+	display: inline-block;
+	vertical-align: middle;
+	cursor: pointer;
+}
+.covers .alert {
+	width: 500px;
+	padding: 5px;
+	background-color: #EEEEEE;
+	margin: 20px;
+}
+.covers .pay-way {
+	padding: 30px;
+	margin-left: 100px;
+}
+.covers .pay-way .way {
+	width: 240px;
+	margin-right: 20px;
+}
+.black {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	opacity: 0.5;
+	display: none;
+}
+/* 支付成功 */
+.success {
+	width: 200px;
+	height: 200px;
+	padding: 50px;
+	text-align: center;
+	border-radius: 10px;
+	box-shadow: 0 0 10px 0 rgba(0,0,0,0.3);
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	background-color: white;
+	z-index: 10;
+	font-size: 24px;
+	font-weight: bold;
+	display: none;
+}

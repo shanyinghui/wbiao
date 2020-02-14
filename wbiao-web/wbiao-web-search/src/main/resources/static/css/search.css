@@ -12,22 +12,22 @@
 	position: relative;
 }
 .icon {
-	background-image: url(/img/ia_300002037.png);
+	background-image: url(http://127.0.0.1:10001/img/ia_300002037.png);
 	display: inline-block;
 	font-style: normal;
 }
 .icon1 {
-	background-image: url(/img/ia_300001506.png);
+	background-image: url(http://127.0.0.1:10001/img/ia_300001506.png);
 	display: inline-block;
 	font-style: normal;
 }
 .icon2 {
-	background-image: url(/img/ia_300000936.png);
+	background-image: url(http://127.0.0.1:10001/img/ia_300000936.png);
 	display: inline-block;
 	font-style: normal;
 }
 .icon_said-bottom1 {
-	background-image: url(/img/index-sprites2.png);
+	background-image: url(http://127.0.0.1:10001/img/index-sprites2.png);
 	background-size: 589px;
 	background-position: -507px -382px;
 	width: 24px;
@@ -35,7 +35,7 @@
 }
 
 .icon_said-bottom2 {
-	background-image: url(/img/index-sprites2.png);
+	background-image: url(http://127.0.0.1:10001/img/index-sprites2.png);
 	background-size: 589px;
 	background-position: -507px -246px;
 	width: 24px;
@@ -43,7 +43,7 @@
 }
 
 .icon_said-bottom3 {
-	background-image: url(/img/index-sprites2.png);
+	background-image: url(http://127.0.0.1:10001/img/index-sprites2.png);
 	background-size: 589px;
 	background-position: -469px -360px;
 	width: 24px;
@@ -51,14 +51,14 @@
 }
 
 .icon_said-bottom4 {
-	background-image: url(/img/index-sprites2.png);
+	background-image: url(http://127.0.0.1:10001/img/index-sprites2.png);
 	background-size: 589px;
 	background-position: -373px -462px;
 	width: 24px;
 	height: 24px;
 }
 .icon_top-close {
-	background-image: url(/img/index-sprites2.png);
+	background-image: url(http://127.0.0.1:10001/img/index-sprites2.png);
 	background-size: 589px;
 	background-position: -456px -414px;
 	width: 32px;
@@ -452,7 +452,7 @@ a:hover {
 	position: absolute;
 	bottom: -1px;
 	left: 0;
-	background: url(../img/index/brand-logo-down.png) bottom center repeat;
+	background: url(http://127.0.0.1:10001/img/brand-logo-down.png) bottom center repeat;
 	/* background-image: url(); */
 	/* background-repeat: repeat; */
 	z-index: 3;

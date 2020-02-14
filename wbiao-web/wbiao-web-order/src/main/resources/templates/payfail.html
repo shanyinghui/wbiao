@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>万表网</title>
+	<link rel="stylesheet" href="http://127.0.0.1:10004/css/reset.css">
+	<link rel="stylesheet" href="http://127.0.0.1:10004/css/cart.css">
+</head>
+<body>
+<div id="app">
+	<div class="top">
+		<div class="top-words container clearfix">
+			<!-- top 左 -->
+			<div class="top-left fl">
+				<a href="index.html">正品保障，免息分期！</a>
+			</div>
+			<!-- top 右 -->
+			<div class="top-right fr clearfix">
+				<!-- 右 登录 -->
+				<div v-if="flag">
+					<div class="top-login fl clearfix">
+						<a href="login.html">您好！&nbsp; {{user.username}}</a>
+						<a href='javascript:void(0)' @click='logout'>退出</a>
+					</div>
+					<!-- 右 其他 -->
+					<div class="top-others fl clearfix">
+						<span class="line fl">|</span>
+						<a href="vip/order.html">我的订单</a>
+					</div>
+				</div>
+				<div v-else>
+					<div class="top-login fl clearfix" >
+						<a href="http://www.wbiao.com/userPage/login.html">请登录</a>
+						<a href="http://www.wbiao.com/userPage/register.html">注册</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="pt-head">
+			<div class="container" style="margin-left: 20px">
+				<!--左头部-->
+				<div class="head-left fl">
+					<!--logo-->
+					<div class="logo">
+						<a href="index.html" class="inline-block">
+							<img class="middle" src="http://127.0.0.1:10004/img/LOGO.png"></img>
+						</a>
+						<a href="index.html">
+							<img class="middle" src="http://127.0.0.1:10004/img/ia_200000007.png" alt="">
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--未登录购物车的内容-->
+		<div class="notLogged-shop">
+			<i class="icon-car" style="display: inline-block; background: url(http://127.0.0.1:10004/img/fail.png) no-repeat;background-size:90% 80px;"></i>
+			<p class="info">　支付失败，请稍后再试! </p>
+			<p class="car-btn">
+				<a href="http://www.wbiao.com/search.html" class="go-shopping">返回首页</a>
+			</p>
+		</div>
+		<!-- footer -->
+		<div class="footer">
+			<div class="footer-top">
+				<div class="container">
+					<ul class="clearfix">
+						<li class="fl">
+							<a href="javascript:;" class="clearfix">
+								<i class="icon_footer-top-1 fl"></i>
+								<div class="top-wodrs fl">正品保障</div>
+							</a>
+						</li>
+						<li class="fl">
+							<a href="javascript:;" class="clearfix">
+								<i class="icon_footer-top-2 fl"></i>
+								<div class="top-wodrs fl">免息分期</div>
+							</a>
+						</li>
+						<li class="fl">
+							<a href="javascript:;" class="clearfix">
+								<i class="icon_footer-top-3 fl"></i>
+								<div class="top-wodrs fl">全球联保</div>
+							</a>
+						</li>
+						<li class="fl">
+							<a href="javascript:;" class="clearfix">
+								<i class="icon_footer-top-4 fl"></i>
+								<div class="top-wodrs fl">假一赔三</div>
+							</a>
+						</li>
+						<li class="fl">
+							<a href="javascript:;" class="clearfix">
+								<i class="icon_footer-top-5 fl"></i>
+								<div class="top-wodrs fl">终身售后</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="footer-mid">
+				<div class="container">
+					<div class="mid-top clearfix">
+						<div class="phone-num fl">
+							<div class="phone-words">客服电话</div>
+							<div class="phone-num1">400-883-2688</div>
+							<div class="phone-num2">外呼电话 020-83931899</div>
+							<a class="phone-btn">售后维修</a>
+						</div>
+						<div class="content fl">
+							<ul class="clearfix">
+								<li class="fl">
+									<dl>
+										<dt>新手指南</dt>
+										<dd>
+											<a href="register.html">注册新会员</a>
+											<a href="javascript:;">购物流程</a>
+											<a href="javascript:;">手表小知识</a>
+											<a href="javascript:;">退换货流程</a>
+										</dd>
+									</dl>
+								</li>
+								<li class="fl">
+									<dl>
+										<dt>支 付</dt>
+										<dd>
+											<a href="javascript:;">支付方式</a>
+											<a href="javascript:;">分期付款</a>
+											<a href="javascript:;">发票说明</a>
+											<a href="javascript:;">支付问题</a>
+										</dd>
+									</dl>
+								</li>
+								<li class="fl">
+									<dl>
+										<dt>配 送</dt>
+										<dd>
+											<a href="javascript:;">包裹签收</a>
+											<a href="javascript:;">配送方式</a>
+											<a href="javascript:;">配送说明</a>
+											<a href="javascript:;">自提流程</a>
+										</dd>
+									</dl>
+								</li>
+								<li class="fl">
+									<dl>
+										<dt>万表保障</dt>
+										<dd>
+											<a href="javascript:;">正品保障</a>
+											<a href="javascript:;">售后服务</a>
+											<a href="javascript:;">价格保护</a>
+											<a href="javascript:;">七天退换说明</a>
+										</dd>
+									</dl>
+								</li>
+								<li class="fl">
+									<dl>
+										<dt class="color">开放合作</dt>
+										<dd>
+											<a href="javascript:;">关于万表</a>
+											<a class="color" href="#">商务合作</a>
+											<a href="javascript:;">万表声明</a>
+										</dd>
+									</dl>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="mid-bottom">
+						<div class="corp">
+							<ul>
+								<li>万表网名表商城 版权所有 2009-2019 <a href="#">ICP备案证书号:粤ICP备09108738号</a> 网监备案:4401060103141</li>
+								<li>广州市万表科技股份有限公司 地址:广州市番禺区番禺大道北60-1号</li>
+								<li>Copyright 2009-2019 WWW.WBIAO.CN.LTD ALL RIGHT RESERVED.</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="http://127.0.0.1:10004/js/jquery-3.4.1.min.js"></script>
+	<script src="http://127.0.0.1:10004/js/vue.js"></script>
+	<script src="http://127.0.0.1:10004/js/axios.min.js"></script>
+	<script type="text/javascript">
+		var loginToken = '';
+		var app = new Vue({
+			el: "#app",
+			data: {
+				user: null,
+				flag: false,
+				code : '',
+				validateUrl: '',
+				conf: null
+			},
+			created() {
+				const token = localStorage.getItem("token");
+				if (token) {
+					const config = {
+						headers :{
+							'Authorization' : 'Bearer '+token
+						}
+					}
+					const url = "http://www.wbiao.com/user/loginUserinfo";
+					this.code = token;
+					loginToken = token;
+					this.validateUrl = url;
+					this.conf = config;
+					this.loadData(this.setData,this.code,this.validateUrl,this.conf);
+				}
+			},
+			methods: {
+				loadData(callBack,token,url,config) {
+					getBookPromise()
+							.then(res => {
+								console.log(res)
+								callBack(res.data); //callBack异步回调
+							})
+							.catch(res => {
+								localStorage.removeItem("token");
+								console.log(res);
+							})
+					function getBookPromise() {
+						return new Promise((resolve, reject) => {
+							axios.get(url, config)
+									.then(res => {
+										resolve(res)
+									})
+									.catch(res => {
+										reject(res)
+									})
+						})
+					}
+				},
+				setData(data) { //对数据做一些处理
+					this.user = data.data;
+					this.flag = true;
+
+				},
+				logout() {
+					// 退出
+					localStorage.removeItem("token")
+					window.location = 'http://www.wbiao.com/userPage/login.html';
+				}
+			}
+		});
+	</script>
+</body>
+</html>

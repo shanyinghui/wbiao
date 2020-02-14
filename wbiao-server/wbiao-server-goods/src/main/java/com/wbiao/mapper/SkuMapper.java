@@ -23,4 +23,11 @@ public interface SkuMapper {
 
     Sku selectSkuById(String id);
 
+    int decrCount(@Param("id")String id, @Param("stock")Integer stock);
+
+    void InsertCount(@Param("id")String id, @Param("stock")Integer stock);
+
+    void insertSale_num(@Param("id")String id, @Param("sale_num")Integer sale_num);
+
+    void decrSale_num(@Param("id")String id, @Param("sale_num")Integer sale_num);
 }

@@ -1,0 +1,694 @@
+/*导航栏*/
+.member-right .cont-nav {
+    border-bottom: none;
+}
+
+/*个人信息表*/
+.member-right .profile-inner {
+    width: 425px;
+    margin: 30px auto;
+}
+
+/*头像*/
+.member-right .profile-inner .avatar {
+    text-align: center;
+    width: 103px;
+    height: 103px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    margin-left: 135px;
+    margin-bottom: 15px;
+}
+
+.member-right .profile-inner .icon-avatar {
+    display: inline-block;
+    background-position: 0 0;
+    width: 102px;
+    height: 102px;
+    outline: none;
+}
+
+/*p 标签*/
+.member-right .profile-inner .pro {
+    color: #999999;
+    height: 35px;
+    line-height: 35px;
+    font-size: 14px;
+}
+
+.member-right .profile-inner .pro .pro-left {
+    display: inline-block;
+    width: 175px;
+    text-align: right;
+}
+
+.member-right .profile-inner .pro .pro-right {
+    display: inline-block;
+    margin-left: 15px;
+    color: #333333;
+}
+
+/*修改资料*/
+.member-right .profile-inner .revice {
+    color: #4a90e2;
+    font-size: 12px;
+    display: inline-block;
+    margin-left: 190px;
+    outline: none;
+    cursor: pointer;
+}
+
+.member-right .profile-inner .pro-bottom {
+    color: #999999;
+    text-align: center;
+    margin-top: 85px;
+}
+
+/*线*/
+.member-right .profile-inner .pro-bottom::after {
+    content: "";
+    display: inline-block;
+    width: 115px;
+    height: 1px;
+    background-color: #ddd;
+    margin-bottom: 4px;
+    margin-left: 3px;
+}
+
+.member-right .profile-inner .pro-bottom::before {
+    content: "";
+    display: inline-block;
+    width: 115px;
+    height: 1px;
+    background-color: #ddd;
+    margin-bottom: 4px;
+    margin-right: 3px;
+}
+
+/*修改资料框*/
+.shadow {
+    display: inline-block;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    display: none;
+}
+
+.information {
+    position: fixed;
+    width: 580px;
+    height: 380px;
+    background-color: #fff;
+    z-index: 20;
+    top: 50%;
+    left: 50%;
+    margin-left: -290px;
+    margin-top: -190px;
+    display: none;
+    border-radius: 6px;
+}
+
+/*表头*/
+.shadow .title {
+    border-bottom: 1px solid #ddd;
+    cursor: move;
+}
+
+.shadow .title .title-left {
+    margin-left: 20px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 18px;
+    color: #333333;
+}
+
+/*关闭按钮*/
+.shadow .title .icon-close {
+    background-position: 0px -462px;
+    width: 32px;
+    height: 32px;
+    margin-right: 20px;
+    margin-top: 14px;
+    cursor: pointer;
+}
+
+/*填写内容*/
+.shadow .data-block {
+    padding-left: 40px;
+    margin-top: 20px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #ddd;
+}
+
+.shadow .data-block .data-info .name {
+    width: 320px;
+    margin-right: 40px;
+}
+
+/*名字*/
+.shadow .data-block .data-info .vip-name {
+    color: #333;
+    font-size: 12px;
+    height: 24px;
+    line-height: 24px;
+}
+
+.shadow .data-block .data-info .vip-name i {
+    color: #d26666;
+}
+
+/*输入框*/
+.shadow .data-info .input {
+    width: 320px;
+    position: relative;
+}
+
+.shadow .data-info input {
+    width: 324px;
+    height: 35px;
+    line-height: 35px;
+    border: none;
+    outline: 0;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+    color: #333;
+
+}
+
+/*改变input的placehoder 的颜色*/
+.shadow .data-info input::-webkit-input-placeholder {
+    color: #ccc;
+}
+
+.shadow .data-info .icon-delete {
+    position: absolute;
+    background-position: -546px -136px;
+    height: 20px;
+    width: 20px;
+    top: 8px;
+    right: 6px;
+    cursor: pointer;
+    display: none;
+}
+
+.shadow .data-info em {
+    width: 122px;
+    background-color: #cc5252;
+    color: #fff;
+    padding: 2px 0px;
+    text-align: center;
+    position: absolute;
+    top: 8px;
+    left: -133px;
+    z-index: 30;
+    font-style: normal;
+    border-radius: 2px;
+    line-height: 24px;
+    display: none;
+}
+
+.shadow .data-info .icon-error {
+    background-position: -285px -60px;
+    width: 6px;
+    height: 10px;
+    position: absolute;
+    left: 122px;
+}
+
+/*姓氏*/
+.shadow .data-block .dp {
+    color: #333;
+    font-size: 12px;
+    height: 24px;
+    line-height: 24px;
+}
+
+.shadow .data-block .dp i {
+    color: #d26666;
+}
+
+/*性别*/
+.shadow .data-block .sex {
+    margin-top: 20px;
+}
+
+/*按钮*/
+.shadow .data-block .sex .sex-btn {
+    height: 30px;
+    line-height: 30px;
+    position: relative;
+    cursor: pointer;
+    margin-right: 40px;
+}
+
+.shadow .data-block .sex .default {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    position: absolute;
+    top: 6px;
+    left: 2px;
+}
+
+.shadow .data-block .sex .icon-circle {
+    display: inline-block;
+    background-position: -272px -144px;
+    height: 22px;
+    width: 22px;
+    margin-right: 4px;
+    visibility: hidden;
+}
+
+.shadow .data-block .sex em {
+    font-style: normal;
+    color: #acacac;
+    font-size: 12px;
+}
+
+.shadow .data-block .location {
+    margin-top: 20px;
+}
+
+/*下拉列表*/
+.shadow .data-block .location select {
+    width: 120px;
+    height: 36px;
+    line-height: 36px;
+    color: #999;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: 0;
+    margin-right: 10px;
+    padding-left: 4px;
+    -webkit-appearance: none;
+    background: url(http://127.0.0.1:10004/img/sprites_07.png) no-repeat;
+    background-position: 105px 11px;
+}
+
+.shadow .data-block .location .city, .area {
+    display: none;
+}
+
+.shadow .data-block option {
+    font-size: 12px;
+}
+
+/*生日*/
+.shadow .data-block .birthday {
+    margin-top: 20px;
+}
+
+.shadow .data-block .birthday select {
+    width: 120px;
+    height: 36px;
+    line-height: 36px;
+    color: #999;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: 0;
+    margin-right: 10px;
+    padding-left: 4px;
+    -webkit-appearance: none;
+    background: url(http://127.0.0.1:10004/img/sprites_07.png) no-repeat;
+    background-position: 105px 11px;
+}
+
+.shadow .data-block .birthday #month, #day {
+    display: none;
+}
+
+/*职业*/
+.shadow .data-block .job {
+    margin-top: 20px;
+}
+
+.shadow .data-block .job select {
+    width: 120px;
+    height: 36px;
+    line-height: 36px;
+    color: #999;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: 0;
+    margin-right: 10px;
+    padding-left: 4px;
+    -webkit-appearance: none;
+    background: url(http://127.0.0.1:10004/img/sprites_07.png) no-repeat;
+    background-position: 105px 11px;
+}
+
+/*保存取消按钮*/
+.shadow .layui-layer-btn {
+    margin-top: 20px;
+}
+
+.shadow .layui-layer-btn .btn1 {
+    display: inline-block;
+    width: 100px;
+    height: 48px;
+    text-align: center;
+    line-height: 48px;
+    border: 1px solid #999;
+    border-radius: 24px;
+    color: #999;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.shadow .layui-layer-btn .btn0 {
+    display: inline-block;
+    width: 140px;
+    height: 48px;
+    text-align: center;
+    line-height: 48px;
+    border: 1px solid #ddd;
+    border-radius: 24px;
+    color: #fff;
+    background-color: #cc5252;
+    margin-right: 20px;
+    cursor: pointer;
+}
+.shadow .layui-layer-btn .btn0-add{
+    display: none;
+}
+/*收获地址*/
+.main .member-right .cont-box {
+    background-color: #fff;
+    padding-bottom: 40px;
+}
+/*收获地址框*/
+.main .member-right .cont-box li {
+    float: left;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    width: 270px;
+    height: 170px;
+    position: relative;
+    cursor: pointer;
+}
+
+.main .member-right .cont-box .on {
+    border: 1px solid #cc5252;
+}
+
+.member-right .cont-box p {
+    margin-left: 20px;
+    color: #999;
+}
+.main .member-right .cont-box .p1 {
+    margin-top: 20px;
+    height: 21px;
+    line-height: 21px;
+
+    margin-bottom: 5px;
+}
+
+.main .member-right .cont-box .p1 span {
+    font-size: 16px;
+}
+
+.main .member-right .cont-box .p1 i {
+    font-style: normal;
+    background-color: #f1f1f1;
+    font-size: 12px;
+    padding: 1px 2px;
+}
+.main .member-right .cont-box .p1 .h{
+    display: none;
+}
+.main .member-right .cont-box span {
+    font-size: 12px;
+
+}
+
+.main .member-right .cont-box .p3 {
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.member-right .cont-box .icon-arrow {
+    position: absolute;
+    background-position: -376px -325px;
+    width: 14px;
+    height: 14px;
+    bottom: 0px;
+    right: 0px;
+}
+/*编辑删除*/
+.member-right .cont-box .p5{
+    text-align: right;
+    position: absolute;
+    bottom: 10px;
+    right: 13px;
+    display: none;
+}
+.member-right .cont-box .p5 a{
+    outline: none;
+    color: #477db3;
+    font-size: 12px;
+    margin-right: 5px;
+}
+.member-right .cont-box .on:hover .p5{
+    display: inline-block;
+}
+
+/*添加收获地址*/
+.member-right .cont-box .add {
+    border: 1px solid #477db3;
+}
+
+.member-right .cont-box .add a {
+    display: inline-block;
+    text-align: center;
+    line-height: 170px;
+    outline: none;
+    width: 270px;
+    height: 170px;
+}
+
+.member-right .cont-box .add em {
+    font-size: 14px;
+    color: #477db3;
+    font-style: normal;
+    font-weight: 300;
+}
+
+.member-right .cont-box .add .icon-add {
+    background-position: -328px -325px;
+    height: 14px;
+    width: 14px;
+}
+.shadow .data-block .data-info .name {
+    width: 320px;
+    margin-right: 40px;
+}
+
+/*详细地址*/
+
+.shadow .data-block  .address-msg{
+    margin-top: 30px;
+}
+.shadow .data-block  .address-msg .dp{
+    color: #333;
+    font-size: 12px;
+    height: 24px;
+    line-height: 24px;
+}
+
+/*输入框*/
+.shadow .address-msg .input {
+    width: 320px;
+    position: relative;
+}
+
+.shadow .address-msg input {
+    width: 480px;
+    height: 35px;
+    line-height: 35px;
+    border: none;
+    outline: 0;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+    color: #333;
+
+}
+
+/*改变input的placehoder 的颜色*/
+.shadow .address-msg input::-webkit-input-placeholder {
+    color: #ccc;
+}
+
+.shadow .address-msg .icon-delete {
+    position: absolute;
+    background-position: -546px -136px;
+    height: 20px;
+    width: 20px;
+    top: 8px;
+    right: 6px;
+    cursor: pointer;
+    display: none;
+}
+
+.shadow .address-msg em {
+    width: 122px;
+    background-color: #cc5252;
+    color: #fff;
+    padding: 2px 0px;
+    text-align: center;
+    position: absolute;
+    top: 8px;
+    left: -133px;
+    z-index: 30;
+    font-style: normal;
+    border-radius: 2px;
+    line-height: 24px;
+    display: none;
+}
+
+.shadow .address-msg .icon-error {
+    background-position: -285px -60px;
+    width: 6px;
+    height: 10px;
+    position: absolute;
+    left: 122px;
+}
+
+/*删除框*/
+.layui-layer-dialog{
+    width: 400px!important;
+    height: 200px;
+    background: #fff;
+    border-radius: 8px;
+}
+/*表头*/
+.layui-layer-dialog .layui-layer-title{
+
+    background-color: #fff;
+    border-radius: 8px 8px 0 0;
+    height: 36px;
+    line-height: 36px;
+}
+.layui-layer-dialog .layui-layer-content{
+    font-weight: 600;
+    font-size: 18px!important;
+    color: #333333;
+    margin-left: 20px;
+}
+/*取消 确定按钮*/
+.layui-layer-dialog .layui-layer-btn{
+    margin-top: 36px;
+}
+.layui-layer-dialog .layui-layer-btn a{
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 20px;
+    font-size: 14px;
+    text-align: center;
+    background-color: #ffffff;
+}
+.layui-layer-dialog .layui-layer-btn .layui-layer-btn0{
+    width: 48px;
+    color: #999;
+    border: 1px solid #ddd;
+}
+.layui-layer-dialog .layui-layer-btn .layui-layer-btn1{
+    color: #fff;
+    background-color: #cc5252;
+    border: 1px solid #cc5252;
+    font-weight: 600;
+    width: 68px;
+}
+
+
+/*密码设置页面*/
+
+.member-right .pwd-pack {
+    margin-top: 40px;
+    margin-left: 300px;
+}
+.member-right .pwd-pack p{
+    position: relative;
+}
+.member-right .pwd-pack p span{
+    font-size: 12px;
+    color: #333;
+    margin-bottom: 5px;
+}
+/*输入框*/
+.member-right .pwd-pack p input{
+    display: block;
+    width: 320px;
+    height: 36px;
+    border: none;
+    border-bottom: 1px solid #eee;
+    outline: 0;
+    line-height: 36px;
+    color: #333;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+.member-right .pwd-pack p input::placeholder{
+    color: #ccc;
+}
+/*错误提示框*/
+.member-right .pwd-pack p i{
+    position: absolute;
+    width: 140px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    color: #fff;
+    background-color: #cc5252;
+    top: 26px;
+    left: -150px;
+    display: inline-block;
+    font-style: normal;
+    border-radius: 2px;
+    display: none;
+}
+.member-right .pwd-pack p i::after{
+    content: "";
+    display: inline-block;
+    background: url(http://127.0.0.1:10004/img/sprites.png)no-repeat;
+    background-position: -285px -60px;
+    width: 6px;
+    height: 10px;
+    position: absolute;
+    left: 140px;
+    top: 2px;
+}
+/*图形验证码*/
+.member-right .pwd-pack .code{
+    position: relative;
+}
+.member-right .pwd-pack .code .random{
+    font-style: normal;
+    position: absolute;
+    width: 100px;
+    height: 25px;
+    bottom: 2px;
+    left: 220px;
+}
+/*确认按钮*/
+.member-right .pwd-pack .confirm-btn a{
+    display: inline-block;
+    width: 140px;
+    height: 46px;
+    line-height: 46px;
+    background-color: #cc5252;
+    border: 1px solid #cc5252;
+    border-radius:23px;
+    text-align: center;
+    color: #fff;
+    margin-top: 25px;
+    outline: none;
+}

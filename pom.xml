@@ -17,6 +17,7 @@
         <module>wbiao-gateway-zuul</module>
         <module>wbiao-common_db</module>
         <module>wbiao-web</module>
+        <module>wbiao-user-oauth</module>
     </modules>
     <dependencyManagement>
         <dependencies>

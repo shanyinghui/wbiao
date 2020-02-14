@@ -6,14 +6,12 @@ spring:
 
 eureka:
   client:
-
-    registry-fetch-interval-seconds: 5  #表示eureka client间隔多久去拉取服务注册信息
+    registry-fetch-interval-seconds: 5
     service-url:
       defaultZone: http://127.0.0.1:7001/eureka/
-
-  instance: #服务名称的修改
+  instance:
     instance-id: wibao-gateway-zuul
-    prefer-ip-address: true     #访问路径可以显示IP地址
+    prefer-ip-address: true
 
 
 
@@ -22,12 +20,66 @@ zuul:
   prefix: /api # 设置统一的公共前缀
   ignoredServices: "*" #禁用默认路由，只找手动配置的路由
   routes:
-    goods-server: #面向服务的路由配置，可以自定义设置名称
+    goods-server:     #面向服务的路由配置，可以自定义设置名称
       path: /item/** #映射的url
       serviceId: wbiao-goods #服务名
     upload-server: #文件上传微服务
       path: /file/**
       serviceId: wbiao-upload
+    user-server: #用户微服务
+      path: /user/**
+      serviceId: wbiao-user
+    oauth-server: #鉴权微服务
+      path: /auth/**
+      serviceId: wbiao-user-auth
+    goodsDetailsWeb-server: #商品详情页微服务
+      path: /goodsDetails/**
+      serviceId: wbiao-web-goodsDetails
+    order-server: #订单微服务
+      path: /order/**
+      serviceId: wbiao-order
+    orderWeb-server: #订单页面微服务
+      path: /orderWeb/**
+      serviceId: wbiao-web-order
+    searchWeb-srver: #搜索页面微服务
+      path: /searchWeb/**
+      serviceId: wbiao-web-search
+    userWeb-srver: #用户页面微服务
+      path: /userWeb/**
+      serviceId: wbiao-web-user
+    pay-srver: #用户页面微服务
+      path: /pay/**
+      serviceId: wbiao-pay
+  sensitive-headers:
+
+
+  ratelimit:
+    enabled: true #开启限流
+      #default-policy: #配置全局限流
+      #  limit: 3
+    # refresh-interval: 60  #60s 内请求超过 3 次，服务端就抛出异常，60s 后可以恢复正常请求
+    # type: origin   #针对ip进行限流,不影响其他ip
+
+    #配置局部限流
+    policies:
+      goods-server:
+        limit: 3
+        refresh-interval: 60
+  host:
+    connect-timeout-millis: 70000  #HTTP连接超时
+    socket-timeout-millis: 70000   #socket超时
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 30000
+
+ribbon:
+  ReadTimeout: 30000 #请求处理的超时时间
+  ConnectTimeout: 30000  #请求连接的超时时间
 
 info:
   app.name: wbiao-gateway
