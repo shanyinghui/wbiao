@@ -15,6 +15,9 @@
         <module>wbiao-server-goods</module>
         <module>wbiao-server-uploadfile</module>
         <module>wbiao-server-search</module>
+        <module>wbiao-server-user</module>
+        <module>wbiao-server-order</module>
+        <module>wbiao-server-pay</module>
     </modules>
     <dependencies>
         <!--依赖公共模块-->
@@ -34,10 +37,10 @@
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
             <!--可以对服务进行描述-->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-actuator</artifactId>
-            </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -50,4 +53,5 @@
             </exclusions>
         </dependency>
     </dependencies>
+
 </project>

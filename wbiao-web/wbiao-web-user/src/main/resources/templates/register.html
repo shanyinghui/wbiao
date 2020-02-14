@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>万表网</title>
+		<link rel="stylesheet" href="http://127.0.0.1:10003/css/reset.css">
+		<link rel="stylesheet" type="text/css" href="http://127.0.0.1:10003/css/register.css" />
+	</head>
+	<body>
+		<!-- logo -->
+		<div class="logo">
+			<div class="container">
+				<a href="/login.html">
+					<img class="logo" src="http://127.0.0.1:10003/img/logo.png">
+				</a>
+				<a href="/index.html">
+					<img class="title" src="http://127.0.0.1:10003/img/title.png" alt="">
+				</a>
+			</div>
+		</div>
+		<!-- 内容 -->
+		<div class="main">
+			<div class="container">
+				<div class="content">
+					<div class="box">
+						<div class="title">注册万表会员</div>
+						<form id="form">
+							<div class="relative">
+								<input class="username" type="text" name="username" placeholder="请输入用户名" />
+								<i class="icon1 icon-phone"></i>
+								<div class="username-alert">
+									<img src="http://127.0.0.1:10003/img/alert.png" alt="">
+									<span>6-20位字符，只能包含汉字、字母、数字、下划线</span>
+								</div>
+								<div class="validateUsername-alert">
+									<img src="http://127.0.0.1:10003/img/alert.png" alt="">
+									<span>用户名已存在，请重新输入</span>
+								</div>
+							</div>
+							<div class="relative">
+								<input class="num" type="text" name="phone" placeholder="请输入手机号码" />
+								<i class="icon1 icon-phone"></i>
+								<div class="num-alert">
+									<img src="http://127.0.0.1:10003/img/alert.png" alt="">
+									<span>请输入正确的手机号</span>
+								</div>
+								<div class="validatePhone-alert">
+									<img src="http://127.0.0.1:10003/img/alert.png" alt="">
+									<span>手机号已存在，请重新输入</span>
+								</div>
+							</div>
+							<div class="verify-msg relative">
+								<input class="verify fl" type="text" name="code"c placeholder="短信验证码">
+								<i class="icon1 icon-msg"></i>
+								<span class="getcode fr">获取验证码</span>
+								<div class="clear"></div>
+							</div>
+							<div class="verify-alert">
+								<img src="http://127.0.0.1:10003/img/alert.png" alt="">
+								<span>请输入6位数字验证码</span>
+							</div>
+							<div class="relative">
+								<input class="password1" type="password" name="password" value="" placeholder="请设置密码" />
+								<i class="icon1 icon-lock1"></i>
+								<i class="icon icon-eyeclose1"></i>
+								<i class="icon icon-eyeopen1"></i>
+								<div class="password-alert">
+									<img src="http://127.0.0.1:10003/img/alert.png" alt="">
+									<span>密码应为6-20位任意字符组合</span>
+								</div>
+							</div>
+							<div class="relative">
+								<input class="password2" type="password" placeholder="请再次输入密码" />
+								<i class="icon1 icon-lock2"></i>
+								<i class="icon icon-eyeclose2"></i>
+								<i class="icon icon-eyeopen2"></i>
+								<div class="secondpsw-alert">
+									<img src="http://127.0.0.1:10003/img/alert.png" alt="">
+									<span>两次密码不一致，请检查您的密码</span>
+								</div>
+							</div>
+						</form>
+
+						<div class="register">
+							<a href="javascript:;">立即注册</a>
+						</div>
+						<div class="docs">点击“立即注册”，即表示您同意并愿意遵守
+							<a href="#">万表网用户协议</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="http://127.0.0.1:10003/js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var validateUsername = false;
+			var validatePhone = false;
+			// 用户名
+			$('.box .username').change(function() {
+				// 获取value值
+				var text = $(this).val();
+				var rag = /^[a-zA-Z0-9_\u4e00-\u9fa5]+$/;
+				var flag = rag.test(text);
+				if (flag && text.length>=6 && text.length<=20) {
+					$.ajax({
+						url: "http://127.0.0.1:9000/api/user/register/validateUsername",
+						type: "get",
+						data: {
+							username:text
+						},
+						async: false,
+						dataType: "json",
+						success: function (res) {
+							if(res.data==true){
+								validateUsername = true;
+							}
+						}
+					});
+					if(!validateUsername){
+						$('.box .validateUsername-alert').css('display', 'block');
+						$('.box .username-alert').hide();
+					}else {
+						$('.box .validateUsername-alert').hide();
+						$('.box .username-alert').hide();
+					}
+				} else {
+					$('.box .username-alert').css('display', 'block');
+				}
+			})
+			// 电话号码
+			$('.box .num').change(function() {
+				// 获取value值
+				var text = $(this).val();
+				var reg = /^0?(13|14|15|17|18|19)[0-9]{9}$/;
+				var flag = reg.test(text);
+				if (flag) {
+					$.ajax({
+						url: "http://127.0.0.1:9000/api/user/register/validatePhone",
+						type: "get",
+						data: {
+							phone:text
+						},
+						async: false,
+						dataType: "json",
+						success: function (res) {
+							if(res.data==true){
+								validatePhone = true;
+							}
+						}
+					});
+					if(!validatePhone){
+						$('.box .validatePhone-alert').css('display', 'block');
+						$('.box .num-alert').hide();
+					}else {
+						$('.box .num-alert').hide();
+						$('.box .validatePhone-alert').hide();
+					}
+
+				} else {
+					$('.box .num-alert').css('display', 'block');
+				}
+			})
+			//获取验证码
+			$(".getcode").click(function(){
+				var text = $('.box .num').val();
+				var reg = /^0?(13|14|15|17|18|19)[0-9]{9}$/;
+				var flag = reg.test(text);
+				if(flag && validatePhone){
+					$.ajax({
+						url: "http://127.0.0.1:9000/api/user/register/code",
+						type: "post",
+						data: {
+							phone:text
+						},
+						dataType: "json",
+						success: function (res) {
+							console.log(res);
+						}
+					});
+				}
+
+			})
+			// 验证码
+			$('.verify').change(function() {
+				// 获取value值
+				var text = $(this).val();
+				var reg = /^\w{6}$/;
+				var flag = reg.test(text);
+				if (flag) {
+					$('.box .verify-alert').hide();
+				} else {
+					$('.box .verify-alert').css('display', 'block');
+				}
+			})
+			// 密码
+			$('.password1').change(function() {
+				// 获取value值
+				var text = $(this).val();
+				var reg = /^\w{6,20}$/;
+				var flag = reg.test(text);
+				if (flag) {
+					$('.box .password-alert').hide();
+				} else {
+					$('.box .password-alert').css('display', 'block');
+				}
+			})
+			// 二次设置密码
+			$('.password2').change(function() {
+				// 获取value值
+				var text1 = $(this).val();
+				var text2 = $('.password1').val();
+				if (text1 != text2) {
+					$('.secondpsw-alert').show();
+				}else{
+					$('.secondpsw-alert').hide();
+				}
+			})
+			
+			// 隐藏密码
+			// 隐藏
+			$('.icon-eyeclose1').click(function() {
+				var password = $('.password1').val();
+				// 小眼睛转换
+				$(this).css('display', 'none');
+				$('.icon-eyeopen1').css('display', 'block');
+				// 密码显示为* 
+				$('.password1').prop('type','text');
+			});
+			$('.icon-eyeopen1').click(function() {
+				var password = $('.password1').val();
+				// 小眼睛转换
+				$(this).css('display', 'none');
+				$('.icon-eyeclose1').css('display', 'block');
+				// 密码显示为* 
+				$('.password1').prop('type','password');
+			});
+			// 二次验证
+			$('.icon-eyeclose2').click(function() {
+				var password = $('.password2').val();
+				// 小眼睛转换
+				$(this).css('display', 'none');
+				$('.icon-eyeopen2').css('display', 'block');
+				// 密码显示为* 
+				$('.password2').prop('type','text');
+			});
+			$('.icon-eyeopen2').click(function() {
+				var password = $('.password2').val();
+				// 小眼睛转换
+				$(this).css('display', 'none');
+				$('.icon-eyeclose2').css('display', 'block');
+				// 密码显示为* 
+				$('.password2').prop('type','password');
+			});
+			
+			
+			
+				
+			// 立即注册
+			$('.box .register').click(function() {
+				var name = $(".box .username").val();
+				var rag = /^[a-zA-Z0-9_\u4e00-\u9fa5]+$/;
+				var flag = rag.test(name);
+				var value = $('.box .num').val();
+				var reg1 = /^0?(13|14|15|17|18|19)[0-9]{9}$/;
+				var flag1 = reg1.test(value);
+				var psw1 = $('.box .password1').val();
+				var reg3 = /^\w{6,20}$/;
+				var flag3 = reg3.test(psw1);
+				var psw2 = $('.box .password2').val();
+				var verify = $('.box .verify').val();
+				var reg4 = /^\w{6}$/;
+				var flag4 = reg4.test(verify);
+				if (name == '' || !flag){
+					$('.box .username-alert').css('display', 'block');
+					window.location.href = 'javascript:;';
+				}else if (value == '' ||  !flag1){
+					$('.box .num-alert').css('display', 'block');
+					window.location.href = 'javascript:;';
+				}else if (verify == '' || !flag4){
+					$('.box .verify-alert').css('display', 'block');
+					window.location.href = 'javascript:;';
+				}else if (psw1 == '' || !flag3){
+					$('.box .password-alert').css('display', 'block');
+					window.location.href = 'javascript:;';
+				}else if (psw2 == '' || psw1!=psw2){
+					$('.box .secondpsw-alert').css('display', 'block');
+					window.location.href = 'javascript:;';
+				}else {
+					$('.box .username-alert').css('display', 'none');
+					$('.box .num-alert').css('display', 'none');
+					$('.box .verify-alert').css('display', 'none');
+					$('.box .password-alert').css('display', 'none');
+					$('.box .secondpsw-alert').css('display', 'none');
+					if(!validateUsername){
+						$('.box .validateUsername-alert').css('display', 'block');
+						return;
+					}
+					if(!validatePhone){
+						$('.box .validatePhone-alert').css('display', 'block');
+						return;
+					}
+					var fields = $('#form').serializeArray();
+					var obj = {}; //声明一个对象
+					$.each(fields, function(index, field) {
+						obj[field.name] = field.value; //通过变量，将属性值，属性一起放到对象中
+					})
+					console.log(obj);
+					$.ajax({
+						url: "http://127.0.0.1:9000/api/user/register/user",
+						type: "post",
+						contentType: "application/json",
+						data: JSON.stringify(obj),
+						dataType: "json",
+						success: function (res) {
+							if(res.code==200){
+								window.location.href="http://127.0.0.1:10003/login.html"
+							}else{
+								alert(res.msg);
+							}
+
+						}
+					});
+				}
+			})
+		</script>
+	</body>
+</html>

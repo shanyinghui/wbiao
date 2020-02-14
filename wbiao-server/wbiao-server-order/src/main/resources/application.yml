@@ -1,0 +1,89 @@
+server:
+  port: 8005
+
+spring:
+  application:
+    name: wbiao-order
+  datasource:
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://127.0.0.1:3306/wbiao?characterEncoding=utf8&useUnicode=true&useSSL=false&serverTimezone=GMT%2B8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: 192.168.134.66
+    port: 6379
+    password:
+    database: 0 #Redis数据库索引（默认为0）
+    timeout: 3000 #连接超时时间（毫秒）
+    jedis:
+      pool:
+        max-active: 8   #连接池最大连接数（使用负值表示没有限制）
+        max-idle: 8   #连接池中的最大空闲连接
+        min-idle: 0   #连接池中的最小空闲连接
+        max-wait: 3000  #连接池最大阻塞等待时间（使用负值表示没有限制）
+  rabbitmq:
+    host: 192.168.134.66
+    port: 5672
+    username: wanbiao
+    password: wanbiao
+
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: my_test_tx_group
+
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://127.0.0.1:7001/eureka/
+
+  instance: #服务名称的修改
+    instance-id: wibao-server-order
+    prefer-ip-address: true     #访问路径可以显示IP地址
+
+info:
+  app.name: wbiao-order
+  company.name: www.wbiao.com
+  build.artifactId: ${project.artifactId}
+  build.version: ${project.version}
+  build.description: ${project.description}
+
+mybatis: #别名
+  type-aliases-package: com.wbiao.order.pojo
+
+#开启feign的熔断，默认是线程池隔离
+feign:
+  hystrix:
+    enabled: true
+#hystrix 配置
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          #如果enabled设置为false，则请求超时交给ribbon控制
+          enabled: true
+        isolation:
+          strategy: SEMAPHORE   #设置为信号量隔离
+          thread:
+            # 熔断器超时时间，默认：1000/毫秒
+            timeoutInMilliseconds: 5000
+
+
+workerId: 1
+datacenterId: 1
+
+
+#配置mq的交换机和队列
+mq:
+  pay:
+    exchange:
+      order: exchange.order
+    queue:
+      order: queue.order
+    routing:
+      key: queue.order

@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("goods")
+@RequestMapping("/goods")
 public class GoodsController {
 
     @Autowired
@@ -91,5 +91,45 @@ public class GoodsController {
     public ResultUtil<Map<String, Object>> goodsDetails(@PathVariable("skuid")String skuid){
         Map<String, Object> resultMap = goodsService.goodsDetails(skuid);
         return ResultUtil.ok(resultMap);
+    }
+
+
+    @GetMapping("/sku/{id}")
+    @Log
+    public ResultUtil<Sku> selectSkuById(@PathVariable("id")String id){
+        Sku sku = goodsService.selectSkuById(id);
+        return ResultUtil.ok(sku);
+    }
+
+    //削减库存
+    @PutMapping("/decrCount")
+    @Log
+    public ResultUtil decrCount(@RequestParam Map<String,Integer> decrmap){
+        goodsService.decrCount(decrmap);
+        return ResultUtil.ok();
+    }
+
+    //回滚库存
+    @PutMapping("/insertCount")
+    @Log
+    public ResultUtil insertCount(@RequestParam Map<String,Integer> parameterMap){
+        goodsService.insertCount(parameterMap);
+        return ResultUtil.ok();
+    }
+
+    //增加商品的销量
+    @PutMapping("/insertSale_num")
+    @Log
+    public ResultUtil insertSale_num(@RequestParam Map<String,Integer> decrmap){
+        goodsService.insertSale_num(decrmap);
+        return ResultUtil.ok();
+    }
+
+    //销量的回滚
+    @PutMapping("/decrSale_num")
+    @Log
+    public ResultUtil decrSale_num(@RequestParam Map<String,Integer> parameterMap){
+        goodsService.decrSale_num(parameterMap);
+        return ResultUtil.ok();
     }
 }

@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>万表网</title>
+    <link rel="stylesheet" href="http://127.0.0.1:10004/css/reset.css">
+    <link rel="stylesheet" href="http://127.0.0.1:10004/css/cart.css">
+</head>
+<body>
+<div id="app">
+    <div class="top">
+        <div class="top-words container clearfix">
+            <!-- top 左 -->
+            <div class="top-left fl">
+                <a href="index.html">正品保障，免息分期！</a>
+            </div>
+            <!-- top 右 -->
+            <div class="top-right fr clearfix">
+                <!-- 右 登录 -->
+                <div v-if="flag">
+                    <div class="top-login fl clearfix">
+                        <a href="login.html">您好！&nbsp; {{user.username}}</a>
+                        <a href='javascript:void(0)' @click='logout'>退出</a>
+                    </div>
+                    <!-- 右 其他 -->
+                    <div class="top-others fl clearfix">
+                        <span class="line fl">|</span>
+                        <a href="vip/order.html">我的订单</a>
+                    </div>
+                </div>
+                <div v-else>
+                    <div class="top-login fl clearfix" >
+                        <a href="http://www.wbiao.com/userPage/login.html">请登录</a>
+                        <a href="http://www.wbiao.com/userPage/register.html">注册</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="pt-head">
+            <div class="container">
+                <!--左头部-->
+                <div class="head-left fl">
+                    <!--logo-->
+                    <div class="logo">
+                        <a href="index.html" class="inline-block">
+                            <img class="middle" src="http://127.0.0.1:10004/img/LOGO.png"></img>
+                        </a>
+                        <a href="index.html">
+                            <img class="middle" src="http://127.0.0.1:10004/img/ia_200000007.png" alt="">
+                        </a>
+                    </div>
+                </div>
+                <!--右头部-->
+                <div class="head-right fr">
+                    <ul class="shop">
+                        <li class="fl on">
+                            <i class="icon-01"></i>
+                            <span>购物车</span>
+                        </li>
+                        <li class="fl">
+                            <i class="icon-02"></i>
+                            <span>填写订单信息</span>
+                        </li>
+                        <li class="fl">
+                            <i class="icon-02"></i>
+                            <span>支付订单</span>
+                        </li>
+                        <li class="fl">
+                            <i class="icon-03"></i>
+                            <span>等待签收</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--购物车的内容-->
+        <div class="main" th:if="!${#lists.isEmpty(carts)}">
+            <div class="container" >
+                <div class="shop-wrap">
+                    <h2 class="title">
+                        全部商品
+                        <span></span>
+                    </h2>
+                    <div class="shop-nav">
+                        <!--购物车导航-->
+                        <!--左侧nav-->
+                        <dl class="clearfix fl">
+                            <dt class="check fl">
+                                <i class="icon-bd icon-all1"></i>
+                                <i class="icon-bd icon-all2"></i>
+                            </dt>
+                            <dd class="fl">
+                                全选
+                            </dd>
+                            <dd class="fl">
+                                商品信息
+                            </dd>
+                        </dl>
+                        <!--右侧nav-->
+                        <ul class="clearfix fr">
+                            <li class="fr">操作</li>
+                            <li class="fr">小计</li>
+                            <li class="fr">数量</li>
+                            <li class="fr">单价</li>
+                        </ul>
+                    </div>
+                    <!--购物车商品-->
+                    <div class="shop-floor">
+                        <!--商品头部-->
+                        <div class="top clearfix">
+                            <span class="store">
+                                <i class="icon-bd icon-sure1"></i>
+                                <i class="icon-bd icon-sure2"></i>
+                            </span>
+                            <a href="#">万表商城</a>
+                        </div>
+                        <!--商品信息-->
+                        <div class="goods-floor clearfix" th:each="cart:${carts}">
+                            <input type="hidden" class="skuid" th:value="${cart.skuid}">
+                            <span class="sure fl">
+                                <i class="icon-bd icon-sure1" th:style="'display:' + @{(${cart.isChecked}==1 ? 'none' : 'inline-block')} + ''"></i>
+                                <i class="icon-bd icon-sure2" th:style="'display:' + @{(${cart.isChecked}==0 ? 'none' : 'inline-block')} + ''"></i>
+                            </span>
+                            <div class="fl goods clearfix">
+                                <div class="photo fl">
+                                    <img th:src="${cart.image}" alt="">
+                                </div>
+                                <div class="info fl">
+                                    <p class="name" th:text="${cart.title}"></p>
+                                </div>
+                                <!--价格信息-->
+                                <ul class="fr">
+                                    <!--单个价格-->
+                                    <li class="unit-price">￥<em th:text="${cart.price}"></em></li>
+                                    <!--数量-->
+                                    <li class="goods-num clearfix">
+                                        <span class="reduce fl">-</span>
+                                        <input type="text" th:value="${cart.num}" readonly>
+                                        <span class="add fl">+</span>
+                                    </li>
+                                    <!--多个的价格-->
+                                    <li class="all-price">￥<em th:text="${cart.money}"></em></li>
+                                    <!--操作-->
+                                    <li class="others fr">
+                                        <span class="delete">删除</span>
+                                        <span class="edit">移入收藏</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!--购物车底部-->
+                    <div class="shop-bottom">
+                        <ul class="clearfix">
+                            <li class="tik fl">
+                                <span class="icon-bd icon-all1"></span>
+                                <span class="icon-bd icon-all2"></span>
+                            </li>
+                            <li class="all fl">
+                                <a href="javascript:;">
+                                    全选
+                                </a>
+                            </li>
+                            <li class="delete fl">
+                                <a href="javascript:;">
+                                    删除
+                                </a>
+                            </li>
+                            <li class="edit fl">
+                                <a href="avascript:;">
+                                    移入收藏
+                                </a>
+                            </li>
+                            <li class="btn fr">
+                                <a href='javascript:void(0)' @click='shopping_order'>
+                                    结算
+                                </a>
+                            </li>
+                            <li class="price fr">
+                                <p class="total-1">
+                                    合计
+                                    <span>￥<i th:text="${allMoney}"></i></span>
+                                </p>
+                                <p class="total-2">
+                                    总额￥<i th:text="${allMoney}"></i>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--未登录购物车的内容-->
+        <div class="notLogged-shop" th:if="${!#strings.isEmpty(isLogin)&&!isLogin}">
+            <i class="icon-bd icon-car"></i>
+            <p class="info">你的购物车还是空的</p>
+            <p style="font-size: 14px;color: #999;line-height: 20px;margin-top: 5px">现在<a href="#" style="color: red">登录</a>，购物车信息将一直为您保存</p>
+            <p class="car-btn">
+                <a href="http://www.wbiao.com/search.html" class="go-shopping">马上购物</a>
+                <a href="vip/order-collect.html" class="look-collect">看看收藏</a>
+            </p>
+        </div>
+        <!--空购物车的内容-->
+        <div class="empty-shop">
+            <i class="icon-bd icon-car"></i>
+            <p class="info">你的购物车还是空的</p>
+            <p class="car-btn">
+                <a href="http://www.wbiao.com/search.html" class="go-shopping">马上购物</a>
+                <a href="vip/order-collect.html" class="look-collect">看看收藏</a>
+            </p>
+        </div>
+
+        <!-- footer -->
+        <div class="footer">
+            <div class="footer-top">
+                <div class="container">
+                    <ul class="clearfix">
+                        <li class="fl">
+                            <a href="javascript:;" class="clearfix">
+                                <i class="icon_footer-top-1 fl"></i>
+                                <div class="top-wodrs fl">正品保障</div>
+                            </a>
+                        </li>
+                        <li class="fl">
+                            <a href="javascript:;" class="clearfix">
+                                <i class="icon_footer-top-2 fl"></i>
+                                <div class="top-wodrs fl">免息分期</div>
+                            </a>
+                        </li>
+                        <li class="fl">
+                            <a href="javascript:;" class="clearfix">
+                                <i class="icon_footer-top-3 fl"></i>
+                                <div class="top-wodrs fl">全球联保</div>
+                            </a>
+                        </li>
+                        <li class="fl">
+                            <a href="javascript:;" class="clearfix">
+                                <i class="icon_footer-top-4 fl"></i>
+                                <div class="top-wodrs fl">假一赔三</div>
+                            </a>
+                        </li>
+                        <li class="fl">
+                            <a href="javascript:;" class="clearfix">
+                                <i class="icon_footer-top-5 fl"></i>
+                                <div class="top-wodrs fl">终身售后</div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-mid">
+                <div class="container">
+                    <div class="mid-top clearfix">
+                        <div class="phone-num fl">
+                            <div class="phone-words">客服电话</div>
+                            <div class="phone-num1">400-883-2688</div>
+                            <div class="phone-num2">外呼电话 020-83931899</div>
+                            <a class="phone-btn">售后维修</a>
+                        </div>
+                        <div class="content fl">
+                            <ul class="clearfix">
+                                <li class="fl">
+                                    <dl>
+                                        <dt>新手指南</dt>
+                                        <dd>
+                                            <a href="register.html">注册新会员</a>
+                                            <a href="javascript:;">购物流程</a>
+                                            <a href="javascript:;">手表小知识</a>
+                                            <a href="javascript:;">退换货流程</a>
+                                        </dd>
+                                    </dl>
+                                </li>
+                                <li class="fl">
+                                    <dl>
+                                        <dt>支 付</dt>
+                                        <dd>
+                                            <a href="javascript:;">支付方式</a>
+                                            <a href="javascript:;">分期付款</a>
+                                            <a href="javascript:;">发票说明</a>
+                                            <a href="javascript:;">支付问题</a>
+                                        </dd>
+                                    </dl>
+                                </li>
+                                <li class="fl">
+                                    <dl>
+                                        <dt>配 送</dt>
+                                        <dd>
+                                            <a href="javascript:;">包裹签收</a>
+                                            <a href="javascript:;">配送方式</a>
+                                            <a href="javascript:;">配送说明</a>
+                                            <a href="javascript:;">自提流程</a>
+                                        </dd>
+                                    </dl>
+                                </li>
+                                <li class="fl">
+                                    <dl>
+                                        <dt>万表保障</dt>
+                                        <dd>
+                                            <a href="javascript:;">正品保障</a>
+                                            <a href="javascript:;">售后服务</a>
+                                            <a href="javascript:;">价格保护</a>
+                                            <a href="javascript:;">七天退换说明</a>
+                                        </dd>
+                                    </dl>
+                                </li>
+                                <li class="fl">
+                                    <dl>
+                                        <dt class="color">开放合作</dt>
+                                        <dd>
+                                            <a href="javascript:;">关于万表</a>
+                                            <a class="color" href="#">商务合作</a>
+                                            <a href="javascript:;">万表声明</a>
+                                        </dd>
+                                    </dl>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mid-bottom">
+                        <div class="corp">
+                            <ul>
+                                <li>万表网名表商城 版权所有 2009-2019 <a href="#">ICP备案证书号:粤ICP备09108738号</a> 网监备案:4401060103141</li>
+                                <li>广州市万表科技股份有限公司 地址:广州市番禺区番禺大道北60-1号</li>
+                                <li>Copyright 2009-2019 WWW.WBIAO.CN.LTD ALL RIGHT RESERVED.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+    <script src="http://127.0.0.1:10004/js/jquery-3.4.1.min.js"></script>
+    <script src="http://127.0.0.1:10004/js/layer/layer.js"></script>
+    <script src="http://127.0.0.1:10004/js/vue.js"></script>
+    <script src="http://127.0.0.1:10004/js/axios.min.js"></script>
+
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            var isLogin = [[${isLogin}]]; // not working
+            var carts = [[${carts}]];
+
+            if(isLogin==null&&carts.length==0){
+                $('.empty-shop').show();
+            }
+            var $goods = $('.shop-wrap .shop-floor .goods-floor')
+            if ($goods.length > 1) {
+                for (var i = 1; i <= $goods.length; i++) {
+                    $goods.eq(i).css({
+                        borderTop: '1px dashed #eee',
+                    })
+                }
+            }
+
+
+            //    移入收藏事件
+            $('.shop-floor .goods .edit').click(function () {
+                var $that = $(this);
+                layer.confirm('移到收藏?', {
+                    btn: ['取消', '确定'] //按钮
+                }, function () {
+                    layer.msg({time: 1000});
+                }, function () {
+                    console.log('移入收藏');
+                    var $goods = $($that).parents('.goods-floor').siblings('.goods-floor');
+                    if ($goods.length < 1) {
+                        $($that).parents('.shop-floor').remove();
+                    }
+                    $($that).parents('.goods-floor').remove();
+                    //    无商品时显示的页面
+
+                    var $shops = $('.shop-wrap .shop-floor');
+                    console.log($shops);
+                    if ($shops.length < 1) {
+                        $('.empty-shop').show();
+                        $('.main').hide();
+                    } else {
+                        $('.empty-shop').hide();
+                        $('.main').show();
+                    }
+                });
+                $('.layui-layer-dialog .layui-layer-title').text('收藏');
+                $('.layui-layer-dialog .layui-layer-title').css({
+                    color: '#999',
+                });
+                $('.layui-layer-dialog .layui-layer-content').html('移到收藏? <p> 移动后选中商品将不再购物车中显示。</p> ');
+                $('.layui-layer-dialog .layui-layer-content p').css({
+                    fontSize: 12,
+                    color: '#666',
+                    fontWeight: 300,
+                });
+
+            });
+
+            //add事件
+            $('.shop-floor .goods-floor .goods ul .goods-num .add').click(function () {
+                var num = parseFloat($(this).siblings('input').val());
+                var $that = $(this);
+                var $skuid = $($($that).parents('.goods-floor')).find('.skuid').val();
+                num++;
+                $(this).siblings('input').val(num);
+                $.ajax({
+                    url: "http://www.wbiao.com/ord/cart/" + $skuid+ "/"+ num,
+                    type: "put",
+                    headers: {
+                        "Authorization": 'Bearer ' + loginToken
+                    },
+                    dataType: "json",
+                    success: function (result) {
+
+                    }
+                })
+                var $unPrice = parseFloat($(this).parents('li').siblings('.unit-price').find('em').text());
+                var $price = $unPrice * num;
+                $(this).parents('li').siblings('.all-price').find('em').text($price);
+
+//        获取当前的商品是不是被选中
+                var $flag = $(this).parents('.shop-floor').find('.icon-sure2').is(':visible');
+                if ($flag) {
+                    var $allPrice = parseFloat($('.shop-wrap .shop-bottom .price .total-1 i').text());
+                    $allPrice += $unPrice;
+                    $('.shop-wrap .shop-bottom .price  i').text($allPrice);
+                }
+
+            });
+            //reduce事件
+            $('.shop-floor .goods-floor .goods ul .goods-num .reduce').click(function () {
+                var $that = $(this);
+                var $skuid = $($($that).parents('.goods-floor')).find('.skuid').val();
+                var num = parseFloat($(this).siblings('input').val());
+                num--;
+                if (num < 1) {
+                    num == 1;
+                } else {
+                    $.ajax({
+                        url:"http://www.wbiao.com/ord/cart/"+$skuid+"/"+num,
+                        type:"put",
+                        headers: {
+                            "Authorization" :'Bearer '+loginToken
+                        },
+                        dataType:"json",
+                        success:function(result){
+
+                        }
+                    })
+                    $(this).siblings('input').val(num);
+                    var $unPrice = $(this).parents('li').siblings('.unit-price').find('em').text();
+                    var $price = $unPrice * num;
+                    $(this).parents('li').siblings('.all-price').find('em').text($price);
+                }
+                //        获取当前的商品是不是被选中
+                var $flag = $(this).parents('.shop-floor').find('.icon-sure2').is(':visible');
+                if ($flag) {
+                    var $allPrice = parseFloat($('.shop-wrap .shop-bottom .price .total-1 i').text());
+                    if (num < 1) {
+                        $allPrice -= 0;
+                    } else {
+                        $allPrice -= $unPrice;
+                    }
+                    console.log($allPrice);
+                    console.log($unPrice);
+                    $('.shop-wrap .shop-bottom .price  i').text($allPrice);
+                }
+            });
+
+            // 商品删除事件 事件委托
+            $('.shop-floor').on('click', '.delete', function () {
+                var $that = $(this);
+                console.log($that);
+                layer.confirm('移到收藏?', {
+                    btn: ['删除', '移到我的收藏'] //按钮
+                }, function () {
+                    console.log('删除');
+
+                    var $goods = $($that).parents('.goods-floor').siblings('.goods-floor');
+
+                    var $skuid = $($($that).parents('.goods-floor')).find('.skuid').val();
+                    var ids = new Array();
+                    ids.push($skuid);
+                    $.ajax({
+                        url:"http://www.wbiao.com/ord/cart/delete",
+                        type:"post",
+                        headers: {
+                            "Authorization" :'Bearer '+loginToken
+                        },
+                        dataType:"json",
+                        data:{
+                            skuids:ids
+                        },
+                        traditional: true,
+                        success:function(result){
+
+                        }
+                    })
+                    if ($goods.length < 1) {
+                        $($that).parents('.shop-floor').remove();
+
+                    }
+                    $($that).parents('.goods-floor').remove();
+                    //    无商品时显示的页面
+
+                    var $shops = $('.shop-wrap .shop-floor');
+
+
+                    if ($shops.length < 1) {
+                        $('.empty-shop').show();
+                        $('.main').hide();
+                    } else {
+                        $('.empty-shop').hide();
+                        $('.main').show();
+                    }
+                    layer.msg({time: 1000});
+                }, function () {
+                    var $goods = $($that).parents('.goods-floor').siblings('.goods-floor');
+                    if ($goods.length < 1) {
+                        $($that).parents('.shop-floor').remove();
+                    }
+                    $($that).parents('.goods-floor').remove();
+                    //    无商品时显示的页面
+
+                    var $shops = $('.shop-wrap .shop-floor');
+                    console.log($shops);
+                    if ($shops.length < 1) {
+                        $('.empty-shop').show();
+                        $('.main').hide();
+                    } else {
+                        $('.empty-shop').hide();
+                        $('.main').show();
+                    }
+                });
+                $('.layui-layer-dialog .layui-layer-title').text('删除');
+                $('.layui-layer-dialog .layui-layer-title').css({
+                    color: '#999',
+                });
+                $('.layui-layer-dialog .layui-layer-content').html('删除商品? <p>  你可选择移到收藏，或删除商品。</p> ');
+                $('.layui-layer-dialog .layui-layer-content p').css({
+                    fontSize: 12,
+                    color: '#666',
+                    fontWeight: 300,
+                });
+
+
+            });
+
+            //商品选中事件
+            $('.goods-floor').on('click', '.icon-sure1', function () {
+
+                //获取到它整个商店信息
+                var $goods = $(this).parents('.shop-floor').find('.goods-floor');
+                var $skuid = $(this).parents('.goods-floor').find('.skuid').val();
+                $.ajax({
+                    url:"http://www.wbiao.com/ord/cart/updateIsChecked/"+$skuid+"/1",
+                    type:"put",
+                    headers: {
+                        "Authorization" :'Bearer '+loginToken
+                    },
+                    dataType:"json",
+                    traditional: true,
+                    success:function(result){
+
+                    }
+                })
+                //切换选中框
+                $(this).siblings('.icon-sure2').css({display: 'inline-block'});
+                $(this).hide();
+                //获取本商店的全部确认选框
+                var $sure2 = $($goods).find('.icon-sure2').length;
+                //已经确认的选框
+                var $visSure2 = $($goods).find('.icon-sure2:visible').length;
+                if ($sure2 == $visSure2) {
+                    var $store = $(this).parents('.shop-floor').find('.store');
+                    $($store).find('.icon-sure1').hide();
+                    $($store).find('.icon-sure2').css({display: 'inline-block'});
+                }
+//         获取到全部商店的确认框
+                var $check = $('.shop-wrap .shop-floor .icon-sure2').length;
+                var $ok = $('.shop-wrap .shop-floor .icon-sure2:visible').length;
+                if ($check == $ok) {
+                    $(this).parents('.shop-wrap').find('.icon-all1').hide();
+                    $(this).parents('.shop-wrap').find('.icon-all2').css({display: 'inline-block'});
+                }
+
+//        获取到总价的元素
+                var $allPrice = parseFloat($('.shop-wrap .shop-bottom .price .total-1 i').text());
+//        获取到点击商品的总价格
+                var $price = parseFloat($(this).parents('.goods-floor').find('.goods .all-price em').text());
+                $allPrice += $price;
+                $('.shop-wrap .shop-bottom .price i').text($allPrice);
+
+
+            });
+            //    商店全选
+            $('.shop-wrap .shop-floor .top .icon-sure1').click(function () {
+                //        获取到总价的元素
+                var $allPrice = parseFloat($('.shop-wrap .shop-bottom .price .total-1 i').text());
+                var $goods = $(this).parents('.shop-floor').find('.goods-floor');
+                var shopPrice = 0;
+                for (var i = 0; i < $goods.length; i++) {
+                    var $price = parseFloat($($goods).eq(i).find('.goods .all-price em').text());
+                    var $flag = $($goods).eq(i).find('.icon-sure2').is(':visible');
+                    if ($flag) {
+                        shopPrice += 0;
+                    } else {
+                        shopPrice += $price;
+                    }
+                }
+                $allPrice += shopPrice;
+                $('.shop-wrap .shop-bottom .price  i').text($allPrice);
+
+                //        切换选中框
+                $(this).siblings('.icon-sure2').css({display: 'inline-block'});
+                $(this).hide();
+//        将本商店的选中框全部改成选中
+                var $goods = $(this).parents('.shop-floor').find('.goods-floor')
+                $($goods).find('.icon-sure1').hide();
+                $($goods).find('.icon-sure2').css({display: 'inline-block'});
+                //         获取到全部商店的确认框
+                var $check = $('.shop-wrap .shop-floor .icon-sure2').length;
+                var $ok = $('.shop-wrap .shop-floor .icon-sure2:visible').length;
+                if ($check == $ok) {
+                    $(this).parents('.shop-wrap').find('.icon-all1').hide();
+                    $(this).parents('.shop-wrap').find('.icon-all2').css({display: 'inline-block'});
+                }
+
+
+            });
+
+            //    购物车全选
+            $('.shop-wrap .icon-all1').click(function () {
+
+                //        获取到总价的元素
+                var $allPrice = parseFloat($('.shop-wrap .shop-bottom .price .total-1 i').text());
+                var $goods = $(this).parents('.shop-wrap').find('.goods-floor');
+                var shopPrice = 0;
+                for (var i = 0; i < $goods.length; i++) {
+                    var $price = parseFloat($($goods).eq(i).find('.goods .all-price em').text());
+                    var $flag = $($goods).eq(i).find('.icon-sure2').is(':visible');
+                    if ($flag) {
+                        shopPrice += 0;
+                    } else {
+                        shopPrice += $price;
+                    }
+                }
+                $allPrice += shopPrice;
+                $('.shop-wrap .shop-bottom .price  i').text($allPrice);
+
+                //        切换选中框
+                $(this).siblings('.icon-all2').css({display: 'inline-block'});
+                $(this).hide();
+//        将本商店的选中框全部改成选中
+                var $shop = $(this).parents('.shop-wrap').find('.shop-floor');
+                $($shop).find('.icon-sure1').hide();
+                $($shop).find('.icon-sure2').css({display: 'inline-block'});
+                $('.shop-wrap .icon-all1').hide();
+                $('.shop-wrap .icon-all2').css({display: 'inline-block'});
+            });
+
+            //    放弃全选选择框
+            $('.shop-wrap .icon-all2').click(function () {
+                $(this).siblings('.icon-all1').css({display: 'inline-block'});
+                $(this).hide();
+                var $shop = $(this).parents('.shop-wrap').find('.shop-floor');
+                $($shop).find('.icon-sure2').hide();
+                $($shop).find('.icon-sure1').css({display: 'inline-block'});
+                $('.shop-wrap .icon-all2').hide();
+                $('.shop-wrap .icon-all1').css({display: 'inline-block'});
+                //        获取到总价的元素
+                var $allPrice = parseFloat($('.shop-wrap .shop-bottom .price .total-1 i').text());
+                var $goods = $(this).parents('.shop-wrap').find('.goods-floor');
+                var shopPrice = 0;
+                for (var i = 0; i < $goods.length; i++) {
+                    var $price = parseFloat($($goods).eq(i).find('.goods .all-price em').text());
+                    shopPrice += $price;
+                }
+                $allPrice -= shopPrice;
+                $('.shop-wrap .shop-bottom .price  i').text($allPrice);
+
+            });
+            //    放弃店铺的全选框
+            $('.shop-wrap .shop-floor .top .icon-sure2').click(function () {
+                //        切换选中框
+                $(this).siblings('.icon-sure1').css({display: 'inline-block'});
+                $(this).hide();
+//        将本商店的选中框全部改成选中
+                var $goods = $(this).parents('.shop-floor').find('.goods-floor')
+                $($goods).find('.icon-sure2').hide();
+                $($goods).find('.icon-sure1').css({display: 'inline-block'});
+                //         获取到全部商店的确认框
+                var $check = $('.shop-wrap .shop-floor .icon-sure2').length;
+                var $ok = $('.shop-wrap .shop-floor .icon-sure2:visible').length;
+                if ($check != $ok) {
+                    $(this).parents('.shop-wrap').find('.icon-all2').hide();
+                    $(this).parents('.shop-wrap').find('.icon-all1').css({display: 'inline-block'});
+                }
+
+                //        获取到总价的元素
+                var $allPrice = parseFloat($('.shop-wrap .shop-bottom .price .total-1 i').text());
+                var $goods = $(this).parents('.shop-floor').find('.goods-floor');
+                var shopPrice = 0;
+                for (var i = 0; i < $goods.length; i++) {
+                    var $price = parseFloat($($goods).eq(i).find('.goods .all-price em').text());
+                    console.log($price);
+                    shopPrice += $price;
+                }
+                $allPrice -= shopPrice;
+                $('.shop-wrap .shop-bottom .price  i').text($allPrice);
+
+
+            });
+            //放弃单个的选中框
+            $('.goods-floor').on('click', '.icon-sure2', function () {
+
+                //切换选中框
+                $(this).siblings('.icon-sure1').css({display: 'inline-block'});
+                $(this).hide();
+                //获取到它整个商店信息
+                var $goods = $(this).parents('.shop-floor').find('.goods-floor');
+                var $skuid = $(this).parents('.goods-floor').find('.skuid').val();
+                $.ajax({
+                    url:"http://www.wbiao.com/ord/cart/updateIsChecked/"+$skuid+"/0",
+                    type:"put",
+                    headers: {
+                        "Authorization" :'Bearer '+loginToken
+                    },
+                    dataType:"json",
+                    traditional: true,
+                    success:function(result){
+
+                    }
+                })
+                //获取本商店的全部确认选框
+                var $sure2 = $($goods).find('.icon-sure2').length;
+                //已经确认的选框
+                var $visSure2 = $($goods).find('.icon-sure2:visible').length;
+                if ($sure2 != $visSure2) {
+                    var $store = $(this).parents('.shop-floor').find('.store');
+                    $($store).find('.icon-sure2').hide();
+                    $($store).find('.icon-sure1').css({display: 'inline-block'});
+                }
+                //获取到全部商店的确认框
+                var $check = $('.shop-wrap .shop-floor .icon-sure2').length;
+                var $ok = $('.shop-wrap .shop-floor .icon-sure2:visible').length;
+                if ($check != $ok) {
+                    $(this).parents('.shop-wrap').find('.icon-all2').hide();
+                    $(this).parents('.shop-wrap').find('.icon-all1').css({display: 'inline-block'});
+                }
+                //        获取到总价的元素
+                var $allPrice = parseFloat($('.shop-wrap .shop-bottom .price .total-1 i').text());
+//        获取到点击商品的总价格
+                var $price = parseFloat($(this).parents('.goods-floor').find('.goods .all-price em').text());
+                $allPrice -= $price;
+                $('.shop-wrap .shop-bottom .price i').text($allPrice);
+
+
+            });
+
+            //    批量删除
+            $('.shop-wrap .shop-bottom .delete').click(function () {
+
+                var $goods = $(this).parents('.shop-wrap').find('.goods-floor');
+                //        获取到总价的元素
+                var $allPrice = parseFloat($('.shop-wrap .shop-bottom .price .total-1 i').text());
+                var ids =new Array();
+                for (var i = 0; i < $goods.length; i++) {
+                    var $flag = $($goods).eq(i).find('.icon-sure2').is(':visible');
+                    var $skuid = $($goods).eq(i).find('.skuid');
+
+                    var $price = parseFloat($($goods).eq(i).find('.goods .all-price em').text());
+                    if ($flag) {
+                        ids.push($skuid.val());
+                        var $slgoods = $($goods).eq(i).parents('.shop-floor').find('.goods-floor');
+                        if ($slgoods.length <= 1) {
+                            $($goods).eq(i).parents('.shop-floor').remove();
+                        }
+                        $($goods).eq(i).remove();
+                        $allPrice -= $price;
+                    }
+                }
+                $.ajax({
+                    url:"http://www.wbiao.com/ord/cart/delete",
+                    type:"post",
+                    headers: {
+                        "Authorization" :'Bearer '+loginToken
+                    },
+                    dataType:"json",
+                    data:{
+                        skuids:ids
+                    },
+                    traditional: true,
+                    success:function(result){
+
+                    }
+                })
+
+             $('.shop-wrap .shop-bottom .price i').text($allPrice);
+                //  无商品时显示的页面
+                var $shops = $('.shop-wrap .shop-floor');
+                console.log($shops);
+                if ($shops.length ==0) {
+                    $('.empty-shop').show();
+                    $('.main').hide();
+                } else {
+                    $('.empty-shop').hide();
+                    $('.main').show();
+                }
+            });
+        })
+    </script>
+    <script type="text/javascript">
+        var loginToken = '';
+        var app = new Vue({
+            el: "#app",
+            data: {
+                user: null,
+                flag: false,
+                code : '',
+                validateUrl: '',
+                conf: null
+            },
+            created() {
+                const token = localStorage.getItem("token");
+                if (token) {
+                    const config = {
+                        headers :{
+                            'Authorization' : 'Bearer '+token
+                        }
+                    }
+                    const url = "http://www.wbiao.com/user/loginUserinfo";
+                    this.code = token;
+                    loginToken = token;
+                    this.validateUrl = url;
+                    this.conf = config;
+                    this.loadData(this.setData,this.code,this.validateUrl,this.conf);
+                }
+            },
+            methods: {
+                loadData(callBack,token,url,config) {
+                    getBookPromise()
+                        .then(res => {
+                            console.log(res)
+                            callBack(res.data); //callBack异步回调
+                        })
+                        .catch(res => {
+                            localStorage.removeItem("token");
+                            console.log(res);
+                        })
+                    function getBookPromise() {
+                        return new Promise((resolve, reject) => {
+                            axios.get(url, config)
+                                .then(res => {
+                                    resolve(res)
+                                })
+                                .catch(res => {
+                                    reject(res)
+                                })
+                        })
+                    }
+                },
+                setData(data) { //对数据做一些处理
+                    this.user = data.data;
+                    this.flag = true;
+
+                },
+                logout() {
+                    // 退出
+                    localStorage.removeItem("token")
+                    window.location = 'http://www.wbiao.com/userPage/login.html';
+                },
+                shopping_order() {
+                    axios.get(this.validateUrl, this.conf)
+                        .then(res => {
+                            const token = this.code;
+                            window.location.href="http://www.wbiao.com/orderPage/shopping-order.html?Authorization="+token;
+                        })
+                        .catch(res => {
+                        })
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -9,7 +9,12 @@ spring:
     password: root
     type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://127.0.0.1:3306/wbiao?characterEncoding=utf8&useUnicode=true&useSSL=false&serverTimezone=GMT%2B8
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: my_test_tx_group
 
 
 eureka:
@@ -32,6 +37,24 @@ info:
 
 mybatis: #别名
   type-aliases-package: com.wbiao.goods.pojo
+
+#开启feign的熔断，默认是线程池隔离
+feign:
+  hystrix:
+    enabled: true
+#hystrix 配置
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          #如果enabled设置为false，则请求超时交给ribbon控制
+          enabled: true
+        isolation:
+          strategy: SEMAPHORE   #设置为信号量隔离
+          thread:
+            # 熔断器超时时间，默认：1000/毫秒
+            timeoutInMilliseconds: 2000
 
 workerId: 0
 datacenterId: 0

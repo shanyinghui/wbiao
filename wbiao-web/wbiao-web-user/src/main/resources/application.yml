@@ -1,0 +1,39 @@
+server:
+  port: 10003
+
+spring:
+  application:
+    name: wbiao-web-user
+  thymeleaf:
+    cache: false
+
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://127.0.0.1:7001/eureka/
+
+  instance: #服务名称的修改
+    instance-id: wbiao-web-user
+    prefer-ip-address: true     #访问路径可以显示IP地址
+
+info:
+  app.name: wbiao-web-user
+  company.name: www.wbiao.com
+  build.artifactId: ${project.artifactId}
+  build.version: ${project.version}
+  build.description: ${project.description}
+
+feign:
+  hystrix:
+    enabled: true
+#hystrix超时时间配置
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000

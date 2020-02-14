@@ -7,6 +7,7 @@
 		<link rel="stylesheet" href="/css/goods-details.css">
 	</head>
 	<body>
+	<div id="app">
 		<!-- top -->
 		<div class="top">
 			<div class="top-words container clearfix">
@@ -17,14 +18,18 @@
 				<!-- top 右 -->
 				<div class="top-right fr clearfix">
 					<!-- 右 登录 -->
-					<div class="top-login fl clearfix">
-						<a href="login.html">请登录</a>
-						<a href="register.html">注册</a>
+					<div class="top-login fl clearfix" v-if="flag">
+						<a href="login.html">您好！&nbsp; {{user.username}}</a>
+						<a href='javascript:void(0)' @click='logout'>退出</a>
+					</div>
+					<div class="top-login fl clearfix" v-else>
+						<a href="http://www.wbiao.com/userPage/login.html">请登录</a>
+						<a href="http://www.wbiao.com/userPage/register.html">注册</a>
 					</div>
 					<!-- 右 其他 -->
 					<div class="top-others fl clearfix">
 						<span class="line fl">|</span>
-						<a href="shopping.html">购物车</a>
+						<a href='javascript:void(0)' @click='showCart'>购物车</a>
 					</div>
 				</div>
 			</div>
@@ -60,6 +65,7 @@
 				</div>
 			</div>
 		</div>
+	</div>
 		<!-- 中部 -->
 		<div class="main">
 			<!-- 头条 -->
@@ -110,6 +116,7 @@
 							<div class="title" th:text="${goodsDetails.sku.title}"></div>
 						</div>
 						<div class="info">
+							<input type="hidden" class="skuid" th:value="${goodsDetails.sku.id}">
 							<span class="fl" th:text="编号：+${goodsDetails.sku.id}"></span>
 							<span class="fl"th:text="品牌：+${goodsDetails.sku.brand}"></span>
 							<span class="fr"th:text="销量：+${goodsDetails.sku.sale_num}"></span>
@@ -190,7 +197,7 @@
 							<div class="type">
 								<div class="title">款式</div>
 								<div class="text relative" th:each="spec: ${goodsDetails.skuSaleVals}" th:style="${spec.skuid == goodsDetails.sku.id}?'border: 2px solid #666666':'border: 1px solid #ddd;'">
-									<a th:href="'/goodsDetails/'+${spec.skuid}+'.html'">
+									<a th:href="'http://www.wbiao.com/goodsDetails/'+${spec.skuid}+'.html'">
 										<img th:src="${spec.image}" alt="" style="width: 35px;height: 50px">
 										<span th:text="${spec.salaVal}"></span>
 										<i class="icon1 icon-shape" th:if="${spec.skuid == goodsDetails.sku.id}"></i>
@@ -208,8 +215,8 @@
 								<div class="clear"></div>
 							</div>
 							<div class="btns">
-								<a class="buy fl" href="shopping-order.html">立即购买</a>
-								<a class="ask fl" href="shopping.html">加入购物车</a>
+								<a class="buy fl" th:onclick="buy([[${goodsDetails.sku}]])">加入购物车</a>
+								<a class="buy ask fl"  th:onclick="addCart([[${goodsDetails.sku.id}]])">加入购物车</a>
 								<div class="clear"></div>
 							</div>
 						</div>
@@ -291,7 +298,6 @@
 
 				</div>
 			</div>
-		
 		</div>
 		
 		<div class="footer">
@@ -411,13 +417,172 @@
 				</div>
 			</div>
 		</div>
-		
-		
-		
-
+		<script src="/js/axios.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/js/vue.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/js/goods-details.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/js/jquery.jqzoom.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/js/base.js" type="text/javascript" charset="utf-8"></script>
+
+
+		<script type="text/javascript">
+			var app = new Vue({
+				el: "#app",
+				data: {
+					user: null,
+					flag: false,
+					code : '',
+					validateUrl: '',
+					conf: null
+				},
+				created() {
+					const token = localStorage.getItem("token");
+					if (token) {
+						const config = {
+							headers :{
+								'Authorization' : 'Bearer '+token
+							}
+						}
+						const url = "http://www.wbiao.com/user/loginUserinfo";
+						this.code = token;
+						this.validateUrl = url;
+						this.conf = config;
+						this.loadData(this.setData,this.code,this.validateUrl,this.conf);
+					}
+				},
+				methods: {
+					loadData(callBack,token,url,config) {
+						getBookPromise()
+								.then(res => {
+									console.log(res)
+									callBack(res.data); //callBack异步回调
+								})
+								.catch(res => {
+									localStorage.removeItem("token");
+									console.log(res);
+								})
+						function getBookPromise() {
+							return new Promise((resolve, reject) => {
+								axios.get(url, config)
+										.then(res => {
+											resolve(res)
+										})
+										.catch(res => {
+											reject(res)
+										})
+							})
+						}
+					},
+					setData(data) { //对数据做一些处理
+						this.user = data.data;
+						this.flag = true;
+
+					},
+					logout() {
+						// 退出
+						localStorage.removeItem("token")
+						window.location = 'http://www.wbiao.com/userPage/login.html';
+					},
+					showCart(){
+						if(this.code!=''){
+							axios.get(this.validateUrl, this.conf)
+									.then(res => {
+										const token = this.code;
+										window.open('http://www.wbiao.com/cart?code='+token);
+									})
+									.catch(res => {
+										window.open('http://www.wbiao.com/cart');
+									})
+						}else{
+							window.open('http://www.wbiao.com/cart');
+						}
+					}
+				}
+			});
+				function addCart(id){
+					var skuNum = $(".num-input").val();
+					const cart = {
+						skuid: id,
+						num: skuNum
+					}
+					const carts = [];
+					carts.push(cart);
+					if(app.code!=''){	//验证本地是否有token
+						//验证token是否有效
+						axios.get(app.validateUrl, app.conf)
+								.then(res => {	//如果token有效，则直接存入redis
+									const conf = app.conf.headers.Authorization;
+									$.ajax({
+										url:'http://www.wbiao.com/ord/cart/addCarts',
+										type: 'post',
+										headers: {
+											"Authorization":conf
+										},
+										contentType: 'application/json',
+										dataType: 'json',
+										data:JSON.stringify(carts),
+										success:function (res) {
+											alert("添加成功！");
+										}
+									})
+								})
+								.catch(res => {  //如果token无效，则存入本地
+									const carts = JSON.parse(localStorage.getItem("carts")) || [];
+									const cart = carts.find(c=>c.skuid===id);
+									if(cart){
+										cart.num += 1;
+									}else{
+										carts.push({
+											skuid: id,
+											num: skuNum
+										})
+									}
+									localStorage.setItem("carts",JSON.stringify(carts));
+									alert("添加成功！");
+								})
+					}else{	//如果没有token，则存入本地
+						const carts = JSON.parse(localStorage.getItem("carts")) || [];
+						const cart = carts.find(c=>c.skuid===id);
+						if(cart){
+							cart.num += 1;
+						}else{
+							carts.push({
+								skuid: id,
+								num: skuNum
+							})
+						}
+						localStorage.setItem("carts",JSON.stringify(carts));
+						alert("添加成功！");
+					}
+				}
+
+			function buy(sku){
+				var skuNum = $(".num-input").val();
+				var money = sku.price * skuNum;
+				const buyGoods = {
+					skuid: sku.id,
+					spuid: sku.spu_id,
+					title: sku.title,
+					image: sku.image,
+					price: sku.price,
+					money: money,
+					num: skuNum
+				}
+				localStorage.setItem("buyGoods",JSON.stringify(buyGoods));
+				if(app.code!=''){	//验证本地是否有token
+					//验证token是否有效
+					axios.get(app.validateUrl, app.conf)
+							.then(res => {	//如果token有效，则跳转到结算页面
+								const token = app.code;
+								window.location.href="http://www.wbiao.com/orderPage/shopping-order.html?Authorization="+token;
+							})
+							.catch(res => {  //如果token无效，则存入本地
+								window.location.href="http://www.wbiao.com/userPage/login.html"
+							})
+				}else {
+					window.location.href="http://www.wbiao.com/userPage/login.html"
+				}
+			}
+		</script>
 	</body>
 </html>

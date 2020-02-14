@@ -4,243 +4,186 @@
 	<meta charset="utf-8">
 	<title>万表【官网】：甄选全球高品质腕表，买手表，上万表！</title>
 	<!-- swiper css -->
-	<link rel="stylesheet" type="text/css" href="/css/swiper.min.css" />
+	<link rel="stylesheet" type="text/css" href="http://127.0.0.1:10001/css/swiper.min.css" />
 	<!-- 重置样式表 -->
-	<link rel="stylesheet" type="text/css" href="/css/reset.css" />
-	<link rel="stylesheet" type="text/css" href="/css/index.css" />
+	<link rel="stylesheet" type="text/css" href="http://127.0.0.1:10001/css/reset.css" />
+	<link rel="stylesheet" type="text/css" href="http://127.0.0.1:10001/css/index.css" />
+
 </head>
 <body>
-<!-- 侧栏 -->
-<div class="said">
-	<div class="said-bar">
-		<!-- 悬浮 -->
-		<div class="said-bottom">
-			<a href="shopping.html" class="said-left">
-				<i class="icon_said-bottom1"></i>
-				<div class="words-cover">
-					购物车
+<div id="app">
+	<div class="said">
+		<div class="said-bar">
+			<!-- 悬浮 -->
+			<div class="said-bottom">
+				<a href='javascript:void(0)' @click='showCart' class="said-left">
+					<i class="icon_said-bottom1"></i>
+					<div class="words-cover">
+						购物车
+					</div>
+				</a>
+				<a href="vip/order-collect.html" class="said-left">
+					<i class="icon_said-bottom2"></i>
+					<div class="words-cover">
+						我的收藏
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	<!-- top -->
+	<div class="top">
+		<div class="top-words container clearfix">
+			<!-- top 左 -->
+			<div class="top-left fl">
+				<a href="index.html">正品保障，免息分期！</a>
+			</div>
+			<!-- top 右 -->
+			<div class="top-right fr clearfix">
+				<!-- 右 登录 -->
+				<div class="top-login fl clearfix" v-if="flag">
+					<a href="login.html">您好！&nbsp; {{user.username}}</a>
+					<a href='javascript:void(0)' @click='logout'>退出</a>
 				</div>
-			</a>
-			<a href="vip/order-collect.html" class="said-left">
-				<i class="icon_said-bottom2"></i>
-				<div class="words-cover">
-					我的收藏
+				<div class="top-login fl clearfix" v-else>
+					<a href="http://www.wbiao.com/userPage/login.html">请登录</a>
+					<a href="http://www.wbiao.com/userPage/register.html">注册</a>
 				</div>
-			</a>
-			<a href="vip/order.html" class="said-left">
-				<i class="icon_said-bottom3"></i>
-				<div class="words-cover">
-					浏览足迹
+				<!-- 右 其他 -->
+				<div class="top-others fl clearfix">
+					<span class="line fl">|</span>
+					<a href='javascript:void(0)' @click='showCart'>购物车</a>
 				</div>
-			</a>
-		</div>
-	</div>
-	<!-- 右侧弹窗 -->
-	<div class="said-right">
-		<div class="said-tier">
-			<div class="tier-top clearfix">
-				<span class="fl">购物车</span>
-				<i class="icon_said-right-close fr"></i>
-			</div>
-			<div class="tier-login clearfix">
-				<span class="fl">登录后显示您之前加入的商品</span>
-				<a href="login.html" class="fr">现在登录</a>
-			</div>
-			<div class="tier-shop-empty">
-				<i class="icon_tier-shop-empty"></i>
-				<span>快去挑选心仪的商品吧</span>
-			</div>
-			<div class="tier-love-shop">
-			</div>
-		</div>
-		<div class="said-tier">
-			<div class="tier-top clearfix">
-				<ul class="tier-nav fl clearfix">
-					<li class="fl on">
-						<a href="vip/order.html">商品收藏</a>
-					</li>
-					<li class="fl">
-						<a href="vip/order.html">店铺收藏</a>
-					</li>
-				</ul>
-				<i class="icon_said-right-close fr"></i>
-			</div>
-			<div class="tier-login clearfix">
-				<span class="fl">登录后显示您之前加入的商品</span>
-				<a href="login.html" class="fr">现在登录</a>
-			</div>
-			<div class="tier-shop-empty">
-				<span>快去挑选收藏的商品吧</span>
-			</div>
-			<div class="tier-love-shop">
-
-			</div>
-		</div>
-		<div class="said-tier">
-			<div class="tier-top clearfix">
-				<span class="fl">浏览足迹</span>
-				<i class="icon_said-right-close fr"></i>
-			</div>
-			<div class="tier-login clearfix">
-				<span class="fl">登录后显示您之前加入的商品</span>
-				<a href="login.html" class="fr">现在登录</a>
-			</div>
-			<div class="tier-shop-empty">
-				<span>暂无浏览记录</span>
-			</div>
-			<div class="tier-love-shop">
-
 			</div>
 		</div>
 	</div>
-</div>
-<!-- top -->
-<div class="top">
-	<div class="top-words container clearfix">
-		<!-- top 左 -->
-		<div class="top-left fl">
-			<a href="index.html">正品保障，免息分期！</a>
-		</div>
-		<!-- top 右 -->
-		<div class="top-right fr clearfix">
-			<!-- 右 登录 -->
-			<div class="top-login fl clearfix">
-				<a href="login.html">请登录</a>
-				<a href="register.html">注册</a>
+
+
+	<!-- head -->
+	<div class="head">
+		<div class="head-wrap container clearfix">
+			<div class="head-logo fl">
+				<img src="http://127.0.0.1:10001/img/head-logo1.png">
+				<img src="http://127.0.0.1:10001/img/head-logo2.png">
 			</div>
-			<!-- 右 其他 -->
-			<div class="top-others fl clearfix">
-				<span class="line fl">|</span>
-				<a href="shopping.html">购物车</a>
-			</div>
+			<form action="/search.html">
+				<div class="head-search fl clearfix">
+					<label class="srh-lab fl">
+						<i class="icon_head-search"></i>
+						<input type="text" name="keywords" class="srh-ipt" maxlength="30" />
+					</label>
+					<button type="submit" class="srh-btn fl">搜索</button>
+				</div>
+			</form>
+
 		</div>
 	</div>
-</div>
 
+	<!-- nav -->
+	<div class="nav" id="nav">
+		<div class="container clearfix">
+			<div class="nav-left fl">
+				<a href="/search.html" class="all-commodities clearfix">
+					全部商品
+					<i class="icon_nav-all fr"></i>
+				</a>
+				<ul class="nav-left-menu">
+					<li class="menu-box" th:each="data:${brands}">
+						<i class="menu-line fl"></i>
+						<dl class="clearfix">
+							<dt class="fl">
+								<a href="javascript:;" th:text="${data.key}">
+									<em>/</em>
+								</a>
 
-<!-- head -->
-<div class="head">
-	<div class="head-wrap container clearfix">
-		<div class="head-logo fl">
-			<img src="/img/head-logo1.png">
-			<img src="/img/head-logo2.png">
-		</div>
-		<form action="/search.html">
-			<div class="head-search fl clearfix">
-				<label class="srh-lab fl">
-					<i class="icon_head-search"></i>
-					<input type="text" name="keywords" class="srh-ipt" maxlength="30" />
-				</label>
-				<button type="submit" class="srh-btn fl">搜索</button>
-			</div>
-		</form>
-
-	</div>
-</div>
-
-<!-- nav -->
-<div class="nav" id="nav">
-	<div class="container clearfix">
-		<div class="nav-left fl">
-			<a href="/search.html" class="all-commodities clearfix">
-				全部商品
-				<i class="icon_nav-all fr"></i>
-			</a>
-			<ul class="nav-left-menu">
-				<li class="menu-box" th:each="data:${brands}">
-					<i class="menu-line fl"></i>
-					<dl class="clearfix">
-						<dt class="fl">
-							<a href="javascript:;" th:text="${data.key}">
-								<em>/</em>
-							</a>
-
-						</dt>
-						<dd class="fl clearfix">
-							<a th:href="@{/search.html(brand=${b.name})}" class="fl" th:each="b,bStat:${data.value}" th:if="${bStat.index} lt 3" th:text="${b.name}"></a>
-						</dd>
-						<dd class="sub-menu clearfix">
-							<div class="col-box fl">
-								<div class="col-brand">
-									<div class="words">品牌</div>
-									<div class="brand-list">
-										<ul class="clearfix">
-											<li class="fl" th:each="brand:${data.value}">
-												<a th:href="@{/search.html(brand=${brand.name})}">
-													<img th:src="${brand.image}">
-													<p class="" th:text="${brand.name}"></p>
-												</a>
-											</li>
-										</ul>
+							</dt>
+							<dd class="fl clearfix">
+								<a th:href="@{/search.html(brand=${b.name})}" class="fl" th:each="b,bStat:${data.value}" th:if="${bStat.index} lt 3" th:text="${b.name}"></a>
+							</dd>
+							<dd class="sub-menu clearfix">
+								<div class="col-box fl">
+									<div class="col-brand">
+										<div class="words">品牌</div>
+										<div class="brand-list">
+											<ul class="clearfix">
+												<li class="fl" th:each="brand:${data.value}">
+													<a th:href="@{/search.html(brand=${brand.name})}">
+														<img th:src="${brand.image}">
+														<p class="" th:text="${brand.name}"></p>
+													</a>
+												</li>
+											</ul>
+										</div>
 									</div>
 								</div>
-							</div>
-						</dd>
-					</dl>
-				</li>
-			</ul>
-		</div>
-	</div>
-</div>
-<!-- main -->
-<div class="index-main">
-	<!-- banner -->
-	<div class="index-banner">
-		<i class="top-shadow"></i>
-		<!-- swiper -->
-		<div class="swiper-container">
-			<div class="swiper-wrapper">
-				<div class="swiper-slide">
-					<a href="goods-list.html"><img src="/img/main-banner1.png"></a>
-				</div>
-				<div class="swiper-slide">
-					<a href="goods-list.html"><img src="/img/main-banner1.png"></a>
-				</div>
-				<div class="swiper-slide">
-					<a href="goods-list.html"><img src="/img/main-banner1.png"></a>
-				</div>
-				<div class="swiper-slide">
-					<a href="goods-list.html"><img src="/img/main-banner1.png"></a>
-				</div>
-			</div>
-			<!-- Add Pagination -->
-			<div class="swiper-pagination"></div>
-			<!-- Add Arrows -->
-			<div class="swiper-button-next icon_banner-btn1"></div>
-			<div class="swiper-button-prev icon_banner-btn2"></div>
-		</div>
-
-	</div>
-	<!-- index-block -->
-	<div class="index-block-list container">
-		<!-- block12 -->
-		<div class="index-block12 index-block">
-			<div class="top-head clearfix">
-				<h3 class="fl">猜你喜欢</h3>
-			</div>
-			<div class="block12-content">
-				<ul>
-					<li class="goods fl" th:each="goods,goodsStat:${likeData.rows}" th:if="${goodsStat.index} lt 12">
-                        <a th:href="'http://localhost:10002/goodsDetails/'+${goods.id}+'.html'" target="_blank" >
-                            <img th:src="${goods.image}" alt="" style="width: 180px;height: 140px;">
-                        </a>
-						<div class="bottom-words">
-							<div class="word1" th:text="${goods.brand}+品牌店"></div>
-							<a th:href="'http://localhost:10002/goodsDetails/'+${goods.id}+'.html'">
-								<div class="word2" th:utext="${#strings.abbreviate(goods.title,30)}" ></div>
-								<div class="word3">
-									<p class="p1">售价</p>
-									<p class="p2" th:text="￥+${goods.price}"></p>
-								</div>
-							</a>
-						</div>
+							</dd>
+						</dl>
 					</li>
 				</ul>
 			</div>
 		</div>
 	</div>
+	<!-- main -->
+	<div class="index-main">
+		<!-- banner -->
+		<div class="index-banner">
+			<i class="top-shadow"></i>
+			<!-- swiper -->
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<a href="goods-list.html"><img src="http://127.0.0.1:10001/img/main-banner1.png"></a>
+					</div>
+					<div class="swiper-slide">
+						<a href="goods-list.html"><img src="http://127.0.0.1:10001/img/main-banner1.png"></a>
+					</div>
+					<div class="swiper-slide">
+						<a href="goods-list.html"><img src="http://127.0.0.1:10001/img/main-banner1.png"></a>
+					</div>
+					<div class="swiper-slide">
+						<a href="goods-list.html"><img src="http://127.0.0.1:10001/img/main-banner1.png"></a>
+					</div>
+				</div>
+				<!-- Add Pagination -->
+				<div class="swiper-pagination"></div>
+				<!-- Add Arrows -->
+				<div class="swiper-button-next icon_banner-btn1"></div>
+				<div class="swiper-button-prev icon_banner-btn2"></div>
+			</div>
 
+		</div>
+		<!-- index-block -->
+		<div class="index-block-list container">
+			<!-- block12 -->
+			<div class="index-block12 index-block">
+				<div class="top-head clearfix">
+					<h3 class="fl">猜你喜欢</h3>
+				</div>
+				<div class="block12-content">
+					<ul>
+						<li class="goods fl" th:each="goods,goodsStat:${likeData.rows}" th:if="${goodsStat.index} lt 12">
+							<a th:href="'http://www.wbiao.com/goodsDetails/'+${goods.id}+'.html'" target="_blank" >
+								<img th:src="${goods.image}" alt="" style="width: 180px;height: 140px;">
+							</a>
+							<div class="bottom-words">
+								<div class="word1" th:text="${goods.brand}+品牌店"></div>
+								<a th:href="'http://www.wbiao.com/goodsDetails/'+${goods.id}+'.html'">
+									<div class="word2" th:utext="${#strings.abbreviate(goods.title,30)}" ></div>
+									<div class="word3">
+										<p class="p1">售价</p>
+										<p class="p2" th:text="￥+${goods.price}"></p>
+									</div>
+								</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+<!-- 侧栏 -->
+
 <!-- footer -->
 <div class="footer">
 	<div class="footer-top">
@@ -360,14 +303,87 @@
 	</div>
 </div>
 
+<script src="http://127.0.0.1:10001/js/jquery-3.4.1.min.js"></script>
+<script src="http://127.0.0.1:10001/js/swiper.min.js"></script>
+<script src="http://127.0.0.1:10001/js/vue.js"></script>
+<script src="http://127.0.0.1:10001/js/axios.min.js"></script>
 
+<script type="text/javascript">
+	var app = new Vue({
+		el: "#app",
+		data: {
+			user: null,
+			flag: false,
+			code : '',
+			url: '',
+			config: null
+		},
+		created() {
+			const token = localStorage.getItem("token");
+			if (token) {
+				this.loadData(this.setData,token);
+			}
+		},
+		methods: {
+			loadData(callBack,token) {
+				const config = {
+					headers :{
+						'Authorization' : 'Bearer '+token
+					}
+				}
+				const url = "http://www.wbiao.com/user/loginUserinfo";
+				getBookPromise()
+						.then(res => {
+							console.log(res)
+							callBack(res.data,token,url,config); //callBack异步回调
+						})
+						.catch(res => {
+							localStorage.removeItem("token");
+							console.log(res);
+						})
+				function getBookPromise() {
+					return new Promise((resolve, reject) => {
+						axios.get(url, config)
+								.then(res => {
+									resolve(res)
+								})
+								.catch(res => {
+									reject(res)
+								})
+					})
+				}
+			},
+			setData(data,token,url,config) { //对数据做一些处理
+				this.user = data.data;
+				this.flag = true;
+				this.code = token;
+				this.url = url;
+				this.config = config;
+			},
+			logout() {
+				// 退出
+				localStorage.removeItem("token")
+				window.location = 'http://www.wbiao.com/userPage/login.html'
+			},
+			showCart(){
+				if(this.code!=''){
+					axios.get(this.url, this.config)
+							.then(res => {
+								const token = this.code;
+								window.open('http://www.wbiao.com/cart?code='+token);
+							})
+							.catch(res => {
+								window.open('http://www.wbiao.com/cart');
+							})
+				}else{
+					window.open('http://www.wbiao.com/cart');
+				}
 
+			}
+		}
+	});
+</script>
 
-
-
-
-<script src="/js/jquery-3.4.1.min.js"></script>
-<script src="/js/swiper.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		// swiper banner

@@ -235,6 +235,71 @@ public class GoodsServiceImpl implements GoodsService{
         return resultMap;
     }
 
+    @Override
+    public Sku selectSkuById(String id) {
+        return skuMapper.selectSkuById(id);
+    }
+
+    /**
+     *  下单的同时消减库存
+     * @param decrmap
+     */
+    @Override
+    public void decrCount(Map<String, Integer> decrmap){
+        for(Map.Entry<String,Integer> entry: decrmap.entrySet()){
+            String id = entry.getKey();
+            Object val = entry.getValue();
+            Integer num = Integer.valueOf(val.toString());
+
+            int i = skuMapper.decrCount(id, num);
+            if(i<=0){
+                throw new RuntimeException("商品库存不足！");
+            }
+        }
+    }
+
+    /**
+     *  回滚库存
+     * @param parameterMap
+     */
+    @Override
+    public void insertCount(Map<String, Integer> parameterMap) {
+        for(Map.Entry<String,Integer> entry: parameterMap.entrySet()){
+            String id = entry.getKey();
+            Object val = entry.getValue();
+            Integer num = Integer.valueOf(val.toString());
+            skuMapper.InsertCount(id, num);
+        }
+    }
+
+    /**
+     *  增加销量
+     * @param parameterMap
+     */
+    @Override
+    public void insertSale_num(Map<String, Integer> parameterMap) {
+        for(Map.Entry<String,Integer> entry: parameterMap.entrySet()){
+            String id = entry.getKey();
+            Object val = entry.getValue();
+            Integer sale_num = Integer.valueOf(val.toString());
+            skuMapper.insertSale_num(id, sale_num);
+        }
+    }
+
+    /**
+     *  订单支付失败，回滚销量
+     * @param parameterMap
+     */
+    @Override
+    public void decrSale_num(Map<String, Integer> parameterMap) {
+        for(Map.Entry<String,Integer> entry: parameterMap.entrySet()){
+            String id = entry.getKey();
+            Object val = entry.getValue();
+            Integer sale_num = Integer.valueOf(val.toString());
+            skuMapper.decrSale_num(id, sale_num);
+        }
+    }
+
     private String getSkuSaleVal(String ownSpec) {
         String specVal = "";
         Map<String,String> specMap = JSON.parseObject(ownSpec,Map.class);
